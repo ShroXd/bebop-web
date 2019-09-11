@@ -1,14 +1,13 @@
 <template>
   <div>
     <div class="login">
-      <v-form>
+      <v-form v-model="valid">
         <v-container class="container">
-          <v-text-field label="用户名" required>
+          <v-text-field label="用户名" required v-model="name">
           </v-text-field>
-          <v-text-field label="密码" required>
+          <v-text-field label="密码" required v-model="password">
           </v-text-field>
-          <v-text-field label="E-mail" required></v-text-field>
-          <v-btn class="entry-btn" depressed color="primary" @click="jump2portal">登录</v-btn>
+          <v-btn class="entry-btn" depressed color="primary" @click="login">登录</v-btn>
           <v-btn class="entry-btn" depressed color="primary">注册</v-btn>
         </v-container>
       </v-form>
@@ -17,10 +16,22 @@
 </template>
 
 <script>
+import login from '../../api/login'
 export default {
   name: 'Entry',
+  data () {
+    return {
+      valid: false,
+      name: '',
+      password: ''
+    }
+  },
   methods: {
-    jump2portal () {
+    login () {
+      login.login({
+        name: '111',
+        password: '222'
+      })
       this.$router.push('/portal')
     }
   }

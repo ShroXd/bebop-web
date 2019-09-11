@@ -1,6 +1,7 @@
 import Axios from 'axios'
 
 const axios = Axios.create({
+  baseURL: `/api`,
   timeout: 60000,
   responseType: 'json',
   headers: {
