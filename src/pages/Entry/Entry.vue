@@ -1,19 +1,16 @@
 <template>
   <div>
     <div class="login">
-      <div class="container">
-        <el-form>
-          <el-form-item label="用户名">
-            <el-input placeholder="请输入用户名" v-model="input" size="small" clearable>
-            </el-input>
-          </el-form-item>
-          <el-form-item label="密码">
-            <el-input placeholder="请输入密码" size="small" show-password></el-input>
-          </el-form-item>
-        </el-form>
-        <el-button class="login-btn" type="primary" size="small">登录</el-button>
-        <el-button class="login-btn" size="small">注册</el-button>
-      </div>
+      <v-form>
+        <v-container class="container">
+          <v-text-field label="First name" required>
+          </v-text-field>
+          <v-text-field label="Last name" required>
+          </v-text-field>
+          <v-text-field label="E-mail" required></v-text-field>
+          <v-btn depressed color="primary">登录</v-btn>
+        </v-container>
+      </v-form>
     </div>
   </div>
 </template>
