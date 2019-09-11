@@ -8,6 +8,10 @@ import './assets/less/site.less'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import Vuetify from 'vuetify'
+import vuetify from '@/plugins/vuetify'
+Vue.use(Vuetify)
+
 Vue.config.productionTip = false
 
 Vue.prototype.$http = axios
@@ -19,6 +23,7 @@ Vue.use(ElementUI)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  vuetify,
   router,
   components: {
     App
