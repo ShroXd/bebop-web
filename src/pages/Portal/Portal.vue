@@ -8,7 +8,7 @@
           <v-text-field label="密码" required>
           </v-text-field>
           <v-text-field label="E-mail" required></v-text-field>
-          <v-btn class="entry-btn" depressed color="primary" @click="jump2portal">登录</v-btn>
+          <v-btn class="entry-btn" depressed color="primary">登录</v-btn>
           <v-btn class="entry-btn" depressed color="primary">注册</v-btn>
         </v-container>
       </v-form>
@@ -19,11 +19,7 @@
 <script>
 export default {
   name: 'Entry',
-  methods: {
-    jump2portal () {
-      this.$router.push('/portal')
-    }
-  }
+  methods: {}
 
 }
 
