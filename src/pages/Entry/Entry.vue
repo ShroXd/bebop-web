@@ -45,7 +45,7 @@ export default {
       border-radius: 10px;
       box-shadow: 1px 1px 3px @_sys-mid-gray;
       padding: 1.2rem;
-      width: 20vw;
+      width: 300px;
       position: absolute;
       top: 15vh;
       left: 20vw;
