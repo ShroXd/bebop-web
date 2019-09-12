@@ -4,10 +4,10 @@
       <v-form v-model="valid">
         <v-container class="container">
           <template v-if="step === '1'">
-            <v-alert v-if="resultCode === '-1'" border="left" colored-border color="red lighten-2" elevation="1">
+            <v-alert v-if="loginCode === '-1'" border="left" colored-border color="red lighten-2" elevation="1">
               {{resultMsg}}
             </v-alert>
-            <v-alert v-if="resultCode === '-2'" border="left" colored-border color="blue lighten-2" elevation="1">
+            <v-alert v-if="loginCode === '-2'" border="left" colored-border color="blue lighten-2" elevation="1">
               {{resultMsg}}
             </v-alert>
             <v-text-field label="用户名" required v-model="name">
@@ -18,6 +18,9 @@
             <v-btn class="entry-btn" depressed color="primary" @click="change2register">注册</v-btn>
           </template>
           <template v-if="step === '2'">
+            <v-alert v-if="registerCode !== '0'" border="left" colored-border color="red lighten-2" elevation="1">
+              {{registerMsg}}
+            </v-alert>
             <v-text-field label="用户名" required v-model="name">
             </v-text-field>
             <v-text-field label="密码" required v-model="password">
@@ -40,8 +43,10 @@ export default {
   data () {
     return {
       valid: false,
-      resultCode: '',
+      loginCode: '0',
+      registerCode: '0',
       resultMsg: '',
+      registerMsg: '',
       step: '1',
       name: '',
       password: ''
@@ -51,15 +56,15 @@ export default {
     login () {
       user.login({
         params: {
-          name: '111',
-          password: '111'
+          name: this.name,
+          password: this.password
         }
       }).then((res) => {
         if (res.data.code === '000000') {
           if (res.data.data.code === '0') {
             this.$router.push('/portal')
           } else {
-            this.resultCode = res.data.data.code
+            this.loginCode = res.data.data.code
             this.resultMsg = res.data.data.msg
           }
         }
@@ -73,11 +78,29 @@ export default {
     },
     register () {
       user.register({
-        name: '111',
-        password: '111'
+        name: this.name,
+        password: this.password
       }).then((res) => {
         if (res.data.code === '000000') {
-
+          if (res.data.data.code === '-1') {
+            // 参数缺失
+            this.registerCode = res.data.data.code
+            this.registerMsg = res.data.data.msg
+            this.name = ''
+            this.password = ''
+          } else if (res.data.data.code === '-2') {
+            // 用户名已存在
+            this.registerCode = res.data.data.code
+            this.registerMsg = res.data.data.msg
+            this.name = ''
+            this.password = ''
+          } else if (res.data.data.code === '0') {
+            // 注册成功
+            this.registerCode = res.data.data.code
+            this.registerMsg = res.data.data.msg
+            this.step = '1'
+            this.loginCode = '0'
+          }
         }
       })
     }
