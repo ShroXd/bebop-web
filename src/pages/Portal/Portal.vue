@@ -12,47 +12,39 @@
         <v-icon>mdi-export-variant</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-container class="grey lighten-5" ref="bscroll">
-      <v-row class="mb-6" no-gutters>
-        <v-hover v-slot:default="{ hover }" v-for="(item, index) in novels" :key=index>
-          <v-card max-width="344" :elevation="hover ? 12 : 2">
-            <v-card-title>{{item.title}}</v-card-title>
-            <v-card-text>{{item.des}}t</v-card-text>
-          </v-card>
-        </v-hover>
-      </v-row>
-    </v-container>
+    <v-div class="novel-container">
+      <v-hover v-slot:default="{ hover }" v-for="(item, index) in novels" :key=index>
+        <v-card class="n-card" max-width="344" :elevation="hover ? 12 : 2">
+          <v-card-title>{{item.title}}</v-card-title>
+          <v-card-text>{{item.des}}t</v-card-text>
+        </v-card>
+      </v-hover>
+    </v-div>
+    <v-footer>
+      <div class="flex-grow-1"></div>
+      <div>&copy; {{ new Date().getFullYear() }}</div>
+    </v-footer>
   </div>
 </template>
 
 <script>
 import novel from '../../api/novel'
-import BScroll from 'better-scroll'
 
 export default {
   name: 'Entry',
   created () {
     this.fetchNovelList()
   },
-  mounted () {
-    this.$nextTick(() => {
-      this.scroll = new BScroll(this.$refs.bscroll, {
-        scrollbar: {
-          fade: true,
-          interactive: false
-        },
-        click: true,
-        taps: true,
-        mouseWheel: true
-      })
-    })
-  },
   data () {
     return {
-      novels: []
+      novels: [],
+      offsetTop: 0
     }
   },
   methods: {
+    onScroll (e) {
+      this.offsetTop = e.target.scrollTop
+    },
 
     fetchNovelList () {
       novel.list()
@@ -72,6 +64,19 @@ export default {
   .navbar {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  .novel-container {
+    overflow: scroll;
+    height: e('calc(100vh - 100px)');
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1rem;
+
+    .n-card {
+      margin-left: 1rem;
+      margin-top: 1rem;
+    }
   }
 
 </style>
