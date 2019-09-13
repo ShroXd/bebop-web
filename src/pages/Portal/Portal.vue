@@ -1,6 +1,6 @@
 <template>
   <div class="portal">
-    <v-toolbar>
+    <v-toolbar class="navbar">
       <v-toolbar-title>Bebop</v-toolbar-title>
       <div class="flex-grow-1"></div>
       <v-toolbar-items>
@@ -12,13 +12,55 @@
         <v-icon>mdi-export-variant</v-icon>
       </v-btn>
     </v-toolbar>
+    <v-container class="grey lighten-5" ref="bscroll">
+      <v-row class="mb-6" no-gutters>
+        <v-hover v-slot:default="{ hover }" v-for="(item, index) in novels" :key=index>
+          <v-card max-width="344" :elevation="hover ? 12 : 2">
+            <v-card-title>{{item.title}}</v-card-title>
+            <v-card-text>{{item.des}}t</v-card-text>
+          </v-card>
+        </v-hover>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
 <script>
+import novel from '../../api/novel'
+import BScroll from 'better-scroll'
+
 export default {
   name: 'Entry',
-  methods: {}
+  created () {
+    this.fetchNovelList()
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.scroll = new BScroll(this.$refs.bscroll, {
+        scrollbar: {
+          fade: true,
+          interactive: false
+        },
+        click: true,
+        taps: true,
+        mouseWheel: true
+      })
+    })
+  },
+  data () {
+    return {
+      novels: []
+    }
+  },
+  methods: {
+
+    fetchNovelList () {
+      novel.list()
+        .then((res) => {
+          this.novels = res.data.rows
+        })
+    }
+  }
 
 }
 
@@ -27,8 +69,9 @@ export default {
 <style lang="less" scoped>
   @import "../../assets/less/color.less";
 
-  .portal {
-    background-color: @_sys-super-light-gray;
+  .navbar {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
 </style>

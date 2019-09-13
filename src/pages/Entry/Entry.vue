@@ -4,6 +4,7 @@
       <v-form v-model="valid">
         <v-container class="container">
           <template v-if="step === '1'">
+            <!-- TODO: 使用snackbars重写 -->
             <v-alert v-if="loginCode === '-1'" border="left" colored-border color="red lighten-2" elevation="1">
               {{resultMsg}}
             </v-alert>
