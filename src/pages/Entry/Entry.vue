@@ -5,15 +5,9 @@
         <v-container class="container">
           <template v-if="step === '1'">
             <!-- TODO: 使用snackbars重写 -->
-            <v-alert v-if="loginCode === '-1'" border="left" colored-border color="red lighten-2" elevation="1">
-              {{resultMsg}}
-            </v-alert>
-            <v-alert v-if="loginCode === '-2'" border="left" colored-border color="blue lighten-2" elevation="1">
-              {{resultMsg}}
-            </v-alert>
-            <v-text-field label="用户名" required v-model="name">
+            <v-text-field label="用户名" required v-model="name" :error-messages="nameMsg">
             </v-text-field>
-            <v-text-field label="密码" required v-model="password">
+            <v-text-field label="密码" required v-model="password" :error-messages="passwdMsg" :type="'password'">
             </v-text-field>
             <v-btn class="entry-btn" depressed color="primary" @click="login">登录</v-btn>
             <v-btn class="entry-btn" depressed color="primary" @click="change2register">注册</v-btn>
@@ -24,9 +18,9 @@
             </v-alert>
             <v-text-field label="用户名" required v-model="name">
             </v-text-field>
-            <v-text-field label="密码" required v-model="password">
+            <v-text-field label="密码" required v-model="password" :type="'password'">
             </v-text-field>
-            <v-text-field label="再输入一遍密码" required v-model="password">
+            <v-text-field label="再输入一遍密码" required v-model="password" :type="'password'">
             </v-text-field>
             <v-btn class="entry-btn" depressed color="primary" @click="register">注册</v-btn>
             <v-btn class="entry-btn" depressed color="primary" @click="change2login">切换</v-btn>
@@ -44,9 +38,9 @@ export default {
   data () {
     return {
       valid: false,
-      loginCode: '0',
       registerCode: '0',
-      resultMsg: '',
+      nameMsg: '',
+      passwdMsg: '',
       registerMsg: '',
       step: '1',
       name: '',
@@ -55,6 +49,8 @@ export default {
   },
   methods: {
     login () {
+      this.passwdMsg = ''
+      this.nameMsg = ''
       user.login({
         params: {
           name: this.name,
@@ -65,8 +61,11 @@ export default {
           if (res.data.data.code === '0') {
             this.$router.push('/portal')
           } else {
-            this.loginCode = res.data.data.code
-            this.resultMsg = res.data.data.msg
+            if (res.data.data.code === '-2') {
+              this.passwdMsg = res.data.data.msg
+            } else if (res.data.data.code === '-3') {
+              this.nameMsg = res.data.data.msg
+            }
           }
         }
       })
@@ -100,7 +99,6 @@ export default {
             this.registerCode = res.data.data.code
             this.registerMsg = res.data.data.msg
             this.step = '1'
-            this.loginCode = '0'
           }
         }
       })
