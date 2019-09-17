@@ -7,10 +7,20 @@ export default new Router({
   routes: [{
     path: '/',
     name: 'Entry',
-    component: resolve => require(['../pages/Entry/Entry.vue'], resolve)
+    component: () => import('../pages/Entry/Entry.vue')
   }, {
     path: '/portal',
     name: 'Portal',
-    component: resolve => require(['../pages/Portal/Portal.vue'], resolve)
+    component: () => import('../pages/Portal/Portal.vue')
+  }, {
+    path: '/main',
+    name: 'Main',
+    component: () => import('../pages/Base/Main.vue'),
+    // 路由元信息，检查登录态
+    meta: {
+      requireAuth: true
+    },
+    // TODO 拆分主页，放入子路由
+    children: []
   }]
 })
