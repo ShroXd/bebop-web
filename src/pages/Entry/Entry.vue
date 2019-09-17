@@ -59,7 +59,7 @@ export default {
       }).then((res) => {
         if (res.data.code === '000000') {
           if (res.data.data.code === '0') {
-            this.$router.push('/portal')
+            this.$router.push('/novel')
           } else {
             if (res.data.data.code === '-2') {
               this.passwdMsg = res.data.data.msg

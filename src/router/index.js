@@ -21,9 +21,9 @@ export default new Router({
       // TODO 拆分主页，放入子路由
       children: [
         {
-          path: '/portal',
-          name: 'Portal',
-          component: () => import('../pages/Portal/Portal.vue')
+          path: '/novel',
+          name: 'Novel',
+          component: () => import('../pages/Novel/Novel.vue')
         }
       ]
     }

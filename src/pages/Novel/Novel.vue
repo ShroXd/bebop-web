@@ -23,21 +23,7 @@
       </v-hover>
     </div>
     <v-dialog v-model="dialog" width="1300">
-      <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>
-          {{detail.bookName}}
-        </v-card-title>
-        <v-card-text>
-          {{detail.bookSimpleDes}}
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <div class="flex-grow-1"></div>
-          <v-btn color="primary" text @click="dialog = false">
-            好的
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <novel-detail :bookInfo.sync="bookInfo" v-if="dialog" @close="onClose"></novel-detail>
     </v-dialog>
     <v-footer>
       <div class="flex-grow-1"></div>
@@ -48,9 +34,13 @@
 
 <script>
 import novel from '../../api/novel'
+import NovelDetail from './NovelDetail'
 
 export default {
-  name: 'Portal',
+  name: 'Novel',
+  components: {
+    NovelDetail
+  },
   created () {
     this.fetchNovelList()
   },
@@ -59,7 +49,10 @@ export default {
       novels: [],
       offsetTop: 0,
       dialog: false,
-      detail: {}
+      isDetailShow: false,
+      detail: {},
+      info: {},
+      bookInfo: {}
     }
   },
   methods: {
@@ -75,14 +68,12 @@ export default {
     },
 
     onDetail (item) {
+      this.bookInfo = item
       this.dialog = !this.dialog
-      this.detail = item
-      novel.chapter({
-        bookId: item.bookId
-      })
-        .then((res) => {
-          console.log(res.data.rows)
-        })
+    },
+
+    onClose () {
+      this.dialog = !this.dialog
     }
   }
 
