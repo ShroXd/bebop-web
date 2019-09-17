@@ -1,17 +1,5 @@
 <template>
   <div class="portal">
-    <v-toolbar class="navbar">
-      <v-toolbar-title>Bebop</v-toolbar-title>
-      <div class="flex-grow-1"></div>
-      <v-toolbar-items>
-        <v-btn text>首页</v-btn>
-        <v-btn text>归档</v-btn>
-        <v-btn text>数据</v-btn>
-      </v-toolbar-items>
-      <v-btn icon>
-        <v-icon>mdi-export-variant</v-icon>
-      </v-btn>
-    </v-toolbar>
     <div class="novel-container">
       <v-hover v-slot:default="{ hover }" v-for="(item, index) in novels" :key=index>
         <v-card class="n-card" max-width="500" :elevation="hover ? 12 : 2">
@@ -62,7 +50,7 @@
 import novel from '../../api/novel'
 
 export default {
-  name: 'Entry',
+  name: 'Portal',
   created () {
     this.fetchNovelList()
   },
