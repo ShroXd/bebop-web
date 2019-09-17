@@ -4,16 +4,30 @@
       <v-card-title primary-title>
         {{info.bookName}}
       </v-card-title>
-      <v-card-text>
-        分类：{{info.bookCategory}}
-      </v-card-text>
-      <v-card-text>
-        字数：{{info.bookWordCount}}
-      </v-card-text>
+      <div class="info-container">
+        <v-card-text>
+          分类：{{info.bookCategory}}
+        </v-card-text>
+        <v-card-text>
+          字数：{{info.bookWordCount}}
+        </v-card-text>
+      </div>
       <v-card-text>
         {{detail.bookIntro}}
       </v-card-text>
       <v-divider></v-divider>
+      <v-container>
+        <div v-for="(chapter, index) in detail.rows" :key="index">
+          <v-row>
+            <v-col clos="2">
+              <v-card-text class="chapters">
+                {{chapter.chapter_name}}
+              </v-card-text>
+            </v-col>
+          </v-row>
+        </div>
+      </v-container>
+
       <v-card-actions>
         <div class="flex-grow-1"></div>
         <v-btn color="primary" text @click="onClose">
@@ -66,5 +80,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
+  @import "../../assets/less/color.less";
+
+  .info-container {
+    display: flex;
+    color: @_sys-low-black
+  }
+
+  .chapters {
+    flex-basis: 30%
+  }
 
 </style>
