@@ -17,23 +17,15 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-container>
-        <div v-for="(chapter, index) in detail.rows" :key="index">
-          <v-row>
-            <v-col clos="2">
-              <v-card-text class="chapters">
-                {{chapter.chapter_name}}
-              </v-card-text>
-            </v-col>
-          </v-row>
+        <div class="chapters-container">
+          <div v-for="(chapter, index) in detail.rows" :key="index">
+            <v-card-text class="chapters">
+              <v-icon>mdi-details</v-icon>
+              {{chapter.chapter_name}}
+            </v-card-text>
+          </div>
         </div>
       </v-container>
-
-      <v-card-actions>
-        <div class="flex-grow-1"></div>
-        <v-btn color="primary" text @click="onClose">
-          好的
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </div>
 </template>
@@ -89,6 +81,15 @@ export default {
 
   .chapters {
     flex-basis: 30%
+  }
+
+  .chapters-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    &>div {
+      flex-basis: 30%
+    }
   }
 
 </style>
