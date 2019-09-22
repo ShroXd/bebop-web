@@ -19,10 +19,9 @@
       <v-container>
         <div class="chapters-container">
           <div v-for="(chapter, index) in detail.rows" :key="index">
-            <v-card-text class="chapters">
-              <v-icon>mdi-details</v-icon>
+            <v-btn class="chapters" @click="onDetail(chapter)">
               {{chapter.chapter_name}}
-            </v-card-text>
+            </v-btn>
           </div>
         </div>
       </v-container>
@@ -65,6 +64,17 @@ export default {
     },
     onClose () {
       this.$emit('close')
+    },
+    onDetail (item) {
+      console.log(item)
+
+      this.$router.push({
+        path: '/content',
+        query: {
+          bookId: this.bookInfo.bookId,
+          chapterId: item.chapter_id
+        }
+      })
     }
   }
 }

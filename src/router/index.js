@@ -4,28 +4,30 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Entry',
-      component: () => import('../pages/Entry/Entry.vue')
+  routes: [{
+    path: '/',
+    name: 'Entry',
+    component: () => import('../pages/Entry/Entry.vue')
+  },
+  {
+    path: '/main',
+    name: 'Main',
+    component: () => import('../pages/Base/Main.vue'),
+    // 路由元信息，检查登录态
+    meta: {
+      requireAuth: true
+    },
+    children: [{
+      path: '/novel',
+      name: 'Novel',
+      component: () => import('../pages/Novel/Novel.vue')
     },
     {
-      path: '/main',
-      name: 'Main',
-      component: () => import('../pages/Base/Main.vue'),
-      // 路由元信息，检查登录态
-      meta: {
-        requireAuth: true
-      },
-      // TODO 拆分主页，放入子路由
-      children: [
-        {
-          path: '/novel',
-          name: 'Novel',
-          component: () => import('../pages/Novel/Novel.vue')
-        }
-      ]
+      path: '/content',
+      name: 'Content',
+      component: () => import('../pages/Novel/NovelContent.vue')
     }
+    ]
+  }
   ]
 })

@@ -8,5 +8,8 @@ export default {
   },
   chapter (param = {}) {
     return axios.get(`/novel/${param.bookId}/chapters`, {})
+  },
+  content (param = {}) {
+    return axios.get(`/novel/${param.bookId}/${param.chapterId}/contents`, {})
   }
 }
