@@ -90,8 +90,8 @@ export default {
   }
 
   .novel-container {
-    overflow: scroll;
-    height: e("calc(100vh - 100px)");
+    /* overflow: scroll;
+    height: e("calc(100vh - 150px)"); */
     display: flex;
     flex-wrap: wrap;
     padding: 1rem;
