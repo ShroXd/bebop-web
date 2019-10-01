@@ -1,26 +1,14 @@
 <template>
   <div class="portal">
     <div class="novel-container">
-      <v-hover v-slot:default="{ hover }" v-for="(item, index) in novels" :key=index>
-        <v-card class="n-card" max-width="500" :elevation="hover ? 12 : 2">
-          <v-row class=n-row>
-            <v-col class="img-col" cols="4">
-              <v-img height="200" width="150" :src="item.imageUrl"></v-img>
-              <div class="c-btn">
-                <v-btn icon>
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-                <v-btn text color="primary" @click="onDetail(item)">进入坦克</v-btn>
-              </div>
-            </v-col>
-            <v-col>
-              <v-card-title>{{item.bookName}}</v-card-title>
-              <v-divider></v-divider>
-              <v-card-text class="c-text">{{item.bookSimpleDes}}t</v-card-text>
-            </v-col>
-          </v-row>
-        </v-card>
-      </v-hover>
+      <div v-for="(item, index) in novels" :key=index>
+        <v-hover v-slot:default="{ hover }">
+          <v-card class="n-card" max-width="180" height="320" :elevation="hover ? 4 : 1" @click="onDetail(item)">
+            <v-img class="white--text" height="200px" :src="item.imageUrl"></v-img>
+            <v-card-title class="n-title">{{item.bookName}}</v-card-title>
+          </v-card>
+        </v-hover>
+      </div>
     </div>
     <v-dialog v-model="dialog" width="1300">
       <novel-detail :bookInfo.sync="bookInfo" v-if="dialog" @close="onClose"></novel-detail>
@@ -84,40 +72,25 @@ export default {
 <style lang="less" scoped>
   @import "../../assets/less/color.less";
 
-  .navbar {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
   .novel-container {
-    /* overflow: scroll;
-    height: e("calc(100vh - 150px)"); */
     display: flex;
     flex-wrap: wrap;
-    padding: 1rem;
+    justify-content: flex-start;
+    margin: 0.8rem 0.6rem;
 
     .n-card {
-      margin-left: 1rem;
-      margin-top: 1rem;
-      padding-bottom: 0.4rem;
+      overflow: hidden;
+      box-sizing: border-box;
+      margin: 0.6rem 0.8rem;
 
-      .n-row {
-        height: 16rem;
-
-        .c-text {
-          font-size: 0.8rem;
-          color: #8e8e93;
-        }
+      .n-title {
+        font-size: 1rem;
+        color: @_sys-light-black;
       }
+    }
 
-      .c-btn {
-        margin-top: 0.6rem;
-        margin-left: 0.4rem;
-      }
-
-      .img-col {
-        margin-left: 1rem;
-      }
+    .n-card:hover {
+      cursor: pointer;
     }
   }
 
