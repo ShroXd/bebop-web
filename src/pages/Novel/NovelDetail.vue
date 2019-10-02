@@ -18,10 +18,8 @@
       <v-divider></v-divider>
       <v-container>
         <div class="chapters-container">
-          <div v-for="(chapter, index) in detail.rows" :key="index">
-            <v-btn class="chapters" @click="onDetail(chapter)">
-              {{chapter.chapter_name}}
-            </v-btn>
+          <div class="chapters" v-for="(chapter, index) in detail.rows" :key="index" @click="onDetail(chapter)">
+            {{chapter.chapter_name}}
           </div>
         </div>
       </v-container>
@@ -89,16 +87,26 @@ export default {
     color: @_sys-low-black
   }
 
-  .chapters {
-    flex-basis: 30%
-  }
-
   .chapters-container {
     display: flex;
     flex-wrap: wrap;
 
-    &>div {
-      flex-basis: 30%
+    .chapters {
+      flex-basis: 33%;
+      font-size: 0.8rem;
+      color: @_sys-light-black;
+      border-bottom: 1px solid @_sys-super-light-gray;
+      padding: 0.5rem 0;
+    }
+
+    .chapters:hover {
+      cursor: pointer;
+      color: @_sys-orange;
+      font-size: 0.9rem;
+    }
+
+    .item {
+      display: flex;
     }
   }
 

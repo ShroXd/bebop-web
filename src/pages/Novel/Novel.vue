@@ -5,7 +5,7 @@
         <v-hover v-slot:default="{ hover }">
           <v-card class="n-card" max-width="180" height="320" :elevation="hover ? 4 : 1" @click="onDetail(item)">
             <v-img class="white--text" height="200px" :src="item.imageUrl"></v-img>
-            <v-card-title class="n-title">{{item.bookName}}</v-card-title>
+            <v-card-title class="n-title font-weight-medium">{{item.bookName}}</v-card-title>
           </v-card>
         </v-hover>
       </div>
