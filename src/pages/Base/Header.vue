@@ -5,12 +5,8 @@
       <div class="flex-grow-1"></div>
       <v-toolbar-items>
         <v-btn text class="text">首页</v-btn>
-        <v-btn text class="text">归档</v-btn>
-        <v-btn text class="text">数据</v-btn>
+        <v-btn text class="text">轻小说</v-btn>
       </v-toolbar-items>
-      <v-btn icon class="text">
-        <v-icon>mdi-export-variant</v-icon>
-      </v-btn>
     </v-toolbar>
   </div>
 </template>
@@ -28,11 +24,12 @@ export default {
   .navbar {
     padding-left: 1rem;
     padding-right: 1rem;
-    background-color: @_sys-mid-black;
-    color: white;
+    background-color: @_sys-white;
+    color: @_sys-black;
+    font-weight: 400;
 
     .text {
-      color: white
+      color: @_sys-black
     }
   }
 

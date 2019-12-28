@@ -102,7 +102,6 @@ export default {
     .chapters:hover {
       cursor: pointer;
       color: @_sys-orange;
-      font-size: 0.9rem;
     }
 
     .item {

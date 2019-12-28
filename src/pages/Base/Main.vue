@@ -23,10 +23,6 @@ export default {
   .main {
     overflow: scroll;
     height: e("calc(100vh)");
-
-    /* .parallax {
-      height: 100vh;
-    } */
   }
 
 </style>

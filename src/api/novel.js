@@ -1,10 +1,11 @@
 import {
   axios
 } from './base/api'
+import qs from 'querystring'
 
 export default {
-  list (param = {}) {
-    return axios.get('/novel/light/list', param)
+  list (param) {
+    return axios.post(`/novel/light/list`, qs.stringify(param))
   },
   chapter (param = {}) {
     return axios.get(`/novel/${param.bookId}/chapters`, {})

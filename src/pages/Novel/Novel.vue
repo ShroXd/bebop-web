@@ -4,7 +4,7 @@
       <div v-for="(item, index) in novels" :key=index>
         <v-hover v-slot:default="{ hover }">
           <v-card class="n-card" max-width="180" height="320" :elevation="hover ? 4 : 1" @click="onDetail(item)">
-            <v-img class="white--text" height="200px" :src="item.imageUrl"></v-img>
+            <v-img class="n-img white--text" height="200px" :src="item.imageUrl"></v-img>
             <v-card-title class="n-title font-weight-medium">{{item.bookName}}</v-card-title>
           </v-card>
         </v-hover>
@@ -49,7 +49,10 @@ export default {
     },
 
     fetchNovelList () {
-      novel.list()
+      novel.list({
+        page: 1,
+        limit: 5
+      })
         .then((res) => {
           this.novels = res.data.rows
         })
@@ -82,10 +85,17 @@ export default {
       overflow: hidden;
       box-sizing: border-box;
       margin: 0.6rem 0.8rem;
+      width: 20rem;
 
       .n-title {
         font-size: 1rem;
         color: @_sys-light-black;
+        overflow: hidden;
+      }
+
+      .n-img {
+        border-bottom: 1px solid @_sys-mid-light-gray;
+        margin: 0 0.4rem 2rem;
       }
     }
 
