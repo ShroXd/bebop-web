@@ -20,9 +20,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .main {
-    overflow: scroll;
-    height: e("calc(100vh)");
-  }
-
+.main {
+  overflow: scroll;
+  height: e("calc(100vh)");
+}
 </style>

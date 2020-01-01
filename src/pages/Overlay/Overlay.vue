@@ -10,9 +10,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .overlay {
-    width: 100px;
-    height: 100vh;
-  }
-
+.overlay {
+  width: 100px;
+  height: 100vh;
+}
 </style>

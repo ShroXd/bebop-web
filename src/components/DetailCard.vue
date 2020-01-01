@@ -18,7 +18,10 @@
       <v-divider></v-divider>
       <v-container>
         <div class="chapters-container">
-          <div class="chapters" v-for="(chapter, index) in detail.rows" :key="index" @click="onDetail(chapter)">
+          <div class="chapters"
+               v-for="(chapter, index) in detail.rows"
+               :key="index"
+               @click="onDetail(chapter)">
             {{chapter.chapter_name}}
           </div>
         </div>
@@ -80,33 +83,32 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import "../assets/less/color.less";
+@import "../assets/less/color.less";
 
-  .info-container {
-    display: flex;
-    color: @_sys-low-black
+.info-container {
+  display: flex;
+  color: @_sys-low-black;
+}
+
+.chapters-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .chapters {
+    flex-basis: 33%;
+    font-size: 0.8rem;
+    color: @_sys-light-black;
+    border-bottom: 1px solid @_sys-super-light-gray;
+    padding: 0.5rem 0;
   }
 
-  .chapters-container {
-    display: flex;
-    flex-wrap: wrap;
-
-    .chapters {
-      flex-basis: 33%;
-      font-size: 0.8rem;
-      color: @_sys-light-black;
-      border-bottom: 1px solid @_sys-super-light-gray;
-      padding: 0.5rem 0;
-    }
-
-    .chapters:hover {
-      cursor: pointer;
-      color: @_sys-orange;
-    }
-
-    .item {
-      display: flex;
-    }
+  .chapters:hover {
+    cursor: pointer;
+    color: @_sys-orange;
   }
 
+  .item {
+    display: flex;
+  }
+}
 </style>

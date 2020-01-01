@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div v-for="(content, index) in contents" :key="index">
+    <div v-for="(content, index) in contents"
+         :key="index">
       <div>{{content}}</div>
     </div>
   </div>
@@ -47,9 +48,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .overlay {
-    width: 100px;
-    height: 100vh;
-  }
-
+.overlay {
+  width: 100px;
+  height: 100vh;
+}
 </style>

@@ -1,17 +1,45 @@
 <template>
   <div class="portal">
+    <template>
+      <v-carousel>
+        <v-carousel-item v-for="(color, i) in colors"
+                         :key="color">
+          <v-sheet :color="color"
+                   height="100%"
+                   tile>
+            <v-row class="fill-height"
+                   align="center"
+                   justify="center">
+              <div class="display-3">Slide {{ i + 1 }}</div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+    </template>
     <div class="novel-list-container">
-      <div v-for="(item, index) in novels" :key=index>
+      <div v-for="(item, index) in novels"
+           :key="index">
         <v-hover v-slot:default="{ hover }">
-          <v-card class="n-card" max-width="180" height="320" :elevation="hover ? 4 : 1" @click="onDetail(item)">
-            <v-img class="n-img white--text" height="200px" :src="item.imageUrl"></v-img>
-            <v-card-title class="n-title font-weight-medium">{{item.bookName}}</v-card-title>
+          <v-card class="n-card"
+                  max-width="180"
+                  height="320"
+                  :elevation="hover ? 4 : 1"
+                  @click="onDetail(item)">
+            <v-img class="n-img white--text"
+                   height="200px"
+                   :src="item.imageUrl"></v-img>
+            <v-card-title class="n-title font-weight-medium">{{
+              item.bookName
+            }}</v-card-title>
           </v-card>
         </v-hover>
       </div>
     </div>
-    <v-dialog v-model="dialog" width="1300">
-      <detail-card :bookInfo.sync="bookInfo" v-if="dialog" @close="onClose"></detail-card>
+    <v-dialog v-model="dialog"
+              width="1300">
+      <detail-card :bookInfo.sync="bookInfo"
+                   v-if="dialog"
+                   @close="onClose"></detail-card>
     </v-dialog>
     <v-footer>
       <div class="flex-grow-1"></div>
@@ -49,11 +77,12 @@ export default {
     },
 
     fetchNovelList () {
-      novel.list({
-        page: 1,
-        limit: 5
-      })
-        .then((res) => {
+      novel
+        .list({
+          page: 1,
+          limit: 5
+        })
+        .then(res => {
           this.novels = res.data.rows
         })
     },
@@ -67,41 +96,38 @@ export default {
       this.dialog = !this.dialog
     }
   }
-
 }
-
 </script>
 
 <style lang="less" scoped>
-  @import "../../assets/less/color.less";
+@import "../../assets/less/color.less";
 
-  .novel-list-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin: 0.8rem 0.6rem;
+.novel-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 0.8rem 0.6rem;
 
-    .n-card {
+  .n-card {
+    overflow: hidden;
+    box-sizing: border-box;
+    margin: 0.6rem 0.8rem;
+    width: 20rem;
+
+    .n-title {
+      font-size: 1rem;
+      color: @_sys-light-black;
       overflow: hidden;
-      box-sizing: border-box;
-      margin: 0.6rem 0.8rem;
-      width: 20rem;
-
-      .n-title {
-        font-size: 1rem;
-        color: @_sys-light-black;
-        overflow: hidden;
-      }
-
-      .n-img {
-        border-bottom: 1px solid @_sys-mid-light-gray;
-        margin: 0 0.4rem 2rem;
-      }
     }
 
-    .n-card:hover {
-      cursor: pointer;
+    .n-img {
+      border-bottom: 1px solid @_sys-mid-light-gray;
+      margin: 0 0.4rem 2rem;
     }
   }
 
+  .n-card:hover {
+    cursor: pointer;
+  }
+}
 </style>
