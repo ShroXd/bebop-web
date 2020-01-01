@@ -20,12 +20,12 @@ export default new Router({
     children: [{
       path: '/novel',
       name: 'Novel',
-      component: () => import('../pages/Novel/Novel.vue')
+      component: () => import('../pages/List/Novel.vue')
     },
     {
       path: '/content',
       name: 'Content',
-      component: () => import('../pages/Novel/NovelContent.vue')
+      component: () => import('../pages/Reading/NovelContent.vue')
     }
     ]
   }

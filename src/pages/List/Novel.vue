@@ -1,6 +1,6 @@
 <template>
   <div class="portal">
-    <div class="novel-container">
+    <div class="novel-list-container">
       <div v-for="(item, index) in novels" :key=index>
         <v-hover v-slot:default="{ hover }">
           <v-card class="n-card" max-width="180" height="320" :elevation="hover ? 4 : 1" @click="onDetail(item)">
@@ -11,7 +11,7 @@
       </div>
     </div>
     <v-dialog v-model="dialog" width="1300">
-      <novel-detail :bookInfo.sync="bookInfo" v-if="dialog" @close="onClose"></novel-detail>
+      <detail-card :bookInfo.sync="bookInfo" v-if="dialog" @close="onClose"></detail-card>
     </v-dialog>
     <v-footer>
       <div class="flex-grow-1"></div>
@@ -22,12 +22,12 @@
 
 <script>
 import novel from '../../api/novel'
-import NovelDetail from './NovelDetail'
+import DetailCard from '../../components/DetailCard'
 
 export default {
   name: 'Novel',
   components: {
-    NovelDetail
+    DetailCard
   },
   created () {
     this.fetchNovelList()
@@ -75,7 +75,7 @@ export default {
 <style lang="less" scoped>
   @import "../../assets/less/color.less";
 
-  .novel-container {
+  .novel-list-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;

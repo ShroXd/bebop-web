@@ -28,10 +28,10 @@
 </template>
 
 <script>
-import novel from '../../api/novel'
+import novel from '../api/novel'
 
 export default {
-  name: 'NovelDetail',
+  name: 'DetailCard',
   created () {
     this.fetchNovelDetail()
   },
@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import "../../assets/less/color.less";
+  @import "../assets/less/color.less";
 
   .info-container {
     display: flex;
