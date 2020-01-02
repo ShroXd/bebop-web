@@ -27,6 +27,26 @@
     .novel-img {
       margin: 0 0.4rem;
     }
+
+    .novel-img:hover .mask {
+      opacity: 1;
+    }
+
+    .mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 30, 30, 0.8);
+      opacity: 0;
+
+      .mask-info {
+        color: @_sys-white;
+        margin: 0.8rem 2rem;
+        font-size: 0.9rem;
+      }
+    }
   }
 
   .novel-card:hover {

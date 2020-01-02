@@ -13,13 +13,17 @@
       <div class="novel-list-container">
         <div v-for="(item, index) in novels"
              :key="index">
-
           <div class="novel-card"
                @click="onDetail(item)">
-            <v-img class="novel-img white--text"
+            <v-img class="novel-img"
                    height="220"
                    width="150"
-                   :src="item.imageUrl"></v-img>
+                   :src="item.imageUrl">
+              <div class="mask">
+                <div class="mask-info">角川文库</div>
+                <div class="mask-info">609301 字</div>
+              </div>
+            </v-img>
             <v-card-title class="novel-title font-weight-medium">{{
               item.bookName
             }}</v-card-title>
