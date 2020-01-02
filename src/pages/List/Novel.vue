@@ -13,20 +13,17 @@
       <div class="novel-list-container">
         <div v-for="(item, index) in novels"
              :key="index">
-          <v-hover v-slot:default="{ hover }">
-            <v-card class="n-card"
-                    max-width="200"
-                    height="320"
-                    :elevation="hover ? 4 : 1"
-                    @click="onDetail(item)">
-              <v-img class="n-img white--text"
-                     height="200px"
-                     :src="item.imageUrl"></v-img>
-              <v-card-title class="n-title font-weight-medium">{{
+
+          <div class="novel-card"
+               @click="onDetail(item)">
+            <v-img class="novel-img white--text"
+                   height="220"
+                   width="150"
+                   :src="item.imageUrl"></v-img>
+            <v-card-title class="novel-title font-weight-medium">{{
               item.bookName
             }}</v-card-title>
-            </v-card>
-          </v-hover>
+          </div>
         </div>
       </div>
       <div class="function-container">
@@ -100,16 +97,10 @@ export default {
     return {
       items: [
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
+          src: 'http://rs.sfacg.com/web/m/images/homePush/2019/12/0c46697a-b28d-479b-a0c7-1ace49fad0ca.jpg'
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
+          src: 'http://rs.sfacg.com/web/m/images/homePush/2019/12/d5796313-0628-4a0a-8554-db2f8042c433.jpg'
         }
       ],
       novels: [],
