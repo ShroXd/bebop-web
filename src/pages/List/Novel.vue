@@ -20,8 +20,8 @@
                    width="150"
                    :src="item.imageUrl">
               <div class="mask">
-                <div class="mask-info">角川文库</div>
-                <div class="mask-info">609301 字</div>
+                <div class="mask-info">{{item.bookCategory}}</div>
+                <div class="mask-info">{{item.bookWordCount}} 字</div>
               </div>
             </v-img>
             <v-card-title class="novel-title font-weight-medium">{{
