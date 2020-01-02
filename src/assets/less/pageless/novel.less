@@ -1,0 +1,106 @@
+@import "../color.less";
+
+.main-container {
+  display: flex;
+}
+
+.novel-list-container {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+
+  .n-card {
+    overflow: hidden;
+    box-sizing: border-box;
+    margin: 0.6rem 0.8rem;
+
+    .n-title {
+      font-size: 1rem;
+      color: @_sys-light-black;
+      overflow: hidden;
+    }
+
+    .n-img {
+      border-bottom: 1px solid @_sys-mid-light-gray;
+      margin: 0 0.4rem 2rem;
+    }
+  }
+
+  .n-card:hover {
+    cursor: pointer;
+  }
+}
+
+.function-container {
+  flex-basis: 40%;
+  border-left: 1px solid @_sys-mid-gray;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+
+  .user-info-container {
+    display: flex;
+    border-bottom: 1px solid @_sys-mid-gray;
+    height: 10rem;
+
+    .user-head {
+      width: 8rem;
+      height: 8rem;
+      margin-top: 0.8rem;
+      margin-left: 1.5rem;
+    }
+
+    .user-info {
+      margin-top: 1.4rem;
+      margin-left: 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+
+      .info-item {
+        flex-basis: 100%;
+
+        .info-title {
+          display: inline-block;
+          font-size: 1.1rem;
+          color: @_sys-gray;
+          width: 5rem;
+        }
+      }
+
+      .func-item {
+        align-self: flex-end;
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+
+  .ranking-title {
+    display: inline-block;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    margin-bottom: 0.6rem;
+    font-size: 1.4rem;
+  }
+
+  .ranking-item {
+    border: 1px solid @_sys-mid-light-gray;
+    box-shadow: 2px 2px 1px @_sys-light-gray;
+    width: 22rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    margin-top: 0.4rem;
+    margin-left: 1.4rem;
+
+    .ranking {
+      display: inline-block;
+      margin-left: 0.6rem;
+      margin-right: 0.6rem;
+      width: 1.6rem;
+      font-size: 1.4rem;
+    }
+  }
+}
