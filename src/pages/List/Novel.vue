@@ -17,18 +17,11 @@
         <ranking></ranking>
       </div>
     </div>
-    <v-dialog v-model="dialog"
-              width="1300">
-      <detail-card :bookInfo.sync="bookInfo"
-                   v-if="dialog"
-                   @close="onClose"></detail-card>
-    </v-dialog>
   </div>
 </template>
 
 <script>
 import novel from '../../api/novel'
-import DetailCard from '../../components/DetailCard'
 import NovelList from './EachPart/NovelList'
 import UserInfo from './EachPart/UserInfo'
 import Ranking from './EachPart/Ranking'
@@ -36,7 +29,6 @@ import Ranking from './EachPart/Ranking'
 export default {
   name: 'Novel',
   components: {
-    DetailCard,
     NovelList,
     UserInfo,
     Ranking
@@ -57,7 +49,6 @@ export default {
       novels: [],
       offsetTop: 0,
       dialog: false,
-      isDetailShow: false,
       detail: {},
       info: {},
       bookInfo: {},

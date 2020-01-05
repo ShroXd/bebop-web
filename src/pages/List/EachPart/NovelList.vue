@@ -25,20 +25,35 @@
                     :length="100"
                     :total-visible="7"></v-pagination>
     </div>
+    <v-dialog v-model="dialog"
+              width="1300">
+      <detail-card :bookInfo.sync="bookInfo"
+                   v-if="dialog"
+                   @close="onClose"></detail-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import novel from '../../../api/novel'
+import DetailCard from '../../../components/DetailCard'
+
 export default {
   name: 'NovelList',
+  components: {
+    DetailCard
+  },
   created () {
     this.fetchNovelList()
   },
   data () {
     return {
       novels: [],
-      page: 1
+      detail: {},
+      info: {},
+      bookInfo: {},
+      page: 1,
+      dialog: false
     }
   },
   methods: {
