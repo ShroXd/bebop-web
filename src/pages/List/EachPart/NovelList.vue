@@ -20,12 +20,13 @@
             }}</v-card-title>
         </div>
       </div>
-    </div>
-    <div class="text-center">
       <v-pagination v-model="page"
-                    :length="100"
-                    :total-visible="7"></v-pagination>
+                    :length="totalPageNum"
+                    :total-visible="4"
+                    @input="fetchNovelList({page: page, limit: limit})"
+                    circle></v-pagination>
     </div>
+
     <v-dialog v-model="dialog"
               width="1300">
       <detail-card :bookInfo.sync="bookInfo"
@@ -45,7 +46,7 @@ export default {
     DetailCard
   },
   created () {
-    this.fetchNovelList()
+    this.fetchNovelList({ page: 1, limit: this.limit })
   },
   data () {
     return {
@@ -54,18 +55,18 @@ export default {
       info: {},
       bookInfo: {},
       page: 1,
+      totalPageNum: 1,
+      limit: 15,
       dialog: false
     }
   },
   methods: {
-    fetchNovelList () {
+    fetchNovelList (query) {
       novel
-        .list({
-          page: 1,
-          limit: 5
-        })
+        .list(query)
         .then(res => {
           this.novels = res.data.rows
+          this.totalPageNum = res.data.total
         })
     },
 
