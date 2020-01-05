@@ -1,14 +1,18 @@
 @import "../color.less";
 
+.portal {
+  width: 1320px;
+  margin: 0.6rem auto;
+}
+
 .main-container {
   display: flex;
 }
 
 .novel-list-container {
-  flex-basis: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 1.8rem;
 
   .novel-card {
@@ -40,11 +44,21 @@
       height: 100%;
       background: rgba(30, 30, 30, 0.8);
       opacity: 0;
+      transition: 0.3s ease-in;
+
+      .mask-info:first-child {
+        margin-top: 100%;
+      }
 
       .mask-info {
         color: @_sys-white;
-        margin: 0.8rem 2rem;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        text-align: center;
+        margin-top: 0.2rem;
+
+        .mask-title {
+          color: @_sys-pink;
+        }
       }
     }
   }
@@ -55,11 +69,9 @@
 }
 
 .function-container {
-  flex-basis: 35%;
   border-left: 1px solid @_sys-mid-gray;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
-  padding-left: 1.5rem;
 
   .user-info-container {
     display: flex;
@@ -82,6 +94,7 @@
 
       .info-item {
         flex-basis: 100%;
+        line-height: 0.5rem;
 
         .info-title {
           display: inline-block;

@@ -1,75 +1,20 @@
 <template>
   <div class="portal">
-    <template>
-      <v-carousel>
-        <v-carousel-item v-for="(item,i) in items"
-                         :key="i"
-                         :src="item.src"
-                         reverse-transition="fade-transition"
-                         transition="fade-transition"></v-carousel-item>
-      </v-carousel>
-    </template>
+    <v-carousel>
+      <v-carousel-item v-for="(item,i) in items"
+                       :key="i"
+                       :src="item.src"
+                       reverse-transition="fade-transition"
+                       transition="fade-transition"></v-carousel-item>
+    </v-carousel>
     <div class="main-container">
-      <div class="novel-list-container">
-        <div v-for="(item, index) in novels"
-             :key="index">
-          <div class="novel-card"
-               @click="onDetail(item)">
-            <v-img class="novel-img"
-                   height="220"
-                   width="150"
-                   :src="item.imageUrl">
-              <div class="mask">
-                <div class="mask-info">{{item.bookCategory}}</div>
-                <div class="mask-info">{{item.bookWordCount}} 字</div>
-              </div>
-            </v-img>
-            <v-card-title class="novel-title font-weight-medium">{{
-              item.bookName
-            }}</v-card-title>
-          </div>
-        </div>
+      <div>
+        <novel-list></novel-list>
       </div>
       <div class="function-container">
         <!--排行榜-->
-        <div class="user-info-container">
-          <!--用户信息-->
-          <img class="user-head"
-               src="../../assets/img/user_placeholder.jpg">
-          <div class="user-info">
-            <div class="info-item">
-              <span class="info-title">用户名</span>
-              <span class="info-value">admin</span>
-            </div>
-            <div class="info-item">
-              <span class="info-title">用户类型</span>
-              <span class="info-value">管理员</span>
-            </div>
-            <div class="func-item">
-              <v-btn depressed
-                     small
-                     color="primary">切换账号</v-btn>
-              <v-btn depressed
-                     small
-                     color="error">注销</v-btn>
-            </div>
-          </div>
-        </div>
-        <div class="ranking-container">
-          <span class="ranking-title">更新排行榜</span>
-          <div class="ranking-item">
-            <span class="ranking">1</span>
-            <span>昏暗宫殿的死者之王</span>
-          </div>
-          <div class="ranking-item">
-            <span class="ranking">2</span>
-            <span>冰菓</span>
-          </div>
-          <div class="ranking-item">
-            <span class="ranking">13</span>
-            <span>昏暗宫殿的死者之王</span>
-          </div>
-        </div>
+        <user-info></user-info>
+        <ranking></ranking>
       </div>
     </div>
     <v-dialog v-model="dialog"
@@ -78,21 +23,23 @@
                    v-if="dialog"
                    @close="onClose"></detail-card>
     </v-dialog>
-    <v-footer>
-      <div class="flex-grow-1"></div>
-      <div>&copy; {{ new Date().getFullYear() }}</div>
-    </v-footer>
   </div>
 </template>
 
 <script>
 import novel from '../../api/novel'
 import DetailCard from '../../components/DetailCard'
+import NovelList from './EachPart/NovelList'
+import UserInfo from './EachPart/UserInfo'
+import Ranking from './EachPart/Ranking'
 
 export default {
   name: 'Novel',
   components: {
-    DetailCard
+    DetailCard,
+    NovelList,
+    UserInfo,
+    Ranking
   },
   created () {
     this.fetchNovelList()
@@ -113,7 +60,8 @@ export default {
       isDetailShow: false,
       detail: {},
       info: {},
-      bookInfo: {}
+      bookInfo: {},
+      page: 1
     }
   },
   methods: {
