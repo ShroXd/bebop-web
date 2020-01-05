@@ -3,6 +3,7 @@
     <div class="novel-list-container">
       <div v-for="(item, index) in novels"
            :key="index">
+
         <div class="novel-card"
              @click="onDetail(item)">
           <v-img class="novel-img"
@@ -57,10 +58,6 @@ export default {
     }
   },
   methods: {
-    onScroll (e) {
-      this.offsetTop = e.target.scrollTop
-    },
-
     fetchNovelList () {
       novel
         .list({

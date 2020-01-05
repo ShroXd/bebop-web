@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import novel from '../../api/novel'
 import NovelList from './EachPart/NovelList'
 import UserInfo from './EachPart/UserInfo'
 import Ranking from './EachPart/Ranking'
@@ -33,9 +32,6 @@ export default {
     UserInfo,
     Ranking
   },
-  created () {
-    this.fetchNovelList()
-  },
   data () {
     return {
       items: [
@@ -46,38 +42,7 @@ export default {
           src: 'http://rs.sfacg.com/web/m/images/homePush/2019/12/d5796313-0628-4a0a-8554-db2f8042c433.jpg'
         }
       ],
-      novels: [],
-      offsetTop: 0,
-      dialog: false,
-      detail: {},
-      info: {},
-      bookInfo: {},
       page: 1
-    }
-  },
-  methods: {
-    onScroll (e) {
-      this.offsetTop = e.target.scrollTop
-    },
-
-    fetchNovelList () {
-      novel
-        .list({
-          page: 1,
-          limit: 5
-        })
-        .then(res => {
-          this.novels = res.data.rows
-        })
-    },
-
-    onDetail (item) {
-      this.bookInfo = item
-      this.dialog = !this.dialog
-    },
-
-    onClose () {
-      this.dialog = !this.dialog
     }
   }
 }
