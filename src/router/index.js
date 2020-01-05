@@ -5,12 +5,12 @@ Vue.use(Router)
 
 export default new Router({
   routes: [{
-    path: '/',
+    path: '/entry',
     name: 'Entry',
     component: () => import('../pages/Entry/Entry.vue')
   },
   {
-    path: '/main',
+    path: '/',
     name: 'Main',
     component: () => import('../pages/Base/Main.vue'),
     // 路由元信息，检查登录态
@@ -18,7 +18,7 @@ export default new Router({
       requireAuth: true
     },
     children: [{
-      path: '/novel',
+      path: '/',
       name: 'Novel',
       component: () => import('../pages/List/Novel.vue')
     },
