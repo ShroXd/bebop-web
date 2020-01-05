@@ -25,6 +25,10 @@ npm run e2e
 
 # run all tests
 npm test
+
+# docker
+docker build -t novelweb:latest .
+docker rum -p 8080:8080 -e "HOST=0.0.0.0" --name novelweb -d novelweb-latest
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
