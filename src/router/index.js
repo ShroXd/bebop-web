@@ -23,6 +23,11 @@ export default new Router({
       component: () => import('../pages/List/Novel.vue')
     },
     {
+      path: '/chapter',
+      name: 'Chapter',
+      component: () => import('../pages/Chapter/Chapter.vue')
+    },
+    {
       path: '/content',
       name: 'Content',
       component: () => import('../pages/Reading/NovelContent.vue')

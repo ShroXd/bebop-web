@@ -1,0 +1,85 @@
+@import "../color.less";
+
+.page {
+  width: 1100px;
+  margin: 0.6rem auto;
+}
+
+.book-detail {
+  border: 1px solid @_sys-mid-gray;
+  display: flex;
+  padding-right: 2rem;
+
+  .book-cover {
+    margin: 2rem;
+  }
+
+  .book-info {
+    margin: 2rem 0 2rem;
+    width: 100%;
+
+    .name {
+      display: inline-block;
+      font-size: 1.5rem;
+    }
+
+    .detail-container {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+
+    .detail {
+      margin: 0.7rem 2rem 0 0;
+      font-size: 0.8rem;
+      color: @_sys-gray;
+    }
+  }
+
+  .synopsis {
+    margin-top: 1rem;
+    height: 6rem;
+    overflow: scroll;
+  }
+
+  .func-container {
+    margin-top: 1rem;
+
+    .func-btn {
+      //margin-left: 2rem;
+    }
+  }
+}
+
+.chapter-list {
+  border: 1px solid @_sys-mid-gray;
+  display: flex;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.chapters-container {
+  border: 1px solid @_sys-mid-gray;
+  margin-top: 2rem;
+  padding: 1rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  .chapters {
+    flex-basis: 30%;
+    font-size: 0.8rem;
+    color: @_sys-light-black;
+    border-bottom: 1px solid @_sys-super-light-gray;
+    padding: 0.5rem 0;
+  }
+
+  .chapters:hover {
+    cursor: pointer;
+    color: @_sys-blue;
+  }
+
+  .item {
+    display: flex;
+  }
+}
