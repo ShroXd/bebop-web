@@ -65,13 +65,16 @@ export default {
     },
 
     onDetail (item) {
-      console.log(item)
+      console.log(this.info)
 
       this.$router.push({
         path: '/content',
         query: {
           bookId: this.info.bookId,
-          chapterId: item.chapter_id
+          bookName: this.info.bookName,
+          chapterId: item.chapter_id,
+          chapterName: item.chapter_name,
+          chapterArr: JSON.stringify(this.detail)
         }
       })
     }
