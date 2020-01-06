@@ -12,8 +12,8 @@
         <novel-list></novel-list>
       </div>
       <div class="function-container">
-        <!--排行榜-->
         <user-info></user-info>
+        <search></search>
         <ranking></ranking>
       </div>
     </div>
@@ -23,6 +23,7 @@
 <script>
 import NovelList from './EachPart/NovelList'
 import UserInfo from './EachPart/UserInfo'
+import Search from './EachPart/Search.vue'
 import Ranking from './EachPart/Ranking'
 
 export default {
@@ -30,6 +31,7 @@ export default {
   components: {
     NovelList,
     UserInfo,
+    Search,
     Ranking
   },
   data () {

@@ -7,8 +7,8 @@
         <div class="novel-card"
              @click="onDetail(item)">
           <v-img class="novel-img"
-                 height="220"
-                 width="150"
+                 max-height="180"
+                 max-width="120"
                  :src="item.imageUrl">
             <div class="mask">
               <div class="mask-info"><span class="mask-title">文库：</span>{{item.bookCategory}}</div>
@@ -22,7 +22,7 @@
       </div>
       <v-pagination v-model="page"
                     :length="totalPageNum"
-                    :total-visible="4"
+                    :total-visible="8"
                     @input="fetchNovelList({page: page, limit: limit})"
                     circle></v-pagination>
     </div>
