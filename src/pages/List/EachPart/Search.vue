@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { globalBus } from '../../../plugins/globalBus'
+
 export default {
   name: 'Search',
   data () {
@@ -24,7 +26,8 @@ export default {
   },
   methods: {
     onSearch () {
-      console.log('111')
+      console.log(this.search)
+      globalBus.$emit('onSearch', this.search)
     }
   }
 

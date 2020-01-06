@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { globalBus } from '../../../plugins/globalBus'
 import novel from '../../../api/novel'
 import DetailCard from '../../../components/DetailCard'
 
@@ -47,6 +48,7 @@ export default {
   },
   created () {
     this.fetchNovelList({ page: 1, limit: this.limit })
+    this.onSearch()
   },
   data () {
     return {
@@ -68,6 +70,12 @@ export default {
           this.novels = res.data.rows
           this.totalPageNum = res.data.total
         })
+    },
+
+    onSearch () {
+      globalBus.$on('onSearch', (name) => {
+        this.fetchNovelList({ name: name, page: 1, limit: this.limit })
+      })
     },
 
     onDetail (item) {
