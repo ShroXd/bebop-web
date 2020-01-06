@@ -1,11 +1,10 @@
 <template>
   <div class="portal">
-    <v-carousel>
+    <v-carousel cycle
+                hide-delimiters>
       <v-carousel-item v-for="(item,i) in items"
                        :key="i"
-                       :src="item.src"
-                       reverse-transition="fade-transition"
-                       transition="fade-transition"></v-carousel-item>
+                       :src="item.src"></v-carousel-item>
     </v-carousel>
     <div class="main-container">
       <div>
@@ -42,6 +41,9 @@ export default {
         },
         {
           src: 'http://rs.sfacg.com/web/m/images/homePush/2019/12/d5796313-0628-4a0a-8554-db2f8042c433.jpg'
+        },
+        {
+          src: require('../../assets/img/color.jpg')
         }
       ],
       page: 1
