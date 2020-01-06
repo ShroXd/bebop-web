@@ -23,7 +23,7 @@
       <v-pagination v-model="page"
                     :length="totalPageNum"
                     :total-visible="8"
-                    @input="fetchNovelList({page: page, limit: limit})"
+                    @input="fetchNovelList({name: name, page: page, limit: limit})"
                     circle></v-pagination>
     </div>
 
@@ -56,6 +56,7 @@ export default {
       detail: {},
       info: {},
       bookInfo: {},
+      name: '',
       page: 1,
       totalPageNum: 1,
       limit: 15,
@@ -75,6 +76,8 @@ export default {
 
     onSearch () {
       globalBus.$on('onSearch', (name) => {
+        this.name = name
+        this.page = 1
         this.fetchNovelList({ name: name, page: 1, limit: this.limit })
       })
     },

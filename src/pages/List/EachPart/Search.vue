@@ -33,8 +33,8 @@ export default {
   },
   methods: {
     onSearch (param = '') {
-      console.log(param)
       this.loading = true
+      this.search = param
       globalBus.$emit('onSearch', param)
     },
 
