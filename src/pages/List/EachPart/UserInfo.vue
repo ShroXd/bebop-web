@@ -13,10 +13,9 @@
         <span class="info-value">管理员</span>
       </div>
       <div class="func-item">
-        <v-btn depressed
-               small
-               color="primary">切换账号</v-btn>
-        <v-btn depressed
+        <v-btn text
+               small>切换账号</v-btn>
+        <v-btn text
                small
                color="error">注销</v-btn>
       </div>

@@ -4,11 +4,15 @@
            md="10">
       <v-text-field v-model="search"
                     :loading="loading"
-                    @change="onSearch"
+                    @change="onSearch(search)"
                     label="搜索小说"
                     clearable
                     dense></v-text-field>
-
+      <div class="func-btn">
+        <v-btn color="primary"
+               @click="onSearch(search)">搜索</v-btn>
+        <v-btn @click="onSearch()">重置</v-btn>
+      </div>
     </v-col>
   </div>
 </template>
@@ -18,6 +22,9 @@ import { globalBus } from '../../../plugins/globalBus'
 
 export default {
   name: 'Search',
+  created () {
+    this.resetLoading()
+  },
   data () {
     return {
       loading: false,
@@ -25,9 +32,16 @@ export default {
     }
   },
   methods: {
-    onSearch () {
-      console.log(this.search)
-      globalBus.$emit('onSearch', this.search)
+    onSearch (param = '') {
+      console.log(param)
+      this.loading = true
+      globalBus.$emit('onSearch', param)
+    },
+
+    resetLoading () {
+      globalBus.$on('resetLoading', () => {
+        this.loading = false
+      })
     }
   }
 
@@ -39,5 +53,9 @@ export default {
   display: flex;
   justify-content: center;
   margin-top: 1rem;
+}
+
+.func-btn {
+  text-align: right;
 }
 </style>

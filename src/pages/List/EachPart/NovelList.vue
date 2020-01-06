@@ -69,6 +69,7 @@ export default {
         .then(res => {
           this.novels = res.data.rows
           this.totalPageNum = res.data.total
+          globalBus.$emit('resetLoading')
         })
     },
 
