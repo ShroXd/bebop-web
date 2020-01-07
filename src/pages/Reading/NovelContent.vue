@@ -88,10 +88,6 @@ export default {
     }
   },
   methods: {
-    backTop () {
-      document.body.scrollTop = 0
-      document.documentElement.scrollTop = 0
-    },
     fetchContents (query) {
       novel.content(query)
         .then((res) => {
@@ -101,7 +97,6 @@ export default {
         })
     },
     prePage () {
-      // location.reload()
       let num = this.chapterArr.findIndex((i) => { return JSON.stringify(i) === JSON.stringify({ chapter_name: this.chapter, chapter_id: this.id }) })
       if (num > 0) {
         this.fetchContents({
@@ -111,10 +106,8 @@ export default {
         this.chapter = this.chapterArr[num - 1].chapter_name
         this.id = this.chapterArr[num - 1].chapter_id
       }
-      this.backTop()
     },
     nextPage () {
-      // location.reload()
       let num = this.chapterArr.findIndex((i) => { return JSON.stringify(i) === JSON.stringify({ chapter_name: this.chapter, chapter_id: this.id }) })
       if (num < this.chapterArr.length) {
         this.fetchContents({
@@ -124,7 +117,6 @@ export default {
         this.chapter = this.chapterArr[num + 1].chapter_name
         this.id = this.chapterArr[num + 1].chapter_id
       }
-      this.backTop()
     }
   }
 
