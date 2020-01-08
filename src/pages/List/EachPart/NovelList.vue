@@ -83,15 +83,10 @@ export default {
     },
 
     onDetail (item) {
-      // this.bookInfo = item
-      // this.dialog = !this.dialog
-
-      console.log(JSON.stringify(item))
-
       this.$router.push({
         path: '/chapter',
         query: {
-          book: JSON.stringify(item)
+          bookId: item.bookId
         }
       })
     },

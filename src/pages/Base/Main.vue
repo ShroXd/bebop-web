@@ -26,6 +26,6 @@ export default {
 <style lang="less" scoped>
 .main {
   overflow: scroll;
-  height: e("calc(100vh)");
+  //height: e("calc(100vh)");
 }
 </style>

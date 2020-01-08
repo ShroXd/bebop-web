@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store/index'
 import axios from 'axios'
 import './assets/less/site.less'
 import ElementUI from 'element-ui'
@@ -25,6 +26,7 @@ new Vue({
   el: '#app',
   vuetify,
   router,
+  store,
   components: {
     App
   },

@@ -28,7 +28,7 @@
       <div class="chapters"
            v-for="(chapter, index) in detail.rows"
            :key="index"
-           @click="onDetail(chapter)">
+           @click="onDetail(chapter, index)">
         {{chapter.chapter_name}}
       </div>
     </div>
@@ -37,13 +37,13 @@
 
 <script>
 import novel from '../../api/novel'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Chapter',
   created () {
-    let passedQuery = JSON.parse(this.$route.query.book)
-    this.info = passedQuery
-    this.fetchBook(passedQuery.bookId)
+    this.fetchBook(this.$route.query.bookId)
+    this.fetchChapter(this.$route.query.bookId)
   },
   data () {
     return {
@@ -52,7 +52,20 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('novel', ['setChapters', 'setChapterIndex']),
+
     fetchBook (id) {
+      novel
+        .book({
+          bookId: id
+        })
+        .then((res) => {
+          if (res.data.code === '000000') {
+            this.info = res.data.data
+          }
+        })
+    },
+    fetchChapter (id) {
       novel
         .chapter({
           bookId: id
@@ -60,21 +73,18 @@ export default {
         .then((res) => {
           if (res.data.code === '000000') {
             this.detail = res.data.data
+            this.setChapters(res.data.data.rows)
           }
         })
     },
 
-    onDetail (item) {
-      console.log(this.info)
-
+    onDetail (item, index) {
+      this.setChapterIndex(index)
       this.$router.push({
         path: '/content',
         query: {
-          bookId: this.info.bookId,
-          bookName: this.info.bookName,
-          chapterId: item.chapter_id,
-          chapterName: item.chapter_name,
-          chapterArr: JSON.stringify(this.detail)
+          bookId: this.$route.query.bookId,
+          chapterId: item.chapter_id
         }
       })
     }

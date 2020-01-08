@@ -1,15 +1,15 @@
 <template>
   <div class="reading-container">
-    <div class="bread">
+    <!-- <div class="bread">
       <div class="bread-name">位置：</div>
       <v-breadcrumbs :items="items">
         <template v-slot:divider>
           <v-icon>mdi-forward</v-icon>
         </template>
       </v-breadcrumbs>
-    </div>
+    </div> -->
     <div class="reading">
-      <div class="chapter-name">{{chapter}}</div>
+      <div class="chapter-name">{{chapterName}}</div>
       <v-divider></v-divider>
       <div class="chapter-content"
            v-for="(content, index) in contents"
@@ -17,11 +17,12 @@
         <div>{{content}}</div>
       </div>
     </div>
-    <div class="func-container">
+    <div class="func-container"
+         ref="func">
       <v-btn class="func-btn"
              text
              color="primary"
-             @click="prePage()">上一页</v-btn>
+             @click="preChapter()">上一章</v-btn>
       <v-btn class="func-btn"
              text
              color="primary">目录</v-btn>
@@ -32,7 +33,7 @@
       <v-btn class="func-btn"
              text
              color="primary"
-             @click="nextPage()">下一页</v-btn>
+             @click="nextChapter()">下一章</v-btn>
     </div>
     <div class="placeholder"></div>
   </div>
@@ -40,6 +41,7 @@
 
 <script>
 import novel from '../../api/novel'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -52,15 +54,21 @@ export default {
       default: ''
     }
   },
+  computed: {
+    ...mapGetters('novel', ['getChapterIndex', 'getChapters'])
+  },
   created () {
+    this.currentChapterId = this.$route.query.chapterId
     this.fetchContents({
       bookId: this.$route.query.bookId,
       chapterId: this.$route.query.chapterId
     })
-    this.chapter = this.$route.query.chapterName
-    this.id = this.$route.query.chapterId
-    this.chapterArr = JSON.parse(this.$route.query.chapterArr).rows
-    console.log(JSON.parse(this.$route.query.chapterArr).rows)
+    this.fetchBook(this.$route.query.bookId)
+    this.fetchChapter(this.$route.query.bookId)
+  },
+  mounted: function () {
+    this.$docElement = document.documentElement
+    this.$body = document.body
   },
   data () {
     return {
@@ -71,51 +79,87 @@ export default {
           href: '/'
         },
         {
-          text: this.$route.query.bookName,
+          text: '11',
           disabled: true,
           href: '/#/chapter'
         },
         {
-          text: this.$route.query.chapterName,
+          text: '',
           disabled: true,
           href: 'breadcrumbs_link_2'
         }
       ],
-      chapter: '',
+      bookName: '',
+      chapterName: '',
       id: '',
+      currentChapterId: '',
       contents: [],
       chapterArr: []
     }
   },
   methods: {
+    ...mapMutations('novel', ['setChapters', 'setChapterIndex']),
+    toTop () {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
+    },
+    fetchBook (id) {
+      novel
+        .book({
+          bookId: id
+        })
+        .then((res) => {
+          if (res.data.code === '000000') {
+            this.bookName = res.data.data.bookName
+          }
+        })
+    },
+    fetchChapter (id) {
+      novel
+        .chapter({
+          bookId: id
+        })
+        .then((res) => {
+          if (res.data.code === '000000') {
+            this.chapterArr = res.data.data.rows
+          }
+        })
+    },
     fetchContents (query) {
+      this.toTop()
       novel.content(query)
         .then((res) => {
           if (res.data.code === '000000') {
+            this.chapterName = res.data.data.chapterName
             this.contents = res.data.data.contents
           }
         })
     },
-    prePage () {
-      let num = this.chapterArr.findIndex((i) => { return JSON.stringify(i) === JSON.stringify({ chapter_name: this.chapter, chapter_id: this.id }) })
-      if (num > 0) {
+    fetchCurrentChapterIndex () {
+      let currentChapterIndex = this.chapterArr.findIndex(item => {
+        return item.chapter_id === this.currentChapterId
+      })
+      return currentChapterIndex
+    },
+    preChapter () {
+      if (this.fetchCurrentChapterIndex() > 0) {
         this.fetchContents({
           bookId: this.$route.query.bookId,
-          chapterId: this.chapterArr[num - 1].chapter_id
+          chapterId: this.chapterArr[this.fetchCurrentChapterIndex() - 1].chapter_id
         })
-        this.chapter = this.chapterArr[num - 1].chapter_name
-        this.id = this.chapterArr[num - 1].chapter_id
+        this.currentChapterId = this.chapterArr[this.fetchCurrentChapterIndex() - 1].chapter_id
       }
     },
-    nextPage () {
-      let num = this.chapterArr.findIndex((i) => { return JSON.stringify(i) === JSON.stringify({ chapter_name: this.chapter, chapter_id: this.id }) })
-      if (num < this.chapterArr.length) {
+    nextChapter () {
+      if (this.fetchCurrentChapterIndex() < this.chapterArr.length) {
         this.fetchContents({
           bookId: this.$route.query.bookId,
-          chapterId: this.chapterArr[num + 1].chapter_id
+          chapterId: this.chapterArr[this.fetchCurrentChapterIndex() + 1].chapter_id
         })
-        this.chapter = this.chapterArr[num + 1].chapter_name
-        this.id = this.chapterArr[num + 1].chapter_id
+        this.currentChapterId = this.chapterArr[this.fetchCurrentChapterIndex() + 1].chapter_id
       }
     }
   }
