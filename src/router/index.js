@@ -4,7 +4,12 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [{
+    path: '*',
+    redirect: '/'
+  },
+  {
     path: '/entry',
     name: 'Entry',
     component: () => import('../pages/Entry/Entry.vue')
