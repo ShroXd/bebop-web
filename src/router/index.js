@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [{
     path: '*',
@@ -41,3 +41,24 @@ export default new Router({
   }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  // 防止无限循环
+  if (to.path === '/entry') {
+    return next()
+  }
+
+  const token = localStorage.getItem('token')
+  if (!token) {
+    // 清除登录信息
+    // 强制推入 entry
+
+    next({ path: '/entry' })
+  } else {
+    // vuex 存储 userInfo
+
+    next()
+  }
+})
+
+export default router

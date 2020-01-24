@@ -17,6 +17,7 @@
                small>切换账号</v-btn>
         <v-btn text
                small
+               @click="logout"
                color="error">注销</v-btn>
       </div>
     </div>
@@ -25,7 +26,15 @@
 
 <script>
 export default {
-  name: 'UserInfo'
+  name: 'UserInfo',
+  methods: {
+    logout () {
+      localStorage.removeItem('token')
+      this.$router.push({
+        path: '/entry'
+      })
+    }
+  }
 
 }
 </script>
