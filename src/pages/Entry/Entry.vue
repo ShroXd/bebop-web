@@ -64,6 +64,8 @@
 
 <script>
 import user from '../../api/login'
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'Entry',
   data () {
@@ -79,6 +81,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('user', ['setUserInfo']),
     login () {
       this.passwdMsg = ''
       this.nameMsg = ''
@@ -91,6 +94,9 @@ export default {
         if (res.data.code === '000000') {
           if (res.data.data.code === '0') {
             localStorage.setItem('token', res.data.data.token)
+            this.setUserInfo({
+              name: this.name
+            })
             this.$router.push('/novel')
           } else {
             if (res.data.data.code === '-2') {

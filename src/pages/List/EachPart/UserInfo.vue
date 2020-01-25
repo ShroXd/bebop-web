@@ -6,17 +6,16 @@
     <div class="user-info">
       <div class="info-item">
         <span class="info-title">用户名</span>
-        <span class="info-value">admin</span>
+        <span class="info-value">{{this.userInfo.name}}</span>
       </div>
       <div class="info-item">
-        <span class="info-title">用户类型</span>
-        <span class="info-value">管理员</span>
+        <!-- <span class="info-title">用户类型</span>
+        <span class="info-value">管理员</span> -->
       </div>
       <div class="func-item">
-        <v-btn text
-               small>切换账号</v-btn>
-        <v-btn text
-               small
+        <!-- <v-btn text
+               small>切换账号</v-btn> -->
+        <v-btn small
                @click="logout"
                color="error">注销</v-btn>
       </div>
@@ -25,8 +24,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'UserInfo',
+  created () {
+    this.userInfo.name = this.getUserInfo.name
+  },
+  computed: {
+    ...mapGetters('user', ['getUserInfo'])
+  },
+  data () {
+    return {
+      userInfo: {
+        name: ''
+      }
+    }
+  },
   methods: {
     logout () {
       localStorage.removeItem('token')
