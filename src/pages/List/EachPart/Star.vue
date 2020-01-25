@@ -18,7 +18,12 @@
 
 <script>
 export default {
-  name: 'star'
+  name: 'star',
+  methods: {
+    fetchStar () {
+      // some code
+    }
+  }
 }
 </script>
 

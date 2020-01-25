@@ -15,12 +15,13 @@
         <v-divider></v-divider>
         <div class="synopsis">{{detail.bookIntro}}</div>
         <div class="func-container">
+          <!-- <v-btn class="func-btn"
+                 small
+                 color="primary">全文阅读</v-btn> -->
           <v-btn class="func-btn"
                  small
-                 color="primary">全文阅读</v-btn>
-          <v-btn class="func-btn"
-                 small
-                 color="primary">放入书架</v-btn>
+                 color="primary"
+                 @click="addStar()">加入收藏</v-btn>
         </div>
       </div>
     </div>
@@ -37,10 +38,13 @@
 
 <script>
 import novel from '../../api/novel'
-import { mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'Chapter',
+  computed: {
+    ...mapGetters('user', ['getUserInfo'])
+  },
   created () {
     this.fetchBook(this.$route.query.bookId)
     this.fetchChapter(this.$route.query.bookId)
@@ -65,6 +69,7 @@ export default {
           }
         })
     },
+
     fetchChapter (id) {
       novel
         .chapter({
@@ -87,6 +92,23 @@ export default {
           chapterId: item.chapter_id
         }
       })
+    },
+
+    addStar () {
+      let param = {
+        userName: this.getUserInfo.name,
+        bookId: this.$route.query.bookId
+      }
+
+      console.log(JSON.stringify(param))
+
+      novel
+        .addStar(param)
+        .then(res => {
+          if (res.data.code === '000000') {
+            // some code
+          }
+        })
     }
   }
 
