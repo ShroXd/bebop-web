@@ -58,7 +58,7 @@ export default {
       name: '',
       page: 1,
       totalPageNum: 1,
-      limit: 14,
+      limit: 6,
       dialog: false
     }
   },

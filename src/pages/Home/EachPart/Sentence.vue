@@ -29,9 +29,6 @@ export default {
         .hitokoto(param)
         .then(res => {
           if (res.status === 200) {
-            console.log(res.data.hitokoto)
-            console.log(res.data.from)
-            console.log(res.status)
             this.hitokoto = res.data.hitokoto
             this.creator = res.data.creator
             this.from = res.data.from

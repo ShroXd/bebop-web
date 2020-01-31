@@ -43,12 +43,9 @@ export default {
         .gankWeb(param)
         .then(res => {
           this.results = res.data.results
-          console.log(res.data.results)
         })
     },
     jumpToWeb (i) {
-      console.log(i.url)
-
       window.open(i.url, '_blank')
     },
     changeRandomInfo () {
