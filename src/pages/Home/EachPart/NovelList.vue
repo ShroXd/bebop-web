@@ -7,8 +7,8 @@
         <div class="novel-card"
              @click="onDetail(item)">
           <v-img class="novel-img"
-                 max-height="180"
-                 max-width="120"
+                 height="180"
+                 width="120"
                  :src="item.imageUrl">
             <div class="mask">
               <div class="mask-info"><span class="mask-title">文库：</span>{{item.bookCategory}}</div>

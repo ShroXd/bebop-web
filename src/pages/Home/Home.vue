@@ -2,6 +2,7 @@
   <div class="portal">
     <div class="main-container">
       <div>
+        <sentence></sentence>
         <novel-list></novel-list>
       </div>
       <!-- <div class="function-container">
@@ -18,6 +19,7 @@ import NovelList from './EachPart/NovelList'
 import UserInfo from './EachPart/UserInfo'
 import Search from './EachPart/Search.vue'
 import Star from './EachPart/Star'
+import Sentence from './EachPart/Sentence'
 
 export default {
   name: 'Novel',
@@ -25,7 +27,8 @@ export default {
     NovelList,
     UserInfo,
     Search,
-    Star
+    Star,
+    Sentence
   },
   data () {
     return {

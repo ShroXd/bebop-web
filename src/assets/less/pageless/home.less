@@ -1,12 +1,25 @@
 @import "../color.less";
 
-.portal {
-  //width: 1320px;
-  margin: 0.6rem auto;
-}
-
-.main-container {
+.sentence-container {
+  width: 34rem;
+  height: 12rem;
+  padding: 1rem;
+  margin: 0.4rem 0 0 1.4rem;
+  border-bottom: 1px solid @_sys-mid-gray;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+
+  .hitokoto {
+    margin-top: 1.6rem;
+    flex-basis: 100%;
+    font-size: 1.3rem;
+  }
+
+  .from {
+    color: @_sys-gray;
+    margin: 0 1rem 0 0;
+  }
 }
 
 .novel-list-container {
@@ -17,10 +30,11 @@
   width: 35rem;
 
   .novel-card {
-    //overflow: hidden;
+    text-overflow: ellipsis;
     box-sizing: border-box;
     margin: 0.4rem 0.8rem;
     width: 160px;
+    height: 300px;
 
     .novel-title {
       font-size: 0.9rem;
