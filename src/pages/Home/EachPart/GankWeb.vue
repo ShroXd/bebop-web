@@ -12,10 +12,7 @@
     </div>
     <v-btn class="ctl-btn"
            small
-           @click="toBack">向后</v-btn>
-    <v-btn class="ctl-btn"
-           small
-           @click="toPre">向前</v-btn>
+           @click="changeRandomInfo">换一组</v-btn>
   </div>
 </template>
 
@@ -54,16 +51,19 @@ export default {
 
       window.open(i.url, '_blank')
     },
-    toPre () {
-      if (this.page === 1) {
-        return
-      }
-      this.page -= 1
+    changeRandomInfo () {
+      this.page = this.andomNum(1, 20)
       this.fetchWebGank()
     },
-    toBack () {
-      this.page += 1
-      this.fetchWebGank()
+    andomNum (minNum, maxNum) {
+      switch (arguments.length) {
+        case 1:
+          return parseInt(Math.random() * minNum + 1, 10)
+        case 2:
+          return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10)
+        default:
+          return 0
+      }
     }
   }
 }
