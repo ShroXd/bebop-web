@@ -27,5 +27,6 @@ export default {
 .main {
   overflow: scroll;
   //height: e("calc(100vh)");
+  background-image: url(https://img.totoro.ink/images/2018/02/04/o8VX.png);
 }
 </style>

@@ -1,10 +1,18 @@
 @import "../color.less";
 
+.main-container {
+  margin-left: 36rem;
+}
+
+.head-container {
+  display: flex;
+}
+
 .sentence-container {
-  width: 34rem;
+  width: 30rem;
   height: 12rem;
   padding: 1rem;
-  margin: 0.4rem 0 0 1.4rem;
+  margin: 0.4rem 3rem 0 1.4rem;
   border-bottom: 1px solid @_sys-mid-gray;
   display: flex;
   flex-wrap: wrap;
@@ -13,7 +21,8 @@
   .hitokoto {
     margin-top: 1.6rem;
     flex-basis: 100%;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    height: 7rem;
   }
 
   .from {
@@ -22,12 +31,36 @@
   }
 }
 
+.gank-web-container {
+  height: 12rem;
+  width: 47rem;
+  padding-top: 1rem;
+
+  .text-btn {
+    overflow: hidden;
+  }
+
+  .icon {
+    margin-right: 0.4rem;
+  }
+
+  .gank-web {
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
+  .ctl-btn {
+    margin: 0.4rem 1.2rem 0 0;
+    float: right;
+  }
+}
+
 .novel-list-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   margin: 1.4rem;
-  width: 35rem;
+  //width: 35rem;
 
   .novel-card {
     text-overflow: ellipsis;

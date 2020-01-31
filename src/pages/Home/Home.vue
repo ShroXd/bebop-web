@@ -2,7 +2,10 @@
   <div class="portal">
     <div class="main-container">
       <div>
-        <sentence></sentence>
+        <div class="head-container">
+          <sentence></sentence>
+          <gank-web></gank-web>
+        </div>
         <novel-list></novel-list>
       </div>
       <!-- <div class="function-container">
@@ -20,6 +23,7 @@ import UserInfo from './EachPart/UserInfo'
 import Search from './EachPart/Search.vue'
 import Star from './EachPart/Star'
 import Sentence from './EachPart/Sentence'
+import GankWeb from './EachPart/GankWeb'
 
 export default {
   name: 'Novel',
@@ -28,7 +32,8 @@ export default {
     UserInfo,
     Search,
     Star,
-    Sentence
+    Sentence,
+    GankWeb
   },
   data () {
     return {
