@@ -38,7 +38,8 @@
           </v-list-item>
 
           <v-card-actions>
-            <v-btn text>查看</v-btn>
+            <v-btn text
+                   @click="jumpToWeb(item)">查看</v-btn>
           </v-card-actions>
         </v-card>
       </div>
@@ -118,6 +119,9 @@ export default {
             this.content = res.data.results
           }
         })
+    },
+    jumpToWeb (i) {
+      window.open(i.url, '_blank')
     }
   }
 }
