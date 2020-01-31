@@ -23,8 +23,7 @@
       <v-pagination v-model="page"
                     :length="totalPageNum"
                     :total-visible="8"
-                    @input="fetchNovelList({name: name, page: page, limit: limit})"
-                    circle></v-pagination>
+                    @input="fetchNovelList({name: name, page: page, limit: limit})"></v-pagination>
     </div>
 
     <v-dialog v-model="dialog"
@@ -59,7 +58,7 @@ export default {
       name: '',
       page: 1,
       totalPageNum: 1,
-      limit: 15,
+      limit: 6,
       dialog: false
     }
   },
@@ -99,5 +98,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/less/pageless/novel.less";
+@import "../../../assets/less/pageless/home.less";
 </style>

@@ -2,7 +2,7 @@
   <div class="main">
     <Header></Header>
     <router-view></router-view>
-    <v-footer>
+    <v-footer absolute>
       <div class="flex-grow-1"></div>
       <div>&copy; {{ new Date().getFullYear() }}</div>
     </v-footer>

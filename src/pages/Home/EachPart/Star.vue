@@ -28,5 +28,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/less/pageless/novel.less";
+@import "../../../assets/less/pageless/home.less";
 </style>
