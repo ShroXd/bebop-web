@@ -13,7 +13,8 @@
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tab">
+    <v-tabs-items class="tabs-items"
+                  v-model="tab">
       <v-tab-item>
         <light-novel></light-novel>
       </v-tab-item>

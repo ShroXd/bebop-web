@@ -6,6 +6,10 @@
   //background-color: gray;
 }
 
+.tabs-items {
+  padding: 0.2rem 0;
+}
+
 // 标题组件
 .head-component {
   display: flex;
@@ -55,5 +59,125 @@
 
   .tabs-items {
     background-color: @_sys-super-light-gray;
+  }
+}
+
+// 轻小说
+.novel-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 1.4rem 0 1.4rem 1.4rem;
+  height: 41rem;
+
+  .novel-card {
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    margin: 0.4rem 0.8rem;
+    width: 160px;
+    height: 250px;
+
+    .novel-title {
+      width: 8rem;
+      margin: 0.6rem auto;
+      font-size: 0.9rem;
+      color: @_sys-mid-black;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .novel-img {
+      margin: 0 auto;
+    }
+
+    .novel-img:hover .mask {
+      opacity: 1;
+    }
+
+    .mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 30, 30, 0.8);
+      opacity: 0;
+      transition: 0.3s ease-in;
+
+      .mask-info:first-child {
+        margin-top: 100%;
+      }
+
+      .mask-info {
+        color: @_sys-white;
+        font-size: 0.8rem;
+        text-align: center;
+        margin-top: 0.2rem;
+
+        .mask-title {
+          color: @_sys-blue;
+        }
+      }
+    }
+  }
+
+  .novel-card:hover {
+    cursor: pointer;
+  }
+}
+
+// 闲读
+.xuan-du-contanier {
+  width: 35rem;
+  margin-top: 1rem;
+
+  .card-container {
+    width: 45rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+// 技术
+.function-container {
+  border-left: 1px solid @_sys-mid-gray;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  .user-info-container {
+    display: flex;
+    border-bottom: 1px solid @_sys-mid-gray;
+    height: 10rem;
+
+    .user-head {
+      width: 8rem;
+      height: 8rem;
+      margin-top: 0.8rem;
+      margin-left: 1.5rem;
+    }
+
+    .user-info {
+      margin-top: 1.4rem;
+      margin-left: 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+
+      .info-item {
+        flex-basis: 100%;
+        line-height: 0.5rem;
+
+        .info-title {
+          display: inline-block;
+          font-size: 1rem;
+          color: @_sys-gray;
+          width: 5rem;
+        }
+      }
+
+      .func-item {
+        align-self: flex-end;
+        margin-bottom: 1.5rem;
+      }
+    }
   }
 }

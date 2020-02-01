@@ -15,9 +15,7 @@
               <div class="mask-info"><span class="mask-title">字数：</span>{{item.bookWordCount}} 字</div>
             </div>
           </v-img>
-          <v-card-title class="novel-title font-weight-medium">{{
-              item.bookName
-            }}</v-card-title>
+          <div class="novel-title">{{item.bookName}}</div>
         </div>
       </div>
       <v-pagination v-model="page"
@@ -58,7 +56,7 @@ export default {
       name: '',
       page: 1,
       totalPageNum: 1,
-      limit: 6,
+      limit: 10,
       dialog: false
     }
   },
@@ -98,5 +96,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/less/pageless/home.less";
+@import "../../../assets/less/pageless/index.less";
 </style>
