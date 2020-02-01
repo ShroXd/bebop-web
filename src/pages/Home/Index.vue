@@ -1,8 +1,7 @@
 <template>
   <div class="portal">
-
+    <user-func></user-func>
     <web-title></web-title>
-
     <v-tabs v-model="tab"
             background-color="transparent"
             color="basil"
@@ -29,6 +28,7 @@
 </template>
 
 <script>
+import UserFunc from './NewPart/UserFunc'
 import WebTitle from './NewPart/WebTitle'
 import LightNovel from './NewPart/LightNovel'
 import XianDu from './NewPart/XianDu'
@@ -37,6 +37,7 @@ import Technics from './NewPart/Technics'
 export default {
   name: 'Novel',
   components: {
+    UserFunc,
     WebTitle,
     LightNovel,
     XianDu,
