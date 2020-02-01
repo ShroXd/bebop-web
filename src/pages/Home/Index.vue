@@ -51,7 +51,7 @@ export default {
           icon: 'mdi-book'
         },
         {
-          text: '阅读',
+          text: '闲读',
           icon: 'mdi-book'
         },
         {
