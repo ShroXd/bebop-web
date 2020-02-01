@@ -70,10 +70,10 @@ export default {
           name: '前端',
           en_name: '前端'
         },
-        {
+        /* {
           name: '福利',
           en_name: '福利'
-        },
+        }, */
         {
           name: 'Android',
           en_name: 'Android'
@@ -82,10 +82,10 @@ export default {
           name: 'iOS',
           en_name: 'iOS'
         },
-        {
+        /* {
           name: '休息视频',
           en_name: '休息视频'
-        },
+        }, */
         {
           name: '拓展资源',
           en_name: '拓展资源'

@@ -18,9 +18,9 @@
       <v-tab-item>
         <light-novel></light-novel>
       </v-tab-item>
-      <v-tab-item>
+      <!-- <v-tab-item>
         <xian-du></xian-du>
-      </v-tab-item>
+      </v-tab-item> -->
       <v-tab-item>
         <technics></technics>
       </v-tab-item>
@@ -50,10 +50,10 @@ export default {
           text: '轻小说',
           icon: 'mdi-book'
         },
-        {
+        /* {
           text: '闲读',
           icon: 'mdi-book'
-        },
+        }, */
         {
           text: '技术',
           icon: 'mdi-book'
