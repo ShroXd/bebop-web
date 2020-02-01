@@ -1,13 +1,13 @@
 @import "../color.less";
 
 .portal {
-  width: 50vw;
+  width: 60vw;
   margin: 1rem auto;
   //background-color: gray;
 }
 
 .tabs-items {
-  padding: 0.2rem 0;
+  padding: 0.6rem 0.4rem;
 }
 
 // 标题组件
@@ -138,46 +138,16 @@
   }
 }
 // 技术
-.function-container {
-  border-left: 1px solid @_sys-mid-gray;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+.technics-container {
+  padding-left: 1rem;
 
-  .user-info-container {
+  .func-btn-container {
     display: flex;
-    border-bottom: 1px solid @_sys-mid-gray;
-    height: 10rem;
-
-    .user-head {
-      width: 8rem;
-      height: 8rem;
-      margin-top: 0.8rem;
-      margin-left: 1.5rem;
-    }
-
-    .user-info {
-      margin-top: 1.4rem;
-      margin-left: 2.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-
-      .info-item {
-        flex-basis: 100%;
-        line-height: 0.5rem;
-
-        .info-title {
-          display: inline-block;
-          font-size: 1rem;
-          color: @_sys-gray;
-          width: 5rem;
-        }
-      }
-
-      .func-item {
-        align-self: flex-end;
-        margin-bottom: 1.5rem;
-      }
-    }
+    justify-content: flex-end;
+    margin: 0.4rem 1rem 0.2rem;
+  }
+  .card-des {
+    height: 80px;
+    overflow: scroll;
   }
 }
