@@ -25,7 +25,7 @@ const router = new Router({
     children: [{
       path: '/',
       name: 'Novel',
-      component: () => import('../pages/Home/Home.vue')
+      component: () => import('../pages/Home/Index.vue')
     },
     {
       path: '/chapter',

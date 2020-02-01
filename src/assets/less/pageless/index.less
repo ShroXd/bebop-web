@@ -1,8 +1,9 @@
 @import "../color.less";
 
 .portal {
-  width: 55vw;
+  width: 50vw;
   margin: 1rem auto;
+  //background-color: gray;
 }
 
 // 标题组件
@@ -13,8 +14,8 @@
   align-items: center;
 
   .web-title {
-    font-size: 2rem;
-    font-weight: 200;
+    font-size: 1.6rem;
+    font-weight: 220;
   }
 
   .web-title:hover {
@@ -24,9 +25,35 @@
 
   .des {
     color: @_sys-gray;
+    font-size: 0.9rem;
   }
 }
 
 .head-component * {
   margin-top: 0.6rem;
+}
+
+// 功能组件
+.func-component {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+
+  .classify-btn {
+    font-size: 0.9rem;
+    margin-left: 2rem;
+  }
+
+  .classify-btn:hover {
+    color: @_sys-light-blue;
+    cursor: pointer;
+  }
+
+  .tabs-icon {
+    margin-right: 0.4rem;
+  }
+
+  .tabs-items {
+    background-color: @_sys-super-light-gray;
+  }
 }
