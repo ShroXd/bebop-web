@@ -1,8 +1,8 @@
 <template>
   <div class="main">
-    <Header></Header>
+    <!-- <Header></Header> -->
     <router-view></router-view>
-    <v-footer absolute>
+    <v-footer fixed>
       <div class="flex-grow-1"></div>
       <div>&copy; {{ new Date().getFullYear() }}</div>
     </v-footer>
@@ -28,5 +28,7 @@ export default {
   overflow: scroll;
   //height: e("calc(100vh)");
   background-image: url(https://img.totoro.ink/images/2018/02/04/o8VX.png);
+  height: 100vh;
+  width: 100vw;
 }
 </style>
