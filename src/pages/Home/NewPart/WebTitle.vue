@@ -6,13 +6,19 @@
     <v-img :src="require('../../../assets/img/qiezi_dai_kou_zhao.jpg')"
            height="100"
            width="100"></v-img>
-
+    <div class="blog-url"
+         @click="JumpToBlog()">Find me on my blog</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'WebTitle'
+  name: 'WebTitle',
+  methods: {
+    JumpToBlog () {
+      window.open('http://bebopser.com/', '_blank')
+    }
+  }
 }
 </script>
 
