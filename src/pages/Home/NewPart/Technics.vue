@@ -1,11 +1,25 @@
 <template>
   <div class="technics-container">
     <div class="func-btn-container">
-      <v-btn class="func-btn"
-             tile
-             color="indigo"
-             dark
-             @click="changeRandomInfo">换一组</v-btn>
+      <div class="btn-container">
+        <div v-for="(item, index) of mainClass"
+             :key="index">
+          <v-btn class="ma-2"
+                 tile
+                 dark
+                 :outlined="item.name === classify ? false : true"
+                 :color="item.name === classify ? 'indigo' : 'secondary'"
+                 @click="selectClass(item)">{{item.name}}
+          </v-btn>
+        </div>
+      </div>
+      <div class="func-btn">
+        <v-btn tile
+               color="indigo"
+               dark
+               @click="changeRandomInfo">换一组</v-btn>
+      </div>
+
     </div>
     <v-row>
       <v-col cols="12"
@@ -15,7 +29,7 @@
 
         <v-card class="card"
                 max-width="344">
-          <v-card-subtitle>前端</v-card-subtitle>
+          <v-card-subtitle>{{classify}}</v-card-subtitle>
           <v-card-text class="card-des">{{item.desc}}</v-card-text>
 
           <v-card-actions>
@@ -50,7 +64,33 @@ export default {
       classify: '前端',
       num: 9,
       page: 1,
-      results: []
+      results: [],
+      mainClass: [
+        {
+          name: '前端',
+          en_name: '前端'
+        },
+        {
+          name: '福利',
+          en_name: '福利'
+        },
+        {
+          name: 'Android',
+          en_name: 'Android'
+        },
+        {
+          name: 'iOS',
+          en_name: 'iOS'
+        },
+        {
+          name: '休息视频',
+          en_name: '休息视频'
+        },
+        {
+          name: '拓展资源',
+          en_name: '拓展资源'
+        }
+      ]
     }
   },
   methods: {
@@ -69,6 +109,10 @@ export default {
     },
     jumpToWeb (i) {
       window.open(i.url, '_blank')
+    },
+    selectClass (i) {
+      this.classify = i.name
+      this.fetchWebGank()
     },
     changeRandomInfo () {
       this.page = this.andomNum(1, 20)

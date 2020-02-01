@@ -1,125 +1,71 @@
 <template>
-  <div class="xuan-du-contanier">
-    <v-col class="d-flex select-container"
-           cols="1"
-           sm="10">
-      <v-select :items="mainCategoriesSelect"
-                label="Outlined style"
-                outlined
-                dense
-                v-model="main"
-                @change="fetchChildCategories()"></v-select>
-      <v-select :items="childCategoriesSelect"
-                label="Outlined style"
-                outlined
-                v-model="child"
-                dense></v-select>
-      <v-btn color="primary"
-             @click="fetchXianDu()">搜索</v-btn>
-    </v-col>
-
-    <div class="card-container">
-      <div v-for="(item, index) in content"
+  <v-container class="xuan-du-contanier">
+    <div class="btn-container">
+      <div class="class-btn"
+           v-for="(item, index) of mainClass"
            :key="index">
-        <v-card class="mx-auto"
-                max-width="344"
-                outlined>
-          <v-list-item three-line>
-            <v-list-item-content>
-              <v-list-item-title class="headline mb-1">{{item.site.name}}</v-list-item-title>
-              <v-list-item-subtitle>{{item.title}}</v-list-item-subtitle>
-            </v-list-item-content>
-
-            <v-list-item-avatar tile
-                                size="80"
-                                color="grey">
-              <v-img :src="item.site.icon"></v-img>
-            </v-list-item-avatar>
-          </v-list-item>
-
-          <v-card-actions>
-            <v-btn text
-                   @click="jumpToWeb(item)">查看</v-btn>
-          </v-card-actions>
-        </v-card>
+        <v-btn class="ma-2"
+               tile
+               outlined
+               color="secondary">{{item.name}}
+        </v-btn>
       </div>
     </div>
-  </div>
+  </v-container>
 
 </template>
 
 <script>
-import ganhuo from '../../../api/public_api/ganhuo'
+// import ganhuo from '../../../api/public_api/ganhuo'
 export default {
   name: 'xiandu',
   data () {
     return {
-      main: '',
-      child: '',
-      mainCategoriesSelect: [],
-      mainCategories: [],
-      childCategoriesSelect: [],
-      childCategories: [],
-      content: []
+      mainClass: [
+        {
+          name: '科技资讯',
+          en_name: 'wow'
+        },
+        {
+          name: '趣味软件 / 游戏',
+          en_name: 'apps'
+        },
+        {
+          name: '装备党',
+          en_name: 'imrich'
+        },
+        {
+          name: '草根新闻',
+          en_name: 'funny'
+        },
+        {
+          name: 'Android',
+          en_name: 'android'
+        },
+        {
+          name: '创业新闻',
+          en_name: 'diediedie'
+        },
+        {
+          name: '独立思想',
+          en_name: 'thinking'
+        },
+        {
+          name: 'IOS',
+          en_name: 'iOS'
+        },
+        {
+          name: '团队博客',
+          en_name: 'teamblog'
+        }
+      ]
     }
   },
   created () {
     this.fetchMainCategories()
   },
   methods: {
-    fetchMainCategories () {
-      ganhuo
-        .xianduMain()
-        .then(res => {
-          if (!res.error) {
-            for (let item of res.data.results) {
-              this.mainCategoriesSelect.push(item.name)
-            }
-            this.mainCategories = res.data.results
-          }
-        })
-    },
-    fetchChildCategories () {
-      let that = this
-      that.childCategoriesSelect = []
-      that.childCategories = []
-      let main = this.mainCategories.filter(item => {
-        return item.name === that.main
-      })
-      let param = {
-        item: main[0].en_name
-      }
-      ganhuo
-        .xianduChild(param)
-        .then(res => {
-          if (!res.error) {
-            for (let item of res.data.results) {
-              this.childCategoriesSelect.push(item.title)
-            }
-            this.childCategories = res.data.results
-          }
-        })
-    },
-    fetchXianDu () {
-      let that = this
-      let theClass = this.childCategories.filter(item => {
-        return item.title === that.child
-      })
 
-      console.log(theClass)
-      let param = {
-        class: theClass[0].id,
-        num: 6,
-        page: 1
-      }
-      ganhuo
-        .xiandu(param)
-        .then(res => {
-          if (!res.error) {
-            this.content = res.data.results
-          }
-        })
-    },
     jumpToWeb (i) {
       window.open(i.url, '_blank')
     }
@@ -128,5 +74,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/less/pageless/home.less";
+@import "../../../assets/less/pageless/index.less";
 </style>
