@@ -65,8 +65,8 @@ export default {
       novel
         .list(query)
         .then(res => {
-          this.novels = res.data.rows
-          this.totalPageNum = res.data.total
+          this.novels = res.data.data.rows
+          this.totalPageNum = res.data.data.total
           globalBus.$emit('resetLoading')
         })
     },
