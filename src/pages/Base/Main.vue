@@ -27,7 +27,7 @@ export default {
 .main {
   overflow: scroll;
   //height: e("calc(100vh)");
-  background-image: url(https://img.totoro.ink/images/2018/02/04/o8VX.png);
+  background-image: url(https://bebopfzj.oss-cn-hangzhou.aliyuncs.com/uPic/2020-03-12-vEZGY5.png);
   height: 100vh;
   width: 100vw;
 }
