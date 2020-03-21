@@ -21,6 +21,21 @@
       </div>
 
     </div>
+
+    <v-row v-if="results.length === 0">
+      <v-col cols="12"
+             sm="4">
+        <v-skeleton-loader class="mx-auto"
+                           max-width="300"
+                           type="image, actions"></v-skeleton-loader>
+      </v-col>
+      <v-col cols="12"
+             sm="4">
+        <v-skeleton-loader class="mx-auto"
+                           max-width="300"
+                           type="image, actions"></v-skeleton-loader>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col cols="12"
              sm="4"
@@ -31,21 +46,14 @@
                 max-width="344">
           <v-card-subtitle>{{classify}}</v-card-subtitle>
           <v-card-text class="card-des">{{item.desc}}</v-card-text>
-
           <v-card-actions>
+            <v-spacer></v-spacer>
             <v-btn class="text-btn"
                    text
                    @click="jumpToWeb(item)">查看
             </v-btn>
           </v-card-actions>
         </v-card>
-        <!-- <v-btn class="text-btn"
-             text
-             @click="jumpToWeb(item)">
-        <v-icon class="icon"
-                color="indigo darken-2">mdi-web</v-icon>
-        {{item.desc}}
-      </v-btn> -->
       </v-col>
     </v-row>
 
