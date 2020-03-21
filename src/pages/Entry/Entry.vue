@@ -83,26 +83,19 @@ export default {
   methods: {
     ...mapMutations('user', ['setUserInfo']),
     login () {
-      this.passwdMsg = ''
-      this.nameMsg = ''
       user.login({
-        params: {
-          name: this.name,
-          password: this.password
-        }
+        username: this.name,
+        password: this.password
       }).then((res) => {
-        if (res.data.code === '000000') {
-          if (res.data.data.code === '0') {
-            localStorage.setItem('token', res.data.data.token)
-            this.setUserInfo({
-              name: this.name
-            })
-            this.$router.push('/novel')
+        console.log(JSON.stringify(res))
+        if (res.status === 200) {
+          if (res.data.msg === '登录成功') {
+            this.$router.push('/')
           } else {
-            if (res.data.data.code === '-2') {
-              this.passwdMsg = res.data.data.msg
-            } else if (res.data.data.code === '-3') {
-              this.nameMsg = res.data.data.msg
+            if (res.data.msg === '密码错误') {
+              this.passwdMsg = res.data.msg
+            } else if (res.data.msg === '用户名错误') {
+              this.nameMsg = res.data.msg
             }
           }
         }
@@ -116,7 +109,7 @@ export default {
     },
     register () {
       user.register({
-        name: this.name,
+        username: this.name,
         password: this.password
       }).then((res) => {
         if (res.data.code === '000000') {

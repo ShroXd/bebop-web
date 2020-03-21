@@ -5,9 +5,9 @@ import qs from 'querystring'
 
 export default {
   login (param) {
-    return axios.get('/login', param)
+    return axios.post('/auth/login', qs.stringify(param))
   },
   register (param) {
-    return axios.post('/register', qs.stringify(param))
+    return axios.post('/auth/register', qs.stringify(param))
   }
 }
