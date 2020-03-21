@@ -1,93 +1,81 @@
 <template>
-  <div>
-    <div class="login">
-      <v-form v-model="valid">
-        <v-container class="container">
-          <template v-if="step === '1'">
-            <!-- TODO: 使用snackbars重写 -->
-            <v-text-field label="用户名"
-                          required
-                          v-model="name"
-                          :error-messages="nameMsg">
-            </v-text-field>
-            <v-text-field label="密码"
-                          required
-                          v-model="password"
-                          :error-messages="passwdMsg"
-                          :type="'password'">
-            </v-text-field>
-            <v-btn class="entry-btn"
-                   depressed
-                   color="primary"
-                   @click="login">登录</v-btn>
-            <v-btn class="entry-btn"
-                   depressed
-                   color="primary"
-                   @click="change2register">注册</v-btn>
-          </template>
-          <template v-if="step === '2'">
-            <v-alert v-if="registerCode !== '0'"
-                     border="left"
-                     colored-border
-                     color="red lighten-2"
-                     elevation="1">
-              {{registerMsg}}
-            </v-alert>
-            <v-text-field label="用户名"
-                          required
-                          v-model="name">
-            </v-text-field>
-            <v-text-field label="密码"
-                          required
-                          v-model="password"
-                          :type="'password'">
-            </v-text-field>
-            <v-text-field label="再输入一遍密码"
-                          required
-                          v-model="password"
-                          :type="'password'">
-            </v-text-field>
-            <v-btn class="entry-btn"
-                   depressed
-                   color="primary"
-                   @click="register">注册</v-btn>
-            <v-btn class="entry-btn"
-                   depressed
-                   color="primary"
-                   @click="change2login">切换</v-btn>
-          </template>
-        </v-container>
+  <div class="login">
+    <v-card class="container">
+      <v-alert v-if="alert"
+               border="left"
+               colored-border
+               color="red lighten-2"
+               elevation="1">
+        {{registerMsg}}
+      </v-alert>
+      <v-form>
+        <v-text-field label="用户名"
+                      required
+                      v-model="username"
+                      :error-messages="nameMsg">
+        </v-text-field>
+        <v-text-field label="密码"
+                      required
+                      v-model="password"
+                      type="password"
+                      :error-messages="passwdMsg">
+        </v-text-field>
+        <v-text-field label="再输入一遍密码"
+                      required
+                      v-model="reEnterPassword"
+                      type="password"
+                      :error-messages="reEnterPasswordMsg"
+                      v-if="step === 'register'">
+        </v-text-field>
       </v-form>
-    </div>
+      <v-card-actions v-if="step === 'login'">
+        <v-spacer></v-spacer>
+        <v-btn class="entry-btn"
+               depressed
+               @click="change2register">注册</v-btn>
+        <v-btn class="entry-btn"
+               depressed
+               color="primary"
+               @click="login">登录</v-btn>
+      </v-card-actions>
+      <v-card-actions v-else-if="step === 'register'">
+        <v-spacer></v-spacer>
+        <v-btn class="entry-btn"
+               depressed
+               @click="change2login">切换</v-btn>
+        <v-btn class="entry-btn"
+               depressed
+               color="primary"
+               @click="register">注册</v-btn>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
 <script>
 import user from '../../api/login'
-import { mapMutations } from 'vuex'
 
 export default {
   name: 'Entry',
   data () {
     return {
-      valid: false,
-      registerCode: '0',
+      step: 'login',
+      alert: false,
+      registerMsg: '',
       nameMsg: '',
       passwdMsg: '',
-      registerMsg: '',
-      step: '1',
-      name: '',
-      password: ''
+      username: '',
+      password: '',
+      reEnterPassword: '',
+      reEnterPasswordMsg: ''
     }
   },
   methods: {
-    ...mapMutations('user', ['setUserInfo']),
     login () {
       user.login({
-        username: this.name,
+        username: this.username,
         password: this.password
       }).then((res) => {
-        console.log(JSON.stringify(res))
         if (res.status === 200) {
           if (res.data.msg === '登录成功') {
             this.$router.push('/')
@@ -101,38 +89,37 @@ export default {
         }
       })
     },
-    change2login () {
-      this.step = '1'
-    },
-    change2register () {
-      this.step = '2'
-    },
     register () {
+      this.reEnterPasswordMsg = ''
+      if (this.password !== this.reEnterPassword) {
+        this.reEnterPasswordMsg = '两次密码输入不一致'
+        return
+      }
       user.register({
-        username: this.name,
+        username: this.username,
         password: this.password
       }).then((res) => {
-        if (res.data.code === '000000') {
-          if (res.data.data.code === '-1') {
-            // 参数缺失
-            this.registerCode = res.data.data.code
-            this.registerMsg = res.data.data.msg
-            this.name = ''
+        if (res.status === 200) {
+          if (res.data.msg === '注册成功') {
+            this.registerMsg = res.data.msg
+            this.step = 'login'
+          } else {
+            this.alert = true
+            this.registerMsg = res.data.msg
+            this.username = ''
             this.password = ''
-          } else if (res.data.data.code === '-2') {
-            // 用户名已存在
-            this.registerCode = res.data.data.code
-            this.registerMsg = res.data.data.msg
-            this.name = ''
-            this.password = ''
-          } else if (res.data.data.code === '0') {
-            // 注册成功
-            this.registerCode = res.data.data.code
-            this.registerMsg = res.data.data.msg
-            this.step = '1'
+            this.reEnterPassword = ''
           }
         }
       })
+    },
+    change2login () {
+      this.alert = false
+      this.registerMsg = ''
+      this.step = 'login'
+    },
+    change2register () {
+      this.step = 'register'
     }
   }
 
@@ -142,28 +129,50 @@ export default {
 
 <style lang="less" scoped>
 @import "../../assets/less/color.less";
+.container_position(@top, @left) {
+  background-color: @_sys-white;
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px @_sys-mid-gray;
+  padding: 0.8rem;
+  top: @top;
+  left: @left;
+}
 
 .login {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   user-select: none;
-  background: url("../../assets/img/entry_background.jpg") no-repeat;
-  background-size: cover;
-  background-position: center;
+  @media screen and (min-width: 450px) {
+    background: url("https://bebopfzj.oss-cn-hangzhou.aliyuncs.com/uPic/2020-03-21-z3bVKu.jpg")
+      no-repeat;
+    background-position: center
+  }
 
-  .container {
-    background-color: @_sys-white;
-    border-radius: 10px;
-    box-shadow: 1px 1px 3px @_sys-mid-gray;
-    padding: 1.2rem;
-    width: 400px;
-    position: absolute;
-    top: 15vh;
-    left: 20vw;
+  @media screen and (max-width: 450px) {
+    background: url("https://bebopfzj.oss-cn-hangzhou.aliyuncs.com/uPic/2020-03-21-wi8xB9.jpg")
+      no-repeat;
+  }
 
-    .entry-btn {
-      float: right;
-      margin-left: 0.6rem;
+  .entry-btn {
+    float: right;
+    margin-left: 0.6rem;
+  }
+
+  @media screen and (min-width: 450px) {
+    .container {
+      width: 25rem;
+      min-width: 10rem;
+      position: absolute;
+      .container_position(10rem, 14rem);
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    .container {
+      width: 18rem;
+      min-width: 10rem;
+      margin: 6rem auto;
+      .container_position(0, 0);
     }
   }
 }
