@@ -78,6 +78,7 @@ export default {
       }).then((res) => {
         if (res.status === 200) {
           if (res.data.msg === '登录成功') {
+            localStorage.setItem('token', res.data.token)
             this.$router.push('/')
           } else {
             if (res.data.msg === '密码错误') {
@@ -145,7 +146,7 @@ export default {
   @media screen and (min-width: 450px) {
     background: url("https://bebopfzj.oss-cn-hangzhou.aliyuncs.com/uPic/2020-03-21-z3bVKu.jpg")
       no-repeat;
-    background-position: center
+    background-position: center;
   }
 
   @media screen and (max-width: 450px) {

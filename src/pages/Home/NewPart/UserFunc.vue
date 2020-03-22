@@ -1,6 +1,6 @@
 <template>
   <div class="user-func-container">
-    <div class="user-name">{{userInfo.name}}</div>
+    <div class="user-name">{{userInfo.username}}</div>
     <v-btn text
            color="error"
            @click="logout">注销</v-btn>
@@ -8,25 +8,31 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import user from '../../../api/user'
+
 export default {
   name: 'UserFunc',
   created () {
-    this.userInfo.name = this.getUserInfo.name
+    this.fetchInfo()
   },
   computed: {
-    ...mapGetters('user', ['getUserInfo'])
   },
   data () {
     return {
       userInfo: {
-        name: ''
+        username: ''
       }
     }
   },
   methods: {
+    fetchInfo () {
+      user
+        .fetchUserInfo()
+        .then(res => {
+          this.userInfo.username = res.data.data.username
+        })
+    },
     logout () {
-      localStorage.removeItem('token')
       this.$router.push({
         path: '/entry'
       })
