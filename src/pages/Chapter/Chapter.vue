@@ -67,7 +67,8 @@ export default {
     },
 
     onDetail (item, index) {
-      sessionStorage.setItem('chapterArr', JSON.stringify(this.detail.chapterInfo))
+      sessionStorage.setItem('chapters', JSON.stringify(this.detail.chapterInfo))
+      sessionStorage.setItem('chapter', JSON.stringify(item))
       this.$router.push({
         name: 'Content'
       })

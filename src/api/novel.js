@@ -4,17 +4,14 @@ import {
 import qs from 'querystring'
 
 export default {
-  list (param) {
-    return axios.post(`/novel/light/list`, qs.stringify(param))
+  books (param) {
+    return axios.post(`/novel/books`, qs.stringify(param))
   },
-  book (param) {
-    return axios.get(`/novel/${param.bookId}/book`, {})
+  chapters (param) {
+    return axios.post(`/novel/chapters`, qs.stringify(param))
   },
-  chapter (param = {}) {
-    return axios.get(`/novel/${param.bookId}/chapters`, {})
-  },
-  content (param = {}) {
-    return axios.get(`/novel/${param.bookId}/${param.chapterId}/contents`, {})
+  contents (param) {
+    return axios.post(`/novel/contents`, qs.stringify(param))
   },
   addStar (param = {}) {
     return axios.post(`/novel/light/star`, qs.stringify(param))

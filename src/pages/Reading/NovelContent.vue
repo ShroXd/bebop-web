@@ -1,15 +1,7 @@
 <template>
   <div class="reading-container">
-    <!-- <div class="bread">
-      <div class="bread-name">位置：</div>
-      <v-breadcrumbs :items="items">
-        <template v-slot:divider>
-          <v-icon>mdi-forward</v-icon>
-        </template>
-      </v-breadcrumbs>
-    </div> -->
     <div class="reading">
-      <div class="chapter-name">{{chapterName}}</div>
+      <div class="chapter-name">{{chapter.chapter_name}}</div>
       <v-divider></v-divider>
       <div class="chapter-content"
            v-for="(content, index) in contents"
@@ -41,64 +33,28 @@
 
 <script>
 import novel from '../../api/novel'
-import { mapMutations, mapGetters } from 'vuex'
 
 export default {
-  props: {
-    bookId: {
-      type: String,
-      default: ''
-    },
-    chapterId: {
-      type: String,
-      default: ''
-    }
-  },
-  computed: {
-    ...mapGetters('novel', ['getChapterIndex', 'getChapters'])
-  },
+  name: 'Contents',
   created () {
-    this.currentChapterId = this.$route.query.chapterId
+    this.bookInfo = JSON.parse(sessionStorage.getItem('bookInfo'))
+    this.chapters = JSON.parse(sessionStorage.getItem('chapters'))
+    this.chapter = JSON.parse(sessionStorage.getItem('chapter'))
     this.fetchContents({
-      bookId: this.$route.query.bookId,
-      chapterId: this.$route.query.chapterId
+      bookName: this.bookInfo.bookName,
+      chapterId: this.chapter.chapter_id
     })
-    this.fetchBook(this.$route.query.bookId)
-    this.fetchChapter(this.$route.query.bookId)
-  },
-  mounted: function () {
-    this.$docElement = document.documentElement
-    this.$body = document.body
   },
   data () {
     return {
-      items: [
-        {
-          text: '首页',
-          disabled: false,
-          href: '/'
-        },
-        {
-          text: '11',
-          disabled: true,
-          href: '/#/chapter'
-        },
-        {
-          text: '',
-          disabled: true,
-          href: 'breadcrumbs_link_2'
-        }
-      ],
-      bookName: '',
-      chapterName: '',
-      id: '',
-      currentChapterId: '',
+      bookInfo: {},
+      chapters: {},
+      chapter: {},
       contents: [],
-      chapterArr: []
+      chapterIndex: ''
     }
   },
   methods: {
-    ...mapMutations('novel', ['setChapters', 'setChapterIndex']),
     toTop () {
       window.scrollTo({
         top: 0,
@@ -106,60 +62,38 @@ export default {
         behavior: 'smooth'
       })
     },
-    fetchBook (id) {
-      novel
-        .book({
-          bookId: id
-        })
-        .then((res) => {
-          if (res.data.code === '000000') {
-            this.bookName = res.data.data.bookName
-          }
-        })
-    },
-    fetchChapter (id) {
-      novel
-        .chapter({
-          bookId: id
-        })
-        .then((res) => {
-          if (res.data.code === '000000') {
-            this.chapterArr = res.data.data.rows
-          }
-        })
-    },
     fetchContents (query) {
       this.toTop()
-      novel.content(query)
+      novel.contents(query)
         .then((res) => {
-          if (res.data.code === '000000') {
-            this.chapterName = res.data.data.chapterName
-            this.contents = res.data.data.contents
-          }
+          this.contents = res.data.data.chapterContent
         })
     },
     fetchCurrentChapterIndex () {
-      let currentChapterIndex = this.chapterArr.findIndex(item => {
-        return item.chapter_id === this.currentChapterId
+      let currentChapterIndex = this.chapters.findIndex(item => {
+        return item.chapter_id === this.chapter.chapter_id
       })
+      console.log('currentChapterIndex', currentChapterIndex)
       return currentChapterIndex
     },
     preChapter () {
       if (this.fetchCurrentChapterIndex() > 0) {
         this.fetchContents({
-          bookId: this.$route.query.bookId,
-          chapterId: this.chapterArr[this.fetchCurrentChapterIndex() - 1].chapter_id
+          bookName: this.bookInfo.bookName,
+          chapterId: this.chapters[this.fetchCurrentChapterIndex() - 1].chapter_id
         })
-        this.currentChapterId = this.chapterArr[this.fetchCurrentChapterIndex() - 1].chapter_id
+        this.chapter = this.chapters[this.fetchCurrentChapterIndex() - 1]
+        sessionStorage.setItem('chapter', JSON.stringify(this.chapter))
       }
     },
     nextChapter () {
-      if (this.fetchCurrentChapterIndex() < this.chapterArr.length) {
+      if (this.fetchCurrentChapterIndex() < this.chapters.length) {
         this.fetchContents({
-          bookId: this.$route.query.bookId,
-          chapterId: this.chapterArr[this.fetchCurrentChapterIndex() + 1].chapter_id
+          bookName: this.bookInfo.bookName,
+          chapterId: this.chapters[this.fetchCurrentChapterIndex() + 1].chapter_id
         })
-        this.currentChapterId = this.chapterArr[this.fetchCurrentChapterIndex() + 1].chapter_id
+        this.chapter = this.chapters[this.fetchCurrentChapterIndex() + 1]
+        sessionStorage.setItem('chapter', JSON.stringify(this.chapter))
       }
     }
   }
