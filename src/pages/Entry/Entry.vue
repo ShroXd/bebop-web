@@ -79,6 +79,10 @@ export default {
         if (res.status === 200) {
           if (res.data.msg === '登录成功') {
             localStorage.setItem('token', res.data.token)
+            localStorage.setItem('user', JSON.stringify({
+              username: this.username,
+              userId: res.data.userId
+            }))
             this.$router.push('/')
           } else {
             if (res.data.msg === '密码错误') {
