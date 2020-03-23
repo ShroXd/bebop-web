@@ -52,6 +52,7 @@ export default {
     }
   },
   methods: {
+
     fetchNovelList (query) {
       this.novels = []
       novel
@@ -71,11 +72,9 @@ export default {
     },
 
     onDetail (item) {
+      sessionStorage.setItem('bookInfo', JSON.stringify(item))
       this.$router.push({
-        path: '/chapter',
-        query: {
-          bookId: item.bookId
-        }
+        name: 'Chapter'
       })
     },
 

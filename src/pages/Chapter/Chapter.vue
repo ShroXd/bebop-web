@@ -18,16 +18,16 @@
           <!-- <v-btn class="func-btn"
                  small
                  color="primary">全文阅读</v-btn> -->
-          <v-btn class="func-btn"
+          <!-- <v-btn class="func-btn"
                  small
                  color="primary"
-                 @click="addStar()">加入收藏</v-btn>
+                 @click="addStar()">加入收藏</v-btn> -->
         </div>
       </div>
     </div>
     <div class="chapters-container">
       <div class="chapters"
-           v-for="(chapter, index) in detail.rows"
+           v-for="(chapter, index) in detail.chapterInfo"
            :key="index"
            @click="onDetail(chapter, index)">
         {{chapter.chapter_name}}
@@ -38,16 +38,16 @@
 
 <script>
 import novel from '../../api/novel'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Chapter',
   computed: {
-    ...mapGetters('user', ['getUserInfo'])
+    ...mapGetters('novel', ['getBookInfo'])
   },
-  created () {
-    this.fetchBook(this.$route.query.bookId)
-    this.fetchChapter(this.$route.query.bookId)
+  mounted () {
+    this.info = JSON.parse(sessionStorage.getItem('bookInfo'))
+    this.fetchChapter(this.info.bookName)
   },
   data () {
     return {
@@ -56,41 +56,20 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('novel', ['setChapters', 'setChapterIndex']),
-
-    fetchBook (id) {
+    fetchChapter (bookName) {
       novel
-        .book({
-          bookId: id
+        .chapters({
+          bookName: bookName
         })
         .then((res) => {
-          if (res.data.code === '000000') {
-            this.info = res.data.data
-          }
-        })
-    },
-
-    fetchChapter (id) {
-      novel
-        .chapter({
-          bookId: id
-        })
-        .then((res) => {
-          if (res.data.code === '000000') {
-            this.detail = res.data.data
-            this.setChapters(res.data.data.rows)
-          }
+          this.detail = res.data.data
         })
     },
 
     onDetail (item, index) {
-      this.setChapterIndex(index)
+      sessionStorage.setItem('chapterArr', JSON.stringify(this.detail.chapterInfo))
       this.$router.push({
-        path: '/content',
-        query: {
-          bookId: this.$route.query.bookId,
-          chapterId: item.chapter_id
-        }
+        name: 'Content'
       })
     },
 
