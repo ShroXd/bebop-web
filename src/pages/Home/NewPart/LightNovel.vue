@@ -1,9 +1,14 @@
 <template>
   <div>
     <div class="novel-list-container">
+      <template v-if="novels.length === 0">
+        <v-skeleton-loader v-for="(item, index) in new Array(12)"
+                           :key="index"
+                           max-width="160"
+                           type="card"></v-skeleton-loader>
+      </template>
       <div v-for="(item, index) in novels"
            :key="index">
-
         <div class="novel-card"
              @click="onDetail(item)">
           <v-img class="novel-img"
@@ -18,64 +23,50 @@
           <div class="novel-title">{{item.bookName}}</div>
         </div>
       </div>
-      <v-pagination v-model="page"
-                    :length="totalPageNum"
-                    :total-visible="8"
-                    @input="fetchNovelList({name: name, page: page, limit: limit})"></v-pagination>
     </div>
-
-    <v-dialog v-model="dialog"
-              width="1300">
-      <detail-card :bookInfo.sync="bookInfo"
-                   v-if="dialog"
-                   @close="onClose"></detail-card>
-    </v-dialog>
+    <v-pagination v-model="page"
+                  :length="total"
+                  :total-visible="8"
+                  @input="fetchNovelList({bookName: bookName, listPage: page, listLimit: limit})"></v-pagination>
   </div>
 </template>
 
 <script>
 import { globalBus } from '../../../plugins/globalBus'
 import novel from '../../../api/novel'
-import DetailCard from '../../../components/DetailCard'
 
 export default {
   name: 'LightNovel',
-  components: {
-    DetailCard
-  },
   created () {
-    this.fetchNovelList({ page: 1, limit: this.limit })
+    this.fetchNovelList({ bookName: ' ', listPage: this.page, listLimit: this.limit })
     this.onSearch()
   },
   data () {
     return {
       novels: [],
-      detail: {},
-      info: {},
-      bookInfo: {},
-      name: '',
+      bookName: ' ',
       page: 1,
-      totalPageNum: 1,
+      total: 1,
       limit: 12,
       dialog: false
     }
   },
   methods: {
     fetchNovelList (query) {
+      this.novels = []
       novel
-        .list(query)
+        .books(query)
         .then(res => {
-          this.novels = res.data.data.rows
-          this.totalPageNum = res.data.data.total
-          globalBus.$emit('resetLoading')
+          this.novels = res.data.data
+          this.total = res.data.total
         })
     },
 
     onSearch () {
-      globalBus.$on('onSearch', (name) => {
-        this.name = name
+      globalBus.$on('onSearch', (bookName) => {
+        this.bookName = bookName
         this.page = 1
-        this.fetchNovelList({ name: name, page: 1, limit: this.limit })
+        this.fetchNovelList({ bookName: bookName, listPage: 1, listLimit: this.limit })
       })
     },
 
