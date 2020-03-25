@@ -1,5 +1,11 @@
 <template>
   <div class="page">
+    <v-snackbar v-model="isSnackbarShow"
+                :timeout='snackbarTimeout'
+                :color="snackbarColor"
+                :top="true">
+      {{snackbarText}}
+    </v-snackbar>
     <div class="book-detail">
       <div class="book-cover">
         <v-img :src="info.imageUrl"
@@ -18,10 +24,20 @@
           <!-- <v-btn class="func-btn"
                  small
                  color="primary">全文阅读</v-btn> -->
-          <!-- <v-btn class="func-btn"
+          <v-btn v-if="!isMarked"
+                 class="func-btn"
                  small
                  color="primary"
-                 @click="addStar()">加入收藏</v-btn> -->
+                 :loading="loading"
+                 :disabled="loading"
+                 @click="addBookMark()">加入收藏</v-btn>
+          <v-btn v-else
+                 class="func-btn"
+                 small
+                 color="primary"
+                 :loading="loading"
+                 :disabled="loading"
+                 @click="delBookMark()">取消收藏</v-btn>
         </div>
       </div>
     </div>
@@ -46,11 +62,20 @@ export default {
     ...mapGetters('novel', ['getBookInfo'])
   },
   mounted () {
+    this.userId = JSON.parse(localStorage.getItem('user'))['userId']
     this.info = JSON.parse(sessionStorage.getItem('bookInfo'))
     this.fetchChapter(this.info.bookName)
+    this.fetchBookMark()
   },
   data () {
     return {
+      loading: false,
+      userId: '',
+      isMarked: false,
+      isSnackbarShow: false,
+      snackbarColor: 'success',
+      snackbarTimeout: 2000,
+      snackbarText: '',
       info: {},
       detail: {}
     }
@@ -74,20 +99,71 @@ export default {
       })
     },
 
-    addStar () {
-      let param = {
-        userName: this.getUserInfo.name,
-        bookId: this.$route.query.bookId
-      }
-
-      console.log(JSON.stringify(param))
-
+    addBookMark () {
+      this.isSnackbarShow = false
+      this.loading = true
       novel
-        .addStar(param)
+        .addBookMark({
+          userId: this.userId,
+          bookName: this.detail.bookName
+        })
         .then(res => {
-          if (res.data.code === '000000') {
-            // some code
+          if (res.data.msg === '收藏成功') {
+            this.isMarked = !this.isMarked
+            this.isSnackbarShow = true
+            this.snackbarColor = 'success'
+            this.snackbarText = res.data.msg
+          } else {
+            this.isSnackbarShow = true
+            this.snackbarColor = 'error'
+            this.snackbarText = res.data.msg
           }
+        })
+        .finally(param => {
+          this.loading = false
+        })
+    },
+
+    delBookMark () {
+      this.isSnackbarShow = false
+      this.loading = true
+      novel
+        .delBookMark({
+          userId: this.userId,
+          bookName: this.detail.bookName
+        })
+        .then(res => {
+          if (res.data.msg === '删除成功') {
+            this.isMarked = !this.isMarked
+            this.isSnackbarShow = true
+            this.snackbarColor = 'success'
+            this.snackbarText = res.data.msg
+          } else {
+            this.isSnackbarShow = true
+            this.snackbarColor = 'error'
+            this.snackbarText = res.data.msg
+          }
+        })
+        .finally(param => {
+          this.loading = false
+        })
+    },
+
+    fetchBookMark () {
+      novel
+        .fetchBookMark({
+          userId: this.userId
+        })
+        .then(res => {
+          let result = res.data.data.filter(n => {
+            return n === this.info.bookName
+          })
+          console.log(this.info.bookName)
+          if (result.length !== 0) {
+            console.log('已经收藏过了')
+            this.isMarked = true
+          }
+          console.log(this.isMarked)
         })
     }
   }
