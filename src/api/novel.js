@@ -13,10 +13,20 @@ export default {
   contents (param) {
     return axios.post(`/novel/contents`, qs.stringify(param))
   },
-  addStar (param = {}) {
-    return axios.post(`/novel/light/star`, qs.stringify(param))
+  addBookMark (param) {
+    return axios.post('/mark/book/add', qs.stringify(param))
   },
-  fetchStar (param = {}) {
-    return axios.get(`/novel/light/${param.userName}/star`, {})
+  delBookMark (param) {
+    return axios.post('/mark/book/del', qs.stringify(param))
+  },
+  fetchBookMark (param) {
+    return axios.post('/mark/book/fetch', qs.stringify(param))
+  },
+  modifyReadingMark (param) {
+    return axios.post('/mark/reading/modify', qs.stringify(param))
+  },
+  fetchReadingMark (param) {
+    return axios.post('/mark/reading/fetch', qs.stringify(param))
   }
+
 }
