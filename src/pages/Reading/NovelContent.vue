@@ -17,11 +17,8 @@
              @click="preChapter()">上一章</v-btn>
       <v-btn class="func-btn"
              text
-             color="primary">目录</v-btn>
-      <v-btn class="func-btn"
-             text
-             disabled
-             color="primary">+ 书签</v-btn>
+             color="primary"
+             @click="jump2chapters()">目录</v-btn>
       <v-btn class="func-btn"
              text
              color="primary"
@@ -37,6 +34,7 @@ import novel from '../../api/novel'
 export default {
   name: 'Contents',
   created () {
+    this.userInfo = JSON.parse(localStorage.getItem('user'))
     this.bookInfo = JSON.parse(sessionStorage.getItem('bookInfo'))
     this.chapters = JSON.parse(sessionStorage.getItem('chapters'))
     this.chapter = JSON.parse(sessionStorage.getItem('chapter'))
@@ -47,6 +45,7 @@ export default {
   },
   data () {
     return {
+      userInfo: {},
       bookInfo: {},
       chapters: {},
       chapter: {},
@@ -67,6 +66,20 @@ export default {
       novel.contents(query)
         .then((res) => {
           this.contents = res.data.data.chapterContent
+        })
+        .finally(info => {
+          this.modifyReadingMark()
+        })
+    },
+    modifyReadingMark () {
+      novel
+        .modifyReadingMark({
+          userId: this.userInfo.userId,
+          bookName: this.bookInfo.bookName,
+          chapterId: this.chapter.chapter_id
+        })
+        .then(res => {
+          console.log(res)
         })
     },
     fetchCurrentChapterIndex () {
@@ -95,6 +108,11 @@ export default {
         this.chapter = this.chapters[this.fetchCurrentChapterIndex() + 1]
         sessionStorage.setItem('chapter', JSON.stringify(this.chapter))
       }
+    },
+    jump2chapters () {
+      this.$router.push({
+        name: 'Chapter'
+      })
     }
   }
 
