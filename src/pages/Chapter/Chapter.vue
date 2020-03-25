@@ -7,32 +7,34 @@
       {{snackbarText}}
     </v-snackbar>
     <div class="book-detail">
-      <div class="book-cover">
+      <div>
         <v-img :src="info.imageUrl"
                width="170"
                height="240"></v-img>
       </div>
-      <div class="book-info">
-        <div class="name">{{info.bookName}}</div>
+      <div>
+        <div class="book-name">{{info.bookName}}</div>
         <div class="detail-container">
-          <div class="detail">文库：{{info.bookCategory}}</div>
-          <div class="detail">字数：{{info.bookWordCount}} 字</div>
+          <div>文库：{{info.bookCategory}}</div>
+          <div>字数：{{info.bookWordCount}} 字</div>
         </div>
         <v-divider></v-divider>
-        <div class="synopsis">{{detail.bookIntro}}</div>
-        <div class="func-container">
+        <div v-if="detail.bookIntro"
+             class="synopsis">{{detail.bookIntro}}</div>
+        <v-skeleton-loader v-else
+                           class="synopsis"
+                           type="paragraph"></v-skeleton-loader>
+        <div>
           <!-- <v-btn class="func-btn"
                  small
-                 color="primary">全文阅读</v-btn> -->
+                 color="primary">继续阅读</v-btn> -->
           <v-btn v-if="!isMarked"
-                 class="func-btn"
                  small
                  color="primary"
                  :loading="loading"
                  :disabled="loading"
                  @click="addBookMark()">加入收藏</v-btn>
           <v-btn v-else
-                 class="func-btn"
                  small
                  color="primary"
                  :loading="loading"
@@ -41,8 +43,14 @@
         </div>
       </div>
     </div>
-    <div class="chapters-container">
-      <div class="chapters"
+    <div class="chapters">
+      <template v-if="!detail.chapterInfo">
+        <div v-for="(item, index) in new Array(16)"
+             :key=index>
+          <v-skeleton-loader type="list-item"></v-skeleton-loader>
+        </div>
+      </template>
+      <div v-else
            v-for="(chapter, index) in detail.chapterInfo"
            :key="index"
            @click="onDetail(chapter, index)">
@@ -61,7 +69,7 @@ export default {
   computed: {
     ...mapGetters('novel', ['getBookInfo'])
   },
-  mounted () {
+  created () {
     this.userId = JSON.parse(localStorage.getItem('user'))['userId']
     this.info = JSON.parse(sessionStorage.getItem('bookInfo'))
     this.fetchChapter(this.info.bookName)

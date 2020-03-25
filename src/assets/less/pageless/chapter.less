@@ -3,22 +3,24 @@
 .page {
   width: 1100px;
   margin: 0.6rem auto;
+  background-color: white;
 }
 
 .book-detail {
   border: 1px solid @_sys-mid-gray;
   display: flex;
   padding-right: 2rem;
+  border-radius: 1.2rem;
 
-  .book-cover {
+  & > div {
     margin: 2rem;
   }
 
-  .book-info {
+  & > div + div {
     margin: 2rem 0 2rem;
     width: 100%;
 
-    .name {
+    .book-name {
       display: inline-block;
       font-size: 1.5rem;
     }
@@ -26,47 +28,30 @@
     .detail-container {
       display: flex;
       margin-bottom: 1rem;
+      div {
+        margin: 0.7rem 2rem 0 0;
+        font-size: 0.8rem;
+        color: @_sys-gray;
+      }
     }
 
-    .detail {
-      margin: 0.7rem 2rem 0 0;
-      font-size: 0.8rem;
-      color: @_sys-gray;
-    }
-  }
-
-  .synopsis {
-    margin-top: 1rem;
-    height: 6rem;
-    overflow: scroll;
-  }
-
-  .func-container {
-    margin-top: 1rem;
-
-    .func-btn {
-      //margin-left: 2rem;
+    .synopsis {
+      margin: 1rem 0 1rem;
+      height: 6rem;
+      overflow: scroll;
     }
   }
 }
 
-.chapter-list {
+.chapters {
   border: 1px solid @_sys-mid-gray;
-  display: flex;
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding: 1rem;
-}
+  border-radius: 1.2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 
-.chapters-container {
-  border: 1px solid @_sys-mid-gray;
-  margin-top: 2rem;
-  padding: 1rem;
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-
-  .chapters {
+  & div {
     flex-basis: 33%;
     font-size: 0.8rem;
     color: @_sys-light-black;
@@ -74,12 +59,8 @@
     padding: 0.5rem 0;
   }
 
-  .chapters:hover {
+  & div:hover {
     cursor: pointer;
     color: @_sys-blue;
-  }
-
-  .item {
-    display: flex;
   }
 }
