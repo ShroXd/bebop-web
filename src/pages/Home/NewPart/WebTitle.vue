@@ -16,7 +16,7 @@ export default {
   name: 'WebTitle',
   methods: {
     JumpToBlog () {
-      window.open('http://bebop.top/', '_blank')
+      window.open('https://www.bebopser.com/', '_blank')
     }
   }
 }
