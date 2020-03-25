@@ -6,7 +6,7 @@
                 :top="true">
       {{snackbarText}}
     </v-snackbar>
-    <div class="book-detail">
+    <div class="book-info">
       <div>
         <v-img :src="info.imageUrl"
                width="170"
@@ -14,7 +14,7 @@
       </div>
       <div>
         <div class="book-name">{{info.bookName}}</div>
-        <div class="detail-container">
+        <div class="book-detail">
           <div>文库：{{info.bookCategory}}</div>
           <div>字数：{{info.bookWordCount}} 字</div>
         </div>
@@ -28,18 +28,14 @@
           <!-- <v-btn class="func-btn"
                  small
                  color="primary">继续阅读</v-btn> -->
-          <v-btn v-if="!isMarked"
-                 small
-                 color="primary"
+          <v-btn small
+                 color="primary">
+            {{ true ? `开始阅读` : `继续阅读`}}
+          </v-btn>
+          <v-btn small
                  :loading="loading"
                  :disabled="loading"
-                 @click="addBookMark()">加入收藏</v-btn>
-          <v-btn v-else
-                 small
-                 color="primary"
-                 :loading="loading"
-                 :disabled="loading"
-                 @click="delBookMark()">取消收藏</v-btn>
+                 @click="changeBookMark()">{{ isMarked ? `取消收藏` : `加入收藏`}}</v-btn>
         </div>
       </div>
     </div>
@@ -62,13 +58,9 @@
 
 <script>
 import novel from '../../api/novel'
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'Chapter',
-  computed: {
-    ...mapGetters('novel', ['getBookInfo'])
-  },
   created () {
     this.userId = JSON.parse(localStorage.getItem('user'))['userId']
     this.info = JSON.parse(sessionStorage.getItem('bookInfo'))
@@ -107,54 +99,56 @@ export default {
       })
     },
 
-    addBookMark () {
-      this.isSnackbarShow = false
-      this.loading = true
-      novel
-        .addBookMark({
-          userId: this.userId,
-          bookName: this.detail.bookName
-        })
-        .then(res => {
-          if (res.data.msg === '收藏成功') {
-            this.isMarked = !this.isMarked
-            this.isSnackbarShow = true
-            this.snackbarColor = 'success'
-            this.snackbarText = res.data.msg
-          } else {
-            this.isSnackbarShow = true
-            this.snackbarColor = 'error'
-            this.snackbarText = res.data.msg
-          }
-        })
-        .finally(param => {
-          this.loading = false
-        })
+    markSuccess (msg) {
+      this.isMarked = !this.isMarked
+      this.isSnackbarShow = true
+      this.snackbarColor = 'success'
+      this.snackbarText = msg
     },
 
-    delBookMark () {
+    markFail (msg) {
+      this.isSnackbarShow = true
+      this.snackbarColor = 'error'
+      this.snackbarText = msg
+    },
+
+    changeBookMark () {
       this.isSnackbarShow = false
       this.loading = true
-      novel
-        .delBookMark({
-          userId: this.userId,
-          bookName: this.detail.bookName
-        })
-        .then(res => {
-          if (res.data.msg === '删除成功') {
-            this.isMarked = !this.isMarked
-            this.isSnackbarShow = true
-            this.snackbarColor = 'success'
-            this.snackbarText = res.data.msg
-          } else {
-            this.isSnackbarShow = true
-            this.snackbarColor = 'error'
-            this.snackbarText = res.data.msg
-          }
-        })
-        .finally(param => {
-          this.loading = false
-        })
+
+      if (this.isMarked) {
+        novel
+          .delBookMark({
+            userId: this.userId,
+            bookName: this.detail.bookName
+          })
+          .then(res => {
+            if (res.data.msg === '删除成功') {
+              this.markSuccess(res.data.msg)
+            } else {
+              this.markFail(res.data.msg)
+            }
+          })
+          .finally(param => {
+            this.loading = false
+          })
+      } else {
+        novel
+          .addBookMark({
+            userId: this.userId,
+            bookName: this.detail.bookName
+          })
+          .then(res => {
+            if (res.data.msg === '收藏成功') {
+              this.markSuccess(res.data.msg)
+            } else {
+              this.markFail(res.data.msg)
+            }
+          })
+          .finally(param => {
+            this.loading = false
+          })
+      }
     },
 
     fetchBookMark () {
@@ -166,12 +160,9 @@ export default {
           let result = res.data.data.filter(n => {
             return n === this.info.bookName
           })
-          console.log(this.info.bookName)
           if (result.length !== 0) {
-            console.log('已经收藏过了')
             this.isMarked = true
           }
-          console.log(this.isMarked)
         })
     }
   }
