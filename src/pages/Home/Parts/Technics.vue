@@ -41,7 +41,6 @@
              sm="4"
              v-for="(item, index) in results"
              :key="index">
-
         <v-card class="card"
                 max-width="344">
           <v-card-subtitle>{{classify}}</v-card-subtitle>

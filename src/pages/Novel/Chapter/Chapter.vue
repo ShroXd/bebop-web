@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import novel from '../../api/novel'
+import novel from '../../../api/novel'
 
 export default {
   name: 'Chapter',
@@ -196,5 +196,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/less/pageless/chapter.less";
+@import "../../../assets/less/pageless/chapter.less";
 </style>

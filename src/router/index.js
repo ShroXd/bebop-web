@@ -30,12 +30,12 @@ const router = new Router({
     {
       path: '/chapter',
       name: 'Chapter',
-      component: () => import('../pages/Chapter/Chapter.vue')
+      component: () => import('../pages/Novel/Chapter/Chapter.vue')
     },
     {
       path: '/content',
       name: 'Content',
-      component: () => import('../pages/Reading/NovelContent.vue')
+      component: () => import('../pages/Novel/Reading/Reading.vue')
     }
     ]
   }

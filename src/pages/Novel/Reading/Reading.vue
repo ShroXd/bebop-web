@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import novel from '../../api/novel'
+import novel from '../../../api/novel'
 
 export default {
-  name: 'Contents',
+  name: 'Reading',
   created () {
     this.userInfo = JSON.parse(localStorage.getItem('user'))
     this.bookInfo = JSON.parse(sessionStorage.getItem('bookInfo'))
@@ -121,7 +121,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/less/pageless/reading.less";
+@import "../../../assets/less/pageless/reading.less";
 
 .overlay {
   width: 100px;

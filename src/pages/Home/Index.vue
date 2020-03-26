@@ -28,11 +28,11 @@
 </template>
 
 <script>
-import UserFunc from './NewPart/UserFunc'
-import WebTitle from './NewPart/WebTitle'
-import LightNovel from './NewPart/LightNovel'
-import XianDu from './NewPart/XianDu'
-import Technics from './NewPart/Technics'
+import UserFunc from './Parts/UserFunc'
+import WebTitle from './Parts/WebTitle'
+import LightNovel from './Parts/LightNovel'
+import XianDu from './Parts/XianDu'
+import Technics from './Parts/Technics'
 
 export default {
   name: 'Novel',
