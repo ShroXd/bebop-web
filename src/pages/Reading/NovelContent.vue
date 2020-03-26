@@ -75,7 +75,6 @@ export default {
     modifyReadingMark () {
       novel
         .modifyReadingMark({
-          userId: this.userInfo.userId,
           bookName: this.bookInfo.bookName,
           chapterId: this.chapter.chapter_id
         })

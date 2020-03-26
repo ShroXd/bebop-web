@@ -80,8 +80,7 @@ export default {
           if (res.data.msg === '登录成功') {
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('user', JSON.stringify({
-              username: this.username,
-              userId: res.data.userId
+              username: this.username
             }))
             this.$router.push('/')
           } else {

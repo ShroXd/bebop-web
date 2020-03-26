@@ -64,7 +64,6 @@ import novel from '../../api/novel'
 export default {
   name: 'Chapter',
   created () {
-    this.userId = JSON.parse(localStorage.getItem('user'))['userId']
     this.info = JSON.parse(sessionStorage.getItem('bookInfo'))
     this.fetchChapter(this.info.bookName)
     this.fetchBookMark()
@@ -73,7 +72,6 @@ export default {
   data () {
     return {
       loading: false,
-      userId: '',
       isMarked: false,
       hasReadingRecord: false,
       readingRecord: '',
@@ -137,7 +135,6 @@ export default {
       if (this.isMarked) {
         novel
           .delBookMark({
-            userId: this.userId,
             bookName: this.detail.bookName
           })
           .then(res => {
@@ -153,7 +150,6 @@ export default {
       } else {
         novel
           .addBookMark({
-            userId: this.userId,
             bookName: this.detail.bookName
           })
           .then(res => {
@@ -171,9 +167,7 @@ export default {
 
     fetchBookMark () {
       novel
-        .fetchBookMark({
-          userId: this.userId
-        })
+        .fetchBookMark()
         .then(res => {
           let result = res.data.data.filter(n => {
             return n === this.info.bookName
@@ -186,9 +180,7 @@ export default {
 
     fetchReadingMark () {
       novel
-        .fetchReadingMark({
-          userId: this.userId
-        })
+        .fetchReadingMark()
         .then(res => {
           let result = res.data.data.filter(n => {
             return n.bookName === this.info.bookName

@@ -19,13 +19,13 @@ export default {
   delBookMark (param) {
     return axios.post('/mark/book/del', qs.stringify(param))
   },
-  fetchBookMark (param) {
+  fetchBookMark (param = {}) {
     return axios.post('/mark/book/fetch', qs.stringify(param))
   },
   modifyReadingMark (param) {
     return axios.post('/mark/reading/modify', qs.stringify(param))
   },
-  fetchReadingMark (param) {
+  fetchReadingMark (param = {}) {
     return axios.post('/mark/reading/fetch', qs.stringify(param))
   }
 
