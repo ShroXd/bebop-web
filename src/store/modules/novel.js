@@ -1,7 +1,8 @@
 // state
 const state = {
   chapters: [],
-  chapterIndex: '0'
+  chapterIndex: '0',
+  bookInfo: {}
 }
 
 // getters
@@ -11,6 +12,9 @@ const getters = {
   },
   getChapterIndex (state) {
     return state.chapterIndex
+  },
+  getBookInfo (state) {
+    return state.bookInfo
   }
 }
 
@@ -21,6 +25,9 @@ const mutations = {
   },
   setChapterIndex (state, index) {
     state.chapterIndex = index
+  },
+  setBookInfo (state, info) {
+    state.bookInfo = info
   }
 }
 
