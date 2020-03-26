@@ -1,50 +1,66 @@
 @import "../color.less";
 
-.reading-container {
-  background-color: @_sys-light-gray;
-}
+@media screen and (min-width: 450px) {
+  .reading {
+    width: 65vw;
+    & > div:nth-child(1) {
+      font-size: 2.4rem;
+    }
+    & :last-child {
+      font-size: 1.2rem;
+      line-height: 2.4rem;
+    }
+  }
 
-.bread {
-  margin: 0 auto;
-  width: 1000px;
-  display: flex;
-
-  .bread-name {
-    color: @_sys-gray;
-    font-size: 0.8rem;
-    display: inline-block;
-    padding: 18px 0 18px 12px;
+  .func-container {
+    width: 65vw;
   }
 }
 
+@media screen and (max-width: 450px) {
+  .reading {
+    width: 100vw;
+    & > div:nth-child(1) {
+      font-size: 1.5rem;
+    }
+    & :last-child {
+      font-size: 1rem;
+      line-height: 1.8rem;
+    }
+  }
+
+  .func-container {
+    width: 100vw;
+  }
+}
+
+.reading-container {
+  background-color: @_sys-light-gray;
+  min-height: 100%;
+  min-width: 100%;
+  padding-bottom: 1.2rem;
+}
+
 .reading {
-  width: 1000px;
   margin: auto;
   padding: 1rem 2rem 2rem;
   background-color: @_sys-super-light-gray;
+
+  & > div:nth-child(1) {
+    margin: 1rem auto 1rem;
+    text-align: center;
+    font-weight: bold;
+  }
 }
 
-.chapter-name {
-  font-size: 2.4rem;
-  margin: 1rem auto;
-  text-align: center;
-}
-
-.chapter-content {
-  margin-top: 1rem;
+.divider {
+    margin: 1rem 0 1rem;
 }
 
 .func-container {
   background-color: @_sys-super-light-gray;
-  width: 1000px;
   margin: 0.8rem auto 0;
-  height: 3rem;
+  padding: 0.4rem;
   display: flex;
   justify-content: space-around;
-  align-items: center;
-}
-
-.placeholder {
-  background-color: @_sys-light-gray;
-  height: 1rem;
 }
