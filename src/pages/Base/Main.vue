@@ -26,8 +26,8 @@ export default {
 <style lang="less" scoped>
 .main {
   overflow: scroll;
-  //height: e("calc(100vh)");
   background-image: url(https://bebopfzj.oss-cn-hangzhou.aliyuncs.com/uPic/2020-03-12-vEZGY5.png);
+  background-size: 100% 100%;
   height: 100vh;
   width: 100vw;
 }
