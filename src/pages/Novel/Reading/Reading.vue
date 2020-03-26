@@ -1,30 +1,31 @@
 <template>
   <div class="reading-container">
     <div class="reading">
-      <div class="chapter-name">{{chapterName}}</div>
-      <v-divider></v-divider>
-      <div class="chapter-content"
-           v-for="(content, index) in contents"
+      <div>
+        <v-skeleton-loader v-if="!chapterName"
+                           type="heading"></v-skeleton-loader>{{chapterName}}
+      </div>
+
+      <v-divider class="divider"></v-divider>
+      <v-skeleton-loader v-if="contents.length === 0"
+                           type="paragraph@12"></v-skeleton-loader>
+      <div v-for="(content, index) in contents"
            :key="index">
         <div>{{content}}</div>
       </div>
     </div>
     <div class="func-container"
          ref="func">
-      <v-btn class="func-btn"
-             text
+      <v-btn text
              color="primary"
              @click="preChapter()">上一章</v-btn>
-      <v-btn class="func-btn"
-             text
+      <v-btn text
              color="primary"
              @click="jump2chapters()">目录</v-btn>
-      <v-btn class="func-btn"
-             text
+      <v-btn text
              color="primary"
              @click="nextChapter()">下一章</v-btn>
     </div>
-    <div class="placeholder"></div>
   </div>
 </template>
 
