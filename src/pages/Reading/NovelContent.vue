@@ -1,7 +1,7 @@
 <template>
   <div class="reading-container">
     <div class="reading">
-      <div class="chapter-name">{{chapter.chapter_name}}</div>
+      <div class="chapter-name">{{chapterName}}</div>
       <v-divider></v-divider>
       <div class="chapter-content"
            v-for="(content, index) in contents"
@@ -48,7 +48,7 @@ export default {
       userInfo: {},
       bookInfo: {},
       chapters: {},
-      chapter: {},
+      chapterName: '',
       contents: [],
       chapterIndex: ''
     }
@@ -66,6 +66,7 @@ export default {
       novel.contents(query)
         .then((res) => {
           this.contents = res.data.data.chapterContent
+          this.chapterName = res.data.data.chapterName
         })
         .finally(info => {
           this.modifyReadingMark()

@@ -28,9 +28,11 @@
           <!-- <v-btn class="func-btn"
                  small
                  color="primary">继续阅读</v-btn> -->
-          <v-btn small
-                 color="primary">
-            {{ true ? `开始阅读` : `继续阅读`}}
+          <v-btn class="reading-btn"
+                 small
+                 color="primary"
+                 @click="onReading()">
+            {{ hasReadingRecord ? `继续阅读` : `开始阅读`}}
           </v-btn>
           <v-btn small
                  :loading="loading"
@@ -66,12 +68,15 @@ export default {
     this.info = JSON.parse(sessionStorage.getItem('bookInfo'))
     this.fetchChapter(this.info.bookName)
     this.fetchBookMark()
+    this.fetchReadingMark()
   },
   data () {
     return {
       loading: false,
       userId: '',
       isMarked: false,
+      hasReadingRecord: false,
+      readingRecord: '',
       isSnackbarShow: false,
       snackbarColor: 'success',
       snackbarTimeout: 2000,
@@ -93,7 +98,20 @@ export default {
 
     onDetail (item, index) {
       sessionStorage.setItem('chapters', JSON.stringify(this.detail.chapterInfo))
-      sessionStorage.setItem('chapter', JSON.stringify(item))
+      sessionStorage.setItem('chapter', JSON.stringify({
+        chapter_id: item.chapter_id
+      }))
+      this.$router.push({
+        name: 'Content'
+      })
+    },
+
+    onReading () {
+      sessionStorage.setItem('chapters', JSON.stringify(this.detail.chapterInfo))
+      sessionStorage.setItem('chapter', JSON.stringify({
+        chapter_id: this.readingRecord.chapterMarks || this.detail.chapterInfo[0].chapter_id
+      }))
+
       this.$router.push({
         name: 'Content'
       })
@@ -164,9 +182,24 @@ export default {
             this.isMarked = true
           }
         })
+    },
+
+    fetchReadingMark () {
+      novel
+        .fetchReadingMark({
+          userId: this.userId
+        })
+        .then(res => {
+          let result = res.data.data.filter(n => {
+            return n.bookName === this.info.bookName
+          })
+          if (result.length !== 0) {
+            this.hasReadingRecord = true
+            this.readingRecord = result[0]
+          }
+        })
     }
   }
-
 }
 </script>
 
