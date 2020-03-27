@@ -1,23 +1,65 @@
 @import "../color.less";
 
+@media screen and (min-width: 450px) {
+  .page {
+    width: 65vw;
+  }
+
+  .book-info {
+    padding-right: 2rem;
+
+    & > div {
+      margin: 2rem;
+    }
+
+    & > div + div {
+      margin: 2rem 0 2rem;
+
+      .synopsis {
+        height: 6rem;
+        overflow: scroll;
+      }
+    }
+  }
+
+  .chapters {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .page {
+    width: 95vw;
+  }
+
+  .book-info {
+    padding: 0.8rem;
+
+    .book-img {
+      display: none;
+    }
+
+    & > div + div {
+      margin: 0.4rem 0 0.4rem;
+    }
+  }
+
+  .chapters {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
 .page {
-  width: 1100px;
   margin: 0.6rem auto;
   background-color: white;
 }
 
 .book-info {
-  border: 1px solid @_sys-mid-gray;
   display: flex;
-  padding-right: 2rem;
+  border: 1px solid @_sys-mid-gray;
   border-radius: 1.2rem;
 
-  & > div {
-    margin: 2rem;
-  }
-
   & > div + div {
-    margin: 2rem 0 2rem;
     width: 100%;
 
     .book-name {
@@ -37,12 +79,10 @@
 
     .synopsis {
       margin: 1rem 0 1rem;
-      height: 6rem;
-      overflow: scroll;
     }
-    
+
     .reading-btn {
-        margin-right: .6rem;
+      margin-right: 0.6rem;
     }
   }
 }
@@ -53,7 +93,6 @@
   padding: 1rem;
   border-radius: 1.2rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
 
   & div {
     flex-basis: 33%;

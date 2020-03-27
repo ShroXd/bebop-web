@@ -7,7 +7,7 @@
       {{snackbarText}}
     </v-snackbar>
     <div class="book-info">
-      <div>
+      <div class="book-img">
         <v-img :src="info.imageUrl"
                width="170"
                height="240"></v-img>
