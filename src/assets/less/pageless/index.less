@@ -2,7 +2,7 @@
 
 @media screen and (min-width: 450px) {
   .portal {
-    width: 63vw;
+    width: 65vw;
   }
 
   // 轻小说
@@ -10,6 +10,7 @@
     display: flex;
     flex-wrap: wrap;
     margin: 1.4rem 0 1.4rem 1.4rem;
+    padding: 1rem;
 
     .novel-card {
       width: 9rem;
@@ -61,6 +62,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     margin-top: 2rem;
+    padding: 1rem 0;
 
     .mask {
       display: none;
@@ -126,20 +128,26 @@
   margin-top: 0.6rem;
 }
 
-.novel-card {
-  box-sizing: border-box;
-  margin: 0.4rem 0.8rem;
+.novel-list-container {
+  border-radius: 15px;
+  border: 1px solid @_sys-super-light-gray;
+  background-color: white;
 
-  .novel-title {
-    width: 8rem;
-    margin: 0.6rem auto;
-    font-size: 0.9rem;
-    color: @_sys-mid-black;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .novel-card {
+    box-sizing: border-box;
+    margin: 0.4rem 0.8rem;
 
-  .novel-img {
-    margin: 0 auto;
+    .novel-title {
+      width: 8rem;
+      margin: 0.6rem auto;
+      font-size: 0.9rem;
+      color: @_sys-mid-black;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .novel-img {
+      margin: 0 auto;
+    }
   }
 }
