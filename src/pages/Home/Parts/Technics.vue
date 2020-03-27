@@ -141,4 +141,25 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../assets/less/pageless/index.less";
+
+.technics-container {
+  padding-left: 1rem;
+
+  .func-btn-container {
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .func-btn {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 1rem;
+    }
+  }
+  .card-des {
+    height: 80px;
+    overflow: scroll;
+  }
+}
 </style>
