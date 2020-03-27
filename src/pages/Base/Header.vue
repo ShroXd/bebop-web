@@ -21,17 +21,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/less/color.less";
-
-.navbar {
-  padding-left: 1rem;
-  padding-right: 1rem;
-  background-color: @_sys-white;
-  color: @_sys-black;
-  font-weight: 400;
-
-  .text {
-    color: @_sys-black;
-  }
-}
+@import "../../assets/less/pageless/header.less";
 </style>

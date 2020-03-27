@@ -46,7 +46,7 @@ export default {
       bookName: ' ',
       page: 1,
       total: 1,
-      limit: 14,
+      limit: 21,
       dialog: false
     }
   },

@@ -128,56 +128,8 @@ export default {
   }
 
 }
-
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/less/color.less";
-.container_position(@top, @left) {
-  background-color: @_sys-white;
-  border-radius: 10px;
-  box-shadow: 1px 1px 3px @_sys-mid-gray;
-  padding: 0.8rem;
-  top: @top;
-  left: @left;
-}
-
-.login {
-  height: 100%;
-  width: 100%;
-  user-select: none;
-  @media screen and (min-width: 450px) {
-    background: url("https://bebopfzj.oss-cn-hangzhou.aliyuncs.com/uPic/2020-03-21-z3bVKu.jpg")
-      no-repeat;
-    background-position: center;
-  }
-
-  @media screen and (max-width: 450px) {
-    background: url("https://bebopfzj.oss-cn-hangzhou.aliyuncs.com/uPic/2020-03-21-wi8xB9.jpg")
-      no-repeat;
-  }
-
-  .entry-btn {
-    float: right;
-    margin-left: 0.6rem;
-  }
-
-  @media screen and (min-width: 450px) {
-    .container {
-      width: 25rem;
-      min-width: 10rem;
-      position: absolute;
-      .container_position(10rem, 14rem);
-    }
-  }
-
-  @media screen and (max-width: 450px) {
-    .container {
-      width: 18rem;
-      min-width: 10rem;
-      margin: 6rem auto;
-      .container_position(0, 0);
-    }
-  }
-}
+@import ".../../../../assets/less/pageless/entry.less";
 </style>

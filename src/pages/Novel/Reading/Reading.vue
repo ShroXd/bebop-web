@@ -127,9 +127,4 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../assets/less/pageless/reading.less";
-
-.overlay {
-  width: 100px;
-  height: 100vh;
-}
 </style>

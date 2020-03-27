@@ -24,11 +24,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.main {
-  overflow: scroll;
-  background-image: url(https://bebopfzj.oss-cn-hangzhou.aliyuncs.com/uPic/2020-03-12-vEZGY5.png);
-  background-size: 100% 100%;
-  height: 100vh;
-  width: 100vw;
-}
+@import "../../assets/less/pageless/main.less";
 </style>
