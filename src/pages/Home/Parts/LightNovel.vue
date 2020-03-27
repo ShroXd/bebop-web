@@ -1,12 +1,11 @@
 <template>
   <div>
     <div class="novel-list-container">
-      <template v-if="novels.length === 0">
-        <v-skeleton-loader v-for="(item, index) in new Array(12)"
-                           :key="index"
-                           max-width="160"
+      <div class="novel-card"
+           v-if="novels.length === 0">
+        <v-skeleton-loader max-width="160"
                            type="card"></v-skeleton-loader>
-      </template>
+      </div>
       <div v-for="(item, index) in novels"
            :key="index">
         <div class="novel-card"
@@ -47,7 +46,7 @@ export default {
       bookName: ' ',
       page: 1,
       total: 1,
-      limit: 12,
+      limit: 14,
       dialog: false
     }
   },
