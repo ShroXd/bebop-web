@@ -1,8 +1,22 @@
 <template>
-  <div>
-    <div class="novel-list-container">
+  <div class="novel-container">
+    <div class="novel-search">
+      <v-text-field v-model="bookName"
+                    :loading="loading"
+                    @change="onSearch(bookName)"
+                    label="搜索小说"
+                    clearable
+                    dense></v-text-field>
+      <div class="novel-search-btn">
+        <v-btn color="primary"
+               @click="onSearch(bookName)">搜索</v-btn>
+        <v-btn @click="onSearch()">重置</v-btn>
+      </div>
+    </div>
+    <div class="novel-list">
+      <span v-if="novels.length === 0 && !loading">暂无资源</span>
       <div class="novel-card"
-           v-if="novels.length === 0">
+           v-if="novels.length === 0 && loading">
         <v-skeleton-loader max-width="160"
                            type="card"></v-skeleton-loader>
       </div>
@@ -22,37 +36,37 @@
           <div class="novel-title">{{item.bookName}}</div>
         </div>
       </div>
+      <v-pagination v-model="page"
+                    :length="total"
+                    :total-visible="8"
+                    @input="fetchNovelList({bookName: bookName, listPage: page, listLimit: limit})"></v-pagination>
     </div>
-    <v-pagination v-model="page"
-                  :length="total"
-                  :total-visible="8"
-                  @input="fetchNovelList({bookName: bookName, listPage: page, listLimit: limit})"></v-pagination>
   </div>
 </template>
 
 <script>
-import { globalBus } from '../../../plugins/globalBus'
 import novel from '../../../api/novel'
 
 export default {
   name: 'LightNovel',
   created () {
-    this.fetchNovelList({ bookName: ' ', listPage: this.page, listLimit: this.limit })
-    this.onSearch()
+    this.fetchNovelList({ bookName: '', listPage: this.page, listLimit: this.limit })
   },
   data () {
     return {
+      bookName: '',
+      loading: false,
       novels: [],
-      bookName: ' ',
       page: 1,
       total: 1,
-      limit: 21,
+      limit: 20,
       dialog: false
     }
   },
   methods: {
 
     fetchNovelList (query) {
+      this.loading = true
       this.novels = []
       novel
         .books(query)
@@ -60,14 +74,15 @@ export default {
           this.novels = res.data.data
           this.total = res.data.total
         })
+        .finally(e => {
+          this.loading = false
+        })
     },
 
-    onSearch () {
-      globalBus.$on('onSearch', (bookName) => {
-        this.bookName = bookName
-        this.page = 1
-        this.fetchNovelList({ bookName: bookName, listPage: 1, listLimit: this.limit })
-      })
+    onSearch (bookName) {
+      this.bookName = bookName
+      this.page = 1
+      this.fetchNovelList({ bookName: bookName, listPage: 1, listLimit: this.limit })
     },
 
     onDetail (item) {
