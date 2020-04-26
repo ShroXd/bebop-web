@@ -1,9 +1,9 @@
 <template>
   <div class="head-component">
-    <div class="web-title">蛟龍情義點交易會</div>
-    <div class="des">技术信息以及其他乱七八糟的数据聚合</div>
+    <div class="web-title">接 头 霸 王</div>
+    <div class="des">凯露世界第一可爱！</div>
 
-    <v-img :src="require('../../../assets/img/qiezi_dai_kou_zhao.jpg')"
+    <v-img src="https://bebopfzj.oss-cn-hangzhou.aliyuncs.com/uPic/2020-04-26-nUvAU1.jpg"
            height="100"
            width="100"></v-img>
     <div class="blog-url"
