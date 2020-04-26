@@ -25,9 +25,6 @@
                            class="synopsis"
                            type="paragraph"></v-skeleton-loader>
         <div>
-          <!-- <v-btn class="func-btn"
-                 small
-                 color="primary">继续阅读</v-btn> -->
           <v-btn class="reading-btn"
                  small
                  color="primary"
@@ -169,7 +166,7 @@ export default {
       novel
         .fetchBookMark()
         .then(res => {
-          let result = res.data.data.filter(n => {
+          let result = res.data.data.bookCollections.filter(n => {
             return n === this.info.bookName
           })
           if (result.length !== 0) {
