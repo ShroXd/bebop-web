@@ -3,13 +3,21 @@
     <user-func></user-func>
     <web-title></web-title>
     <v-divider></v-divider>
-    <light-novel></light-novel>
+    <div class="portal-main">
+      <div>
+        <!-- <recommend></recommend> -->
+        <func-part></func-part>
+      </div>
+      <light-novel></light-novel>
+    </div>
   </div>
 </template>
 
 <script>
 import UserFunc from './Parts/UserFunc'
 import WebTitle from './Parts/WebTitle'
+import Recommend from './Parts/Recommend'
+import FuncPart from './Parts/FuncPart'
 import LightNovel from './Parts/LightNovel'
 import XianDu from './Parts/XianDu'
 
@@ -18,6 +26,8 @@ export default {
   components: {
     UserFunc,
     WebTitle,
+    Recommend,
+    FuncPart,
     LightNovel,
     XianDu
   }

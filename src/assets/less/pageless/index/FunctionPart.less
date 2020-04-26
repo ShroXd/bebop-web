@@ -1,0 +1,61 @@
+@import "../../color.less";
+
+.func {
+  margin: 1.4rem 0 1.4rem 1.4rem;
+  padding: 1rem;
+  width: 30rem;
+  background-color: white;
+  border: 1px solid @_sys-super-light-gray;
+  border-radius: 15px;
+  font-size: 1.1rem;
+
+  &-search {
+    height: 10rem;
+    border-bottom: 1px solid @_sys-mid-gray;
+    padding: 0.8rem;
+
+    &:before {
+      content: "搜索";
+      font-size: 1.4rem;
+      color: @_sys-gray;
+      margin-bottom: 1.4rem;
+    }
+  }
+
+  &-mark {
+    padding: 0.8rem;
+    border-bottom: 1px solid @_sys-mid-gray;
+    
+    &:before {
+      content: "已收藏";
+      font-size: 1.4rem;
+      color: @_sys-gray;
+    }
+  }
+
+  &-recent {
+    padding: 0.8rem;
+
+    &:before {
+      content: "最近阅读";
+      font-size: 1.4rem;
+      color: @_sys-gray;
+    }
+  }
+}
+
+.list-index {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #1a76d3;
+    width: 1.8rem;
+    line-height: 2.2rem;
+
+    & + span {
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
