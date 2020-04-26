@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import router from '../../router'
 
 const config = {
   baseURL: `/api`,
@@ -12,16 +13,34 @@ const config = {
 const axios = Axios.create(config)
 
 // 全局劫持，附带 token
-axios.interceptors.request.use(config => {
-  let token = localStorage.getItem('token')
+axios.interceptors.request.use(
+  config => {
+    let token = localStorage.getItem('token')
 
-  if (token) {
-    config.headers.common.Authorization = token
-  }
-  return config
-}, err => {
-  return Promise.reject(err)
-})
+    if (token) {
+      config.headers.common.Authorization = token
+    }
+    return config
+  },
+  err => {
+    return Promise.reject(err)
+  })
+
+// 拦截未登录状况
+axios.interceptors.response.use(
+  res => {
+    if (res.data.msg === '登录已过期') {
+      router.replace({
+        name: 'Entry'
+      })
+      return res
+    } else {
+      return res
+    }
+  },
+  err => {
+    console.log(err)
+  })
 
 export {
   axios

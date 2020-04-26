@@ -50,13 +50,8 @@ router.beforeEach((to, from, next) => {
 
   const token = localStorage.getItem('token')
   if (!token) {
-    // 清除登录信息
-    // 强制推入 entry
-
     next({ path: '/entry' })
   } else {
-    // vuex 存储 userInfo
-
     next()
   }
 })
