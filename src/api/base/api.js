@@ -1,8 +1,9 @@
 import Axios from 'axios'
 import router from '../../router'
+import envConfig from '../../config'
 
 const config = {
-  baseURL: `/api`,
+  baseURL: `${envConfig.server}`,
   timeout: 60000,
   responseType: 'json',
   headers: {
