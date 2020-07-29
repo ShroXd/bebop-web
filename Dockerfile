@@ -7,6 +7,7 @@ RUN npm install --registry=https://registry.npm.taobao.org
 RUN npm run build
 
 FROM nginx:stable-alpine
+COPY --from=build-stage /code/nginx.conf /etc/nginx/nginx.conf
 COPY --from=build-stage /code/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

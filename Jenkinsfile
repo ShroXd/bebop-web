@@ -25,8 +25,8 @@ node {
           echo '运行容器失败'
           sh 'docker stop novelweb'
           sh 'docker rm novelweb'
-          sh 'docker run -p 18080:8080 --name novelweb -d novelweb'
+          sh 'docker run -p 18080:80 --name novelweb -d novelweb'
         }
     }
-   
+
 }
