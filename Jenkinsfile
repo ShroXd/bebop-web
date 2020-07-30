@@ -19,7 +19,7 @@ node {
 
     stage('Deploy') {
         try {
-          sh 'docker run -p 18080:8080 --name novelweb -d novelweb'
+          sh 'docker run -p 18080:80 --name novelweb -d novelweb'
         }
         catch (exc) {
           echo '运行容器失败'
