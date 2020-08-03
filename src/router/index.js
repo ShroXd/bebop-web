@@ -36,6 +36,11 @@ const router = new Router({
       path: '/content',
       name: 'Content',
       component: () => import('../pages/Novel/Reading/Reading.vue')
+    },
+    {
+      path: '/user',
+      name: 'User',
+      component: () => import('../pages/User/User.vue')
     }
     ]
   }
