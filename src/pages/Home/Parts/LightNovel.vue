@@ -49,6 +49,11 @@ export default {
   created () {
     this.fetchNovelList({bookName: '', listPage: this.page, listLimit: this.limit})
   },
+  mounted () {
+    this.$EventBus.$on('search', (name) => {
+      this.onSearch(name)
+    })
+  },
   data () {
     return {
       bookName: '',

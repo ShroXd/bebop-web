@@ -23,7 +23,12 @@
 
 <script>
 export default {
-  name: 'HeadBar'
+  name: 'HeadBar',
+  methods: {
+    onSearch (name) {
+      this.$EventBus.$emit('search', name)
+    }
+  }
 }
 </script>
 

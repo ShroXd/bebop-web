@@ -19,6 +19,8 @@ Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.prototype.HOST = '/api'
 
+Vue.prototype.$EventBus = new Vue()
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
