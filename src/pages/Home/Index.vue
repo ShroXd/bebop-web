@@ -1,6 +1,5 @@
 <template>
   <div class="index-container">
-    <head-bar></head-bar>
     <div class="portal">
       <ContentCard name="小说列表">
         <light-novel></light-novel>
@@ -14,7 +13,6 @@
 import UserFunc from './Parts/UserFunc'
 import FuncPart from './Parts/FuncPart'
 import LightNovel from './Parts/LightNovel'
-import HeadBar from './Parts/HeadBar'
 import ContentCard from '../../components/ContentCard'
 
 export default {
@@ -23,7 +21,6 @@ export default {
     UserFunc,
     FuncPart,
     LightNovel,
-    HeadBar,
     ContentCard
   }
 }
