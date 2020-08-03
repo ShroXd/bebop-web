@@ -1,0 +1,46 @@
+@import "../color.less";
+
+.novel-list {
+  display: grid;
+  grid-template-columns: repeat(2, 49%);
+  grid-column-gap: 15px;
+  grid-row-gap: 20px;
+}
+
+.novel {
+  border-bottom: 1px solid @_sys-white;
+  padding: 5px 5px 1rem;
+  display: grid;
+  grid-template-columns: 20% auto;
+}
+
+.info__title {
+  color: @_color-main;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+
+  &:hover {
+    color: @_sys-blue;
+  }
+}
+
+.info__library, .info__word-count {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.field-title {
+  color: @_sys-gray;
+  display: inline-block;
+}
+
+.info-des {
+  color: @_sys-gray;
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+.pagination {
+  margin-top: 1.4rem;
+}
