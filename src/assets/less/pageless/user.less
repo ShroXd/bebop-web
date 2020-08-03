@@ -1,0 +1,77 @@
+@import "../color.less";
+
+.user-container {
+  width: 55vw;
+  margin: 0 auto 2rem;
+}
+
+.user__personal {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 49% 49%;
+  justify-content: space-between;
+}
+
+.record, .mark {
+  padding: 1rem;
+
+  &:first-child {
+    font-size: 5rem;
+  }
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 20% auto;
+  grid-column-gap: 15px;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid @_sys-mid-gray;
+}
+
+.item-name {
+  cursor: pointer;
+
+  &:hover {
+    color: @_sys-gray;
+  }
+}
+
+.item-des {
+  font-size: 0.9rem;
+  color: @_sys-gray;
+  margin-top: 1.1rem;
+}
+
+.item {
+  cursor: pointer;
+  margin-bottom: .2rem;
+
+  &:hover {
+    color: @_sys-gray;
+  }
+}
+
+.index {
+  font-size: 1.2rem;
+  margin-right: .3rem;
+  color: @_color-main;
+}
+
+.user-info {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: auto 70%;
+  grid-column-gap: 5rem;
+  justify-content: center;
+}
+
+.user-info__name {
+  margin-bottom: .4rem;
+}
+
+.user-info__field {
+  color: @_sys-gray;
+  display: inline-block;
+  width: 5rem;
+}
