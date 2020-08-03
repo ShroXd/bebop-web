@@ -16,6 +16,7 @@
   display: flex;
   align-items: center;
   font-size: 1.8rem;
+  cursor: pointer;
 }
 
 .head__search {
@@ -31,4 +32,16 @@
   align-items: center;
   font-size: 0.9rem;
   margin-left: 2rem;
+}
+
+.func__books, .func__logout {
+  cursor: pointer;
+
+  &:hover {
+    color: @_sys-gray;
+  }
+}
+
+.func__logout:hover {
+  color: @_sys-pink;
 }
