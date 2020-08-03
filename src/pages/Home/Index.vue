@@ -1,16 +1,13 @@
 <template>
-  <div class="portal">
-    <user-func></user-func>
-    <web-title></web-title>
-    <v-divider></v-divider>
-    <div class="portal-main">
-      <div>
-        <!-- <recommend></recommend> -->
-        <func-part></func-part>
-      </div>
-      <light-novel></light-novel>
+  <div class="index-container">
+    <head-bar></head-bar>
+    <div class="portal">
+      <ContentCard name="小说列表">
+        <light-novel></light-novel>
+      </ContentCard>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -20,6 +17,8 @@ import Recommend from './Parts/Recommend'
 import FuncPart from './Parts/FuncPart'
 import LightNovel from './Parts/LightNovel'
 import XianDu from './Parts/XianDu'
+import HeadBar from './Parts/HeadBar'
+import ContentCard from '../../components/ContentCard'
 
 export default {
   name: 'Novel',
@@ -29,11 +28,13 @@ export default {
     Recommend,
     FuncPart,
     LightNovel,
-    XianDu
+    XianDu,
+    HeadBar,
+    ContentCard
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/less/pageless/index.less";
+  @import "../../assets/less/pageless/index.less";
 </style>
