@@ -13,8 +13,15 @@
         <v-icon slot="append" color="blue">search</v-icon>
       </v-text-field>
       <div class="head__func">
-        <div>登录</div>
-        <div>注册</div>
+        <template v-if="user === ''">
+          <div>登录</div>
+          <div>注册</div>
+        </template>
+        <template v-else>
+          <div>我的书架</div>
+          <div @click="onLogout">注销</div>
+        </template>
+
       </div>
     </div>
 
@@ -24,9 +31,26 @@
 <script>
 export default {
   name: 'HeadBar',
+  created () {
+    this.fetchUserInfo()
+  },
+  data () {
+    return {
+      user: '',
+      bookName: '',
+      loading: false
+    }
+  },
   methods: {
     onSearch (name) {
       this.$EventBus.$emit('search', name)
+    },
+    fetchUserInfo () {
+      this.user = JSON.stringify(localStorage.getItem('user'))
+    },
+    onLogout () {
+      this.$router.push({name: 'Entry'})
+      this.localStorage.removeItem('token')
     }
   }
 }
