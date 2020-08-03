@@ -6,8 +6,8 @@ import router from './router'
 import store from './store/index'
 import axios from 'axios'
 import './assets/less/site.less'
-import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 import Vuetify from 'vuetify'
 import vuetify from '@/plugins/vuetify'
@@ -18,8 +18,6 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.prototype.HOST = '/api'
-
-Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({
