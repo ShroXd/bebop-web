@@ -1,56 +1,65 @@
 <template>
-  <div class="novel-container">
-    <div class="novel-search">
-      <v-text-field v-model="bookName"
-                    :loading="loading"
-                    @change="onSearch(bookName)"
-                    label="搜索小说"
-                    clearable
-                    dense></v-text-field>
-      <div class="novel-search-btn">
-        <v-btn color="primary"
-               @click="onSearch(bookName)">搜索</v-btn>
-        <v-btn @click="onSearch()">重置</v-btn>
-      </div>
-    </div>
+  <div class="container">
+    <!--    <div class="search">-->
+    <!--      <v-text-field v-model="bookName"-->
+    <!--                    :loading="loading"-->
+    <!--                    @change="onSearch(bookName)"-->
+    <!--                    label="搜索小说"-->
+    <!--                    clearable-->
+    <!--                    dense></v-text-field>-->
+    <!--      <div class="search__btn-group">-->
+    <!--        <v-btn color="primary"-->
+    <!--               @click="onSearch(bookName)">搜索</v-btn>-->
+    <!--        <v-btn @click="onSearch()">重置</v-btn>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <div class="novel-list">
       <span v-if="novels.length === 0 && !loading">暂无资源</span>
-      <div class="novel-card"
+      <!--<div class="novel"
            v-if="novels.length === 0 && loading">
         <v-skeleton-loader max-width="160"
                            type="card"></v-skeleton-loader>
-      </div>
+      </div>-->
       <div v-for="(item, index) in novels"
            :key="index">
-        <div class="novel-card"
+        <div class="novel"
              @click="onDetail(item)">
           <v-img class="novel-img"
-                 height="180"
-                 width="120"
+                 height="140"
+                 width="100"
                  :src="item.imageUrl">
-            <div class="mask">
-              <div class="mask-info"><span class="mask-title">文库：</span>{{item.bookCategory}}</div>
-              <div class="mask-info"><span class="mask-title">字数：</span>{{item.bookWordCount}} 字</div>
-            </div>
           </v-img>
-          <div class="novel-title">{{item.bookName}}</div>
+          <div class="novel-info">
+            <div class="info__title">{{item.bookName}}</div>
+            <div class="info__library"><div class="field-title">文库：</div>{{item.bookCategory}}</div>
+            <div class="info__word-count"><div class="field-title">字数：</div>{{item.bookWordCount}}</div>
+            <div class="info-des">
+              {{item.bookSimpleDes}}
+            </div>
+          </div>
         </div>
       </div>
-      <v-pagination v-model="page"
-                    :length="total"
-                    :total-visible="8"
-                    @input="fetchNovelList({bookName: bookName, listPage: page, listLimit: limit})"></v-pagination>
     </div>
+    <v-pagination class="pagination"
+                  v-model="page"
+                  :length="total"
+                  :total-visible="14"
+                  @input="fetchNovelList({bookName: bookName, listPage: page, listLimit: limit})"></v-pagination>
   </div>
 </template>
 
 <script>
 import novel from '../../../api/novel'
+import ContentCard from '../../../components/ContentCard'
 
 export default {
   name: 'LightNovel',
+  components: {ContentCard},
+  comments: {
+    ContentCard
+  },
   created () {
-    this.fetchNovelList({ bookName: '', listPage: this.page, listLimit: this.limit })
+    this.fetchNovelList({bookName: '', listPage: this.page, listLimit: this.limit})
   },
   data () {
     return {
@@ -82,7 +91,7 @@ export default {
     onSearch (bookName) {
       this.bookName = bookName
       this.page = 1
-      this.fetchNovelList({ bookName: bookName, listPage: 1, listLimit: this.limit })
+      this.fetchNovelList({bookName: bookName, listPage: 1, listLimit: this.limit})
     },
 
     onDetail (item) {
@@ -100,5 +109,49 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/less/pageless/index.less";
+  .novel-list {
+    display: grid;
+    grid-template-columns: repeat(2, 49%);
+    grid-column-gap: 15px;
+    grid-row-gap: 20px;
+  }
+
+  .novel {
+    border-bottom: 1px solid #eeeeee;
+    padding: 5px 5px 1rem;
+    display: grid;
+    grid-template-columns: 20% auto;
+  }
+
+  .info__title {
+    color: #1966c0;
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+
+    &:hover {
+      color: #5cbbf6;
+    }
+  }
+
+  .info__library, .info__word-count {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+
+  .field-title {
+    color: #888888;
+    display: inline-block;
+  }
+
+  .info-des {
+    color: #888888;
+    font-size: 0.9rem;
+    margin-top: 0.4rem;
+  }
+
+  .pagination {
+    margin-top: 1.4rem;
+  }
+
 </style>
