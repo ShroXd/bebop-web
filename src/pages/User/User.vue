@@ -2,12 +2,8 @@
   <div class="user-container">
     <v-card outlined>
       <v-list-item>
-        <v-list-item-avatar>
-          <v-icon x-large color="blue darken-2">mood</v-icon>
-        </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="headline">个人信息</v-list-item-title>
-          <v-list-item-subtitle>每一个绅士都需要一个第二身份</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
@@ -28,27 +24,19 @@
     </v-card>
     <div class="user__personal">
       <v-card outlined>
-        <v-list-item three-line>
+        <v-list-item>
           <v-list-item-content>
-            <v-list-item-title class="headline mb-1">我的收藏</v-list-item-title>
-            <v-list-item-subtitle>这里将展示您的收藏</v-list-item-subtitle>
+            <v-list-item-title class="headline">我的收藏</v-list-item-title>
           </v-list-item-content>
-          <v-list-item-avatar tile size="80">
-            <v-icon x-large color="blue darken-2">bookmarks</v-icon>
-          </v-list-item-avatar>
         </v-list-item>
         <v-divider></v-divider>
         <items-list :first-item="firstMark" :items="markBooks"></items-list>
       </v-card>
       <v-card outlined>
-        <v-list-item three-line>
+        <v-list-item>
           <v-list-item-content>
-            <v-list-item-title class="headline mb-1">阅读记录</v-list-item-title>
-            <v-list-item-subtitle>这里将展示您的阅读记录</v-list-item-subtitle>
+            <v-list-item-title class="headline">阅读记录</v-list-item-title>
           </v-list-item-content>
-          <v-list-item-avatar tile size="80">
-            <v-icon x-large color="blue darken-2">book</v-icon>
-          </v-list-item-avatar>
         </v-list-item>
         <v-divider></v-divider>
         <items-list :first-item="firstRecord" :items="recentReadingBooks"></items-list>

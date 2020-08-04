@@ -24,6 +24,7 @@
             <div class="info-des">
               {{item.bookSimpleDes}}
             </div>
+            <v-divider></v-divider>
           </div>
         </div>
       </div>
