@@ -1,6 +1,16 @@
 <template>
   <div class="user-container">
-    <ContentCard name="用户信息">
+    <v-card outlined>
+      <v-list-item>
+        <v-list-item-avatar>
+          <v-icon x-large color="blue darken-2">mood</v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class="headline">个人信息</v-list-item-title>
+          <v-list-item-subtitle>每一个绅士都需要一个第二身份</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider></v-divider>
       <div class="user-info">
         <v-img class="user-info__img"
                height="100"
@@ -15,14 +25,34 @@
           </div>
         </div>
       </div>
-    </ContentCard>
+    </v-card>
     <div class="user__personal">
-      <ContentCard name="我的收藏">
+      <v-card outlined>
+        <v-list-item three-line>
+          <v-list-item-content>
+            <v-list-item-title class="headline mb-1">我的收藏</v-list-item-title>
+            <v-list-item-subtitle>这里将展示您的收藏</v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-avatar tile size="80">
+            <v-icon x-large color="blue darken-2">bookmarks</v-icon>
+          </v-list-item-avatar>
+        </v-list-item>
+        <v-divider></v-divider>
         <items-list :first-item="firstMark" :items="markBooks"></items-list>
-      </ContentCard>
-      <ContentCard name="阅读记录">
+      </v-card>
+      <v-card outlined>
+        <v-list-item three-line>
+          <v-list-item-content>
+            <v-list-item-title class="headline mb-1">阅读记录</v-list-item-title>
+            <v-list-item-subtitle>这里将展示您的阅读记录</v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-avatar tile size="80">
+            <v-icon x-large color="blue darken-2">book</v-icon>
+          </v-list-item-avatar>
+        </v-list-item>
+        <v-divider></v-divider>
         <items-list :first-item="firstRecord" :items="recentReadingBooks"></items-list>
-      </ContentCard>
+      </v-card>
     </div>
   </div>
 </template>

@@ -87,7 +87,7 @@ export default {
 
 .info-container {
   display: flex;
-  color: @_sys-low-black;
+  color: @--sys_border;
 }
 
 .chapters-container {
@@ -97,14 +97,14 @@ export default {
   .chapters {
     flex-basis: 33%;
     font-size: 0.8rem;
-    color: @_sys-light-black;
-    border-bottom: 1px solid @_sys-super-light-gray;
+    color: @--sys_primary-text;
+    border-bottom: 1px solid @--sys_border;
     padding: 0.5rem 0;
   }
 
   .chapters:hover {
     cursor: pointer;
-    color: @_sys-orange;
+    color: @--base_color_yellow;
   }
 
   .item {

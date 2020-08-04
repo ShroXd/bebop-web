@@ -20,20 +20,21 @@ export default {
 </script>
 
 <style lang="less" scoped>
+  @import "../assets/less/color";
+
   .content-card {
-    border: 1px solid #d8d8d8;
-    border-top: 3px solid #1966c0;
-    /*border-radius: 6px;*/
-    background-color: white;
+    border: 1px solid var(--sys_border);
+    border-top: 3px solid var(--sys_main);
+    background-color: var(--sys_page_background);
   }
 
   .content-card__title {
-    border-bottom: 1px solid #d8d8d8;
+    border-bottom: 1px solid var(--sys_border);
     height: 2.6rem;
     padding-left: 1.4rem;
-    background-color: #f7f7f7;
+    background-color: var(--sys_page_background);
     font-size: 1.1rem;
     line-height: 2.6rem;
-    color: #1966c0;
+    color: var(--sys_main);
   }
 </style>

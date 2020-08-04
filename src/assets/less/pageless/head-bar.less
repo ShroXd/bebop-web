@@ -6,7 +6,7 @@
   box-shadow: 0 3px 4px @_sys-mid-gray;
   position: fixed;
   z-index: 999;
-  background-color: @_sys-white;
+  background-color: var(--sys_component_background);
   display: flex;
   justify-content: space-around;
   align-content: center;
@@ -17,6 +17,7 @@
   align-items: center;
   font-size: 1.8rem;
   cursor: pointer;
+  color: var(--sys_title);
 }
 
 .head__search {
@@ -36,12 +37,19 @@
 
 .func__books, .func__logout {
   cursor: pointer;
+  color: var(--sys_title);
 
   &:hover {
-    color: @_sys-gray;
+    color: var(--sys_title-active);
   }
 }
 
 .func__logout:hover {
-  color: @_sys-pink;
+  color: var(--sys_dangerous);
+}
+
+@media (prefers-color-scheme: dark) {
+  .head {
+    box-shadow: none;
+  }
 }

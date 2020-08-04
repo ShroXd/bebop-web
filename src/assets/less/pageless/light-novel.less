@@ -8,35 +8,36 @@
 }
 
 .novel {
-  border-bottom: 1px solid @_sys-white;
+  border-bottom: 1px solid var(--sys_border);
   padding: 5px 5px 1rem;
   display: grid;
   grid-template-columns: 20% auto;
 }
 
 .info__title {
-  color: @_color-main;
+  color: var(--sys_main);
   font-size: 1.2rem;
   margin-bottom: 0.8rem;
   cursor: pointer;
 
   &:hover {
-    color: @_sys-blue;
+    color: var(--sys_main-active);
   }
 }
 
 .info__library, .info__word-count {
   display: inline-block;
   margin-right: 1rem;
+  color: var(--sys_title);
 }
 
 .field-title {
-  color: @_sys-gray;
+  color: var(--sys_primary-text);
   display: inline-block;
 }
 
 .info-des {
-  color: @_sys-gray;
+  color: var(--sys_secondary-text);
   font-size: 0.9rem;
   margin-top: 0.4rem;
 }

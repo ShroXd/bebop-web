@@ -11,7 +11,11 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 import Vuetify from 'vuetify'
 import vuetify from '@/plugins/vuetify'
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  theme: {
+    dark: true
+  }
+})
 
 Vue.config.productionTip = false
 
