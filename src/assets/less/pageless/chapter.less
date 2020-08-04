@@ -1,84 +1,49 @@
 @import "../color.less";
 
-@media screen and (min-width: 450px) {
-  .page {
-    width: 65vw;
-  }
-
-  .book-info {
-    padding-right: 2rem;
-
-    & > div {
-      margin: 2rem;
-    }
-
-    & > div + div {
-      margin: 2rem 0 2rem;
-
-      .synopsis {
-        height: 6rem;
-        overflow: scroll;
-      }
-    }
-  }
-
-  .chapters {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media screen and (max-width: 450px) {
-  .page {
-    width: 95vw;
-  }
-
-  .book-info {
-    padding: 0.8rem;
-
-    .book-img {
-      display: none;
-    }
-
-    & > div + div {
-      margin: 0.4rem 0 0.4rem;
-    }
-  }
-
-  .chapters {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
 .page {
+  width: 65vw;
   margin: 0.6rem auto;
-  background-color: white;
+}
+
+.card {
+  margin-bottom: 1rem;
 }
 
 .book-info {
   display: flex;
-  border: 1px solid @_sys-mid-gray;
-  border-radius: 1.2rem;
+  padding-right: 2rem;
+
+  .book-name {
+    display: inline-block;
+    font-size: 1.5rem;
+  }
+
+  .book-detail {
+    display: flex;
+    margin-bottom: 1rem;
+    div {
+      margin: 0.7rem 2rem 0 0;
+      font-size: 0.8rem;
+      color: @_sys-gray;
+    }
+  }
+
+  & > div {
+    margin: 2rem;
+  }
 
   & > div + div {
     width: 100%;
-
-    .book-name {
-      display: inline-block;
-      font-size: 1.5rem;
-    }
-
-    .book-detail {
-      display: flex;
-      margin-bottom: 1rem;
-      div {
-        margin: 0.7rem 2rem 0 0;
-        font-size: 0.8rem;
-        color: @_sys-gray;
-      }
-    }
+    margin: 2rem 0 2rem;
 
     .synopsis {
       margin: 1rem 0 1rem;
+      height: 6rem;
+      overflow: scroll;
+    }
+
+    .btn-group {
+      margin: .6rem 0 -1.2rem;
     }
 
     .reading-btn {
@@ -88,11 +53,13 @@
 }
 
 .chapters {
-  border: 1px solid @_sys-mid-gray;
-  margin-top: 1rem;
   padding: 1rem;
-  border-radius: 1.2rem;
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  .chapter {
+    margin-right: 2.5rem;
+  }
 
   & div {
     flex-basis: 33%;

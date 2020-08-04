@@ -1,57 +1,63 @@
 <template>
   <div class="page">
-    <v-snackbar v-model="isSnackbarShow"
-                :timeout='snackbarTimeout'
-                :color="snackbarColor"
-                :top="true">
-      {{snackbarText}}
-    </v-snackbar>
-    <div class="book-info">
-      <div class="book-img">
-        <v-img :src="info.imageUrl"
-               width="170"
-               height="240"></v-img>
-      </div>
-      <div>
-        <div class="book-name">{{info.bookName}}</div>
-        <div class="book-detail">
-          <div>文库：{{info.bookCategory}}</div>
-          <div>字数：{{info.bookWordCount}} 字</div>
+    <v-card
+      class="card"
+      outlined>
+      <div class="book-info">
+        <div class="book-img">
+          <v-img :src="info.imageUrl"
+                 width="170"
+                 height="240"></v-img>
         </div>
-        <v-divider></v-divider>
-        <div v-if="detail.bookIntro"
-             class="synopsis">{{detail.bookIntro}}</div>
-        <v-skeleton-loader v-else
-                           class="synopsis"
-                           type="paragraph"></v-skeleton-loader>
         <div>
-          <v-btn class="reading-btn"
-                 small
-                 color="primary"
-                 @click="onReading()">
-            {{ hasReadingRecord ? `继续阅读` : `开始阅读`}}
-          </v-btn>
-          <v-btn small
-                 :loading="loading"
-                 :disabled="loading"
-                 @click="changeBookMark()">{{ isMarked ? `取消收藏` : `加入收藏`}}</v-btn>
+          <div class="book-name">{{info.bookName}}</div>
+          <div class="book-detail">
+            <div>文库：{{info.bookCategory}}</div>
+            <div>字数：{{info.bookWordCount}} 字</div>
+          </div>
+          <v-divider></v-divider>
+          <div v-if="detail.bookIntro"
+               class="synopsis">{{detail.bookIntro}}
+          </div>
+          <v-skeleton-loader v-else
+                             class="synopsis"
+                             type="paragraph"></v-skeleton-loader>
+          <v-divider></v-divider>
+          <div class="btn-group">
+            <v-btn class="reading-btn"
+                   text
+                   color="primary"
+                   @click="onReading()">
+              {{ hasReadingRecord ? `继续阅读` : `开始阅读`}}
+            </v-btn>
+            <v-btn v-if="!isMarked" icon color="gray" :loading="loading" @click="changeBookMark()">
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+            <v-btn v-else icon color="pink" :loading="loading" @click="changeBookMark()">
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="chapters">
-      <template v-if="!detail.chapterInfo">
-        <div v-for="(item, index) in new Array(16)"
-             :key=index>
-          <v-skeleton-loader type="list-item"></v-skeleton-loader>
+    </v-card>
+
+    <v-card outlined>
+      <div class="chapters">
+        <template v-if="!detail.chapterInfo">
+          <div v-for="(item, index) in new Array(16)"
+               :key=index>
+            <v-skeleton-loader type="list-item"></v-skeleton-loader>
+          </div>
+        </template>
+        <div class="chapter"
+          v-else
+             v-for="(chapter, index) in detail.chapterInfo"
+             :key="index"
+             @click="onDetail(chapter, index)">
+          {{chapter.chapter_name}}
         </div>
-      </template>
-      <div v-else
-           v-for="(chapter, index) in detail.chapterInfo"
-           :key="index"
-           @click="onDetail(chapter, index)">
-        {{chapter.chapter_name}}
       </div>
-    </div>
+    </v-card>
   </div>
 </template>
 
@@ -136,9 +142,9 @@ export default {
           })
           .then(res => {
             if (res.data.msg === '删除成功') {
-              this.markSuccess(res.data.msg)
+              this.isMarked = false
             } else {
-              this.markFail(res.data.msg)
+              this.isMarked = true
             }
           })
           .finally(param => {
@@ -151,9 +157,9 @@ export default {
           })
           .then(res => {
             if (res.data.msg === '收藏成功') {
-              this.markSuccess(res.data.msg)
+              this.isMarked = true
             } else {
-              this.markFail(res.data.msg)
+              this.isMarked = false
             }
           })
           .finally(param => {
@@ -195,5 +201,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/less/pageless/chapter.less";
+  @import "../../../assets/less/pageless/chapter.less";
 </style>
