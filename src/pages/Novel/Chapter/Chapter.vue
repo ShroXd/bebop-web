@@ -179,12 +179,14 @@ export default {
       novel
         .fetchReadingMark()
         .then(res => {
-          let result = res.data.data.filter(n => {
-            return n.bookName === this.info.bookName
-          })
-          if (result.length !== 0) {
-            this.hasReadingRecord = true
-            this.readingRecord = result[0]
+          if (res.data.data) {
+            let result = res.data.data.bookRecentReading.filter(n => {
+              return n.bookName === this.info.bookName
+            })
+            if (result.length !== 0) {
+              this.hasReadingRecord = true
+              this.readingRecord = result[0]
+            }
           }
         })
     }

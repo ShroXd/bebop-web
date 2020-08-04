@@ -18,40 +18,10 @@
     </ContentCard>
     <div class="user__personal">
       <ContentCard name="我的收藏">
-        <div class="mark">
-          <div class="top">
-            <v-img class="novel-img"
-                   height="140"
-                   width="100"
-                   :src="firstMark.img"></v-img>
-            <div>
-              <div class="item-name" @click="onDetail(firstMark.name)">{{firstMark.name}}</div>
-              <div class="item-des">{{firstMark.des}}</div>
-            </div>
-          </div>
-          <div class="item" v-for="(item, index) of markBooks" :key="index" v-if="index !== 0">
-            <span class="index">{{index + 1}}</span>
-            <span @click="onDetail(item)">{{item}}</span>
-          </div>
-        </div>
+        <items-list :first-item="firstMark" :items="markBooks"></items-list>
       </ContentCard>
       <ContentCard name="阅读记录">
-        <div class="record">
-          <div class="top">
-            <v-img class="novel-img"
-                   height="140"
-                   width="100"
-                   :src="firstRecord.img"></v-img>
-            <div>
-              <div class="item-name" @click="onDetail(firstRecord.name)">{{firstRecord.name}}</div>
-              <div class="item-des">{{firstRecord.des}}</div>
-            </div>
-          </div>
-          <div class="item" v-for="(item, index) of recentReadingBooks" :key="index" v-if="index !== 0">
-            <span class="index">{{index + 1}}</span>
-            <span @click="onDetail(item.bookName)">{{item.bookName}}</span>
-          </div>
-        </div>
+        <items-list :first-item="firstRecord" :items="recentReadingBooks"></items-list>
       </ContentCard>
     </div>
   </div>
@@ -61,17 +31,24 @@
 import novel from '../../api/novel'
 import user from '../../api/user'
 import ContentCard from '../../components/ContentCard'
+import ItemsList from '../../components/ItemsList'
 
 export default {
   name: 'User',
-  components: {ContentCard},
+  components: {ItemsList, ContentCard},
   comments: {
-    ContentCard
+    ContentCard,
+    ItemsList
   },
   created () {
     this.fetchMark()
     this.fetchRecent()
     this.fetchUserInfo()
+  },
+  mounted () {
+    this.$EventBus.$on('detail', (val) => {
+      this.onDetail(val)
+    })
   },
   data () {
     return {
@@ -97,7 +74,9 @@ export default {
         .then(res => {
           if (res.status === 200) {
             let response = res.data.data
-            this.recentReadingBooks = response.bookRecentReading
+            response.bookRecentReading.forEach((element) => {
+              this.recentReadingBooks.push(element['bookName'])
+            })
             this.firstRecord.name = response.bookRecentReading[0]['bookName']
             this.firstRecord.img = response.firstRecordImg
             this.firstRecord.des = response.firstRecordDes
