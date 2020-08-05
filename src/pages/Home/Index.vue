@@ -18,7 +18,6 @@
 
 <script>
 import UserFunc from './Parts/UserFunc'
-import FuncPart from './Parts/FuncPart'
 import LightNovel from './Parts/LightNovel'
 import ContentCard from '../../components/ContentCard'
 
@@ -26,7 +25,6 @@ export default {
   name: 'Novel',
   components: {
     UserFunc,
-    FuncPart,
     LightNovel,
     ContentCard
   }

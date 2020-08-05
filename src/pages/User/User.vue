@@ -29,7 +29,6 @@
             <v-list-item-title class="headline">我的收藏</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-divider></v-divider>
         <items-list :first-item="firstMark" :items="markBooks"></items-list>
       </v-card>
       <v-card outlined>
@@ -38,7 +37,6 @@
             <v-list-item-title class="headline">阅读记录</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-divider></v-divider>
         <items-list :first-item="firstRecord" :items="recentReadingBooks"></items-list>
       </v-card>
     </div>
