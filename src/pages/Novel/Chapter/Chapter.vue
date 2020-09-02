@@ -24,17 +24,17 @@
                              type="paragraph"></v-skeleton-loader>
           <v-divider></v-divider>
           <div class="btn-group">
-            <v-btn class="reading-btn"
-                   text
-                   color="primary"
-                   @click="onReading()">
-              {{ hasReadingRecord ? `继续阅读` : `开始阅读`}}
-            </v-btn>
             <v-btn v-if="!isMarked" icon color="gray" :loading="loading" @click="changeBookMark()">
               <v-icon>mdi-heart</v-icon>
             </v-btn>
             <v-btn v-else icon color="pink" :loading="loading" @click="changeBookMark()">
               <v-icon>mdi-heart</v-icon>
+            </v-btn>
+            <v-btn class="reading-btn"
+                   text
+                   color="primary"
+                   @click="onReading()">
+              {{ hasReadingRecord ? `继续阅读` : `开始阅读`}}
             </v-btn>
           </div>
         </div>
@@ -67,10 +67,12 @@ import novel from '../../../api/novel'
 export default {
   name: 'Chapter',
   created () {
+    this.loading = true
     this.info = JSON.parse(sessionStorage.getItem('bookInfo'))
     this.fetchChapter(this.info.bookName)
     this.fetchBookMark()
     this.fetchReadingMark()
+    this.loading = false
   },
   data () {
     return {
