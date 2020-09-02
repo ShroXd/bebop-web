@@ -133,6 +133,15 @@
   resolved "http://r.cnpmjs.org/@types/strip-json-comments/download/@types/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
   integrity sha1-mqMMBNshKpoGSdaub9UKzMQHSKE=
 
+"@vue/test-utils@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.npm.taobao.org/@vue/test-utils/download/@vue/test-utils-1.0.5.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Ftest-utils%2Fdownload%2F%40vue%2Ftest-utils-1.0.5.tgz#676e1f986bb93ddc869d9c6cf1c820183d64d92f"
+  integrity sha1-Z24fmGu5PdyGnZxs8cggGD1k2S8=
+  dependencies:
+    dom-event-types "^1.0.0"
+    lodash "^4.17.15"
+    pretty "^2.0.0"
+
 abab@^2.0.0:
   version "2.0.1"
   resolved "http://r.cnpmjs.org/abab/download/abab-2.0.1.tgz#3fa17797032b71410ec372e11668f4b4ffc86a82"
@@ -1808,9 +1817,9 @@ chownr@^1.0.1, chownr@^1.1.1:
   resolved "http://r.cnpmjs.org/chownr/download/chownr-1.1.2.tgz#a18f1e0b269c8a6a5d3c86eb298beb14c3dd7bf6"
   integrity sha1-oY8eCyacimpdPIbrKYvrFMPde/Y=
 
-chromedriver@^2.27.2:
+chromedriver@^2.46.0:
   version "2.46.0"
-  resolved "http://r.cnpmjs.org/chromedriver/download/chromedriver-2.46.0.tgz#3d78e7eb9bb65dd804fe327a6bf76fced12be053"
+  resolved "https://registry.npm.taobao.org/chromedriver/download/chromedriver-2.46.0.tgz?cache=0&sync_timestamp=1598536934975&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fchromedriver%2Fdownload%2Fchromedriver-2.46.0.tgz#3d78e7eb9bb65dd804fe327a6bf76fced12be053"
   integrity sha1-PXjn65u2XdgE/jJ6a/dvztEr4FM=
   dependencies:
     del "^3.0.0"
@@ -2866,6 +2875,11 @@ dom-converter@^0.2:
   integrity sha1-ZyGp2u4uKTaClVtq/kFncWJ7t2g=
   dependencies:
     utila "~0.4"
+
+dom-event-types@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/dom-event-types/download/dom-event-types-1.0.0.tgz#5830a0a29e1bf837fe50a70cd80a597232813cae"
+  integrity sha1-WDCgop4b+Df+UKcM2ApZcjKBPK4=
 
 dom-serializer@0:
   version "0.2.1"
@@ -5947,6 +5961,11 @@ material-design-icons-iconfont@^5.0.1:
   resolved "http://r.cnpmjs.org/material-design-icons-iconfont/download/material-design-icons-iconfont-5.0.1.tgz#371875ed7fe9c8c520bc7123c3231feeab731c31"
   integrity sha1-Nxh17X/pyMUgvHEjwyMf7qtzHDE=
 
+material-design-icons@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/material-design-icons/download/material-design-icons-3.0.1.tgz#9a71c48747218ebca51e51a66da682038cdcb7bf"
+  integrity sha1-mnHEh0chjrylHlGmbaaCA4zct78=
+
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
   resolved "http://r.cnpmjs.org/math-expression-evaluator/download/math-expression-evaluator-1.2.17.tgz#de819fdbcd84dccd8fae59c6aeb79615b9d266ac"
@@ -7676,7 +7695,7 @@ pretty-format@^22.4.0, pretty-format@^22.4.3:
     ansi-regex "^3.0.0"
     ansi-styles "^3.2.0"
 
-pretty@2.0.0:
+pretty@2.0.0, pretty@^2.0.0:
   version "2.0.0"
   resolved "http://r.cnpmjs.org/pretty/download/pretty-2.0.0.tgz#adbc7960b7bbfe289a557dc5f737619a220d06a5"
   integrity sha1-rbx5YLe7/iiaVX3F9zdhmiINBqU=
@@ -9639,6 +9658,11 @@ vuetify@^2.0.16:
   version "2.2.1"
   resolved "http://r.cnpmjs.org/vuetify/download/vuetify-2.2.1.tgz#ff09812ec3c439e379c8a717385a92678ce590ca"
   integrity sha1-/wmBLsPEOeN5yKcXOFqSZ4zlkMo=
+
+vuex@^3.1.2:
+  version "3.5.1"
+  resolved "https://registry.npm.taobao.org/vuex/download/vuex-3.5.1.tgz#f1b8dcea649bc25254cf4f4358081dbf5da18b3d"
+  integrity sha1-8bjc6mSbwlJUz09DWAgdv12hiz0=
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
