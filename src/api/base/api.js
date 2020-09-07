@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import router from '../../router'
+// import router from '../../router'
 import envConfig from '../../config'
 
 const config = {
@@ -28,20 +28,20 @@ axios.interceptors.request.use(
   })
 
 // 拦截未登录状况
-axios.interceptors.response.use(
-  res => {
-    if (res.data.msg === '登录已过期') {
-      router.replace({
-        name: 'Entry'
-      })
-      return res
-    } else {
-      return res
-    }
-  },
-  err => {
-    console.log(err)
-  })
+// axios.interceptors.response.use(
+//   res => {
+//     if (res.data.msg === '登录已过期') {
+//       router.replace({
+//         name: 'Entry'
+//       })
+//       return res
+//     } else {
+//       return res
+//     }
+//   },
+//   err => {
+//     console.log(err)
+//   })
 
 export {
   axios

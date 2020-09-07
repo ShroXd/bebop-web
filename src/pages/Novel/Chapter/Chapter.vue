@@ -63,6 +63,7 @@
 
 <script>
 import novel from '../../../api/novel'
+import { httpCode } from '../../../utils/utils'
 
 export default {
   name: 'Chapter',
@@ -92,7 +93,9 @@ export default {
     fetchChapter (bookName) {
       novel
         .chapters({
-          bookName: bookName
+          params: {
+            bookName: bookName
+          }
         })
         .then((res) => {
           this.detail = res.data.data
@@ -110,9 +113,10 @@ export default {
     },
 
     onReading () {
+      console.log('readingRecord: ' + this.readingRecord)
       sessionStorage.setItem('chapters', JSON.stringify(this.detail.chapterInfo))
       sessionStorage.setItem('chapter', JSON.stringify({
-        chapter_id: this.readingRecord.chapterMarks || this.detail.chapterInfo[0].chapter_id
+        chapter_id: this.readingRecord || this.detail.chapterInfo[0].chapter_id
       }))
 
       this.$router.push({
@@ -120,81 +124,74 @@ export default {
       })
     },
 
-    markSuccess (msg) {
-      this.isMarked = !this.isMarked
-      this.isSnackbarShow = true
-      this.snackbarColor = 'success'
-      this.snackbarText = msg
-    },
-
-    markFail (msg) {
-      this.isSnackbarShow = true
-      this.snackbarColor = 'error'
-      this.snackbarText = msg
-    },
-
     changeBookMark () {
-      this.isSnackbarShow = false
       this.loading = true
 
-      if (this.isMarked) {
-        novel
-          .delBookMark({
-            bookName: this.detail.bookName
-          })
-          .then(res => {
-            if (res.data.msg === '删除成功') {
-              this.isMarked = false
-            } else {
-              this.isMarked = true
-            }
-          })
-          .finally(param => {
-            this.loading = false
-          })
-      } else {
-        novel
-          .addBookMark({
-            bookName: this.detail.bookName
-          })
-          .then(res => {
-            if (res.data.msg === '收藏成功') {
-              this.isMarked = true
-            } else {
-              this.isMarked = false
-            }
-          })
-          .finally(param => {
-            this.loading = false
-          })
+      if (!this.isMarked) {
+        novel.addBookMark({
+          bookName: this.detail.bookName
+        }).then(res => {
+          // 添加收藏成功
+          this.isMarked = true
+        }).finally(() => {
+          this.loading = false
+        })
+        return
       }
+
+      novel
+        .delBookMark({
+          bookName: this.detail.bookName
+        })
+        .then(res => {
+          // 取消收藏成功
+          this.isMarked = false
+        }).finally(() => {
+          this.loading = false
+        })
     },
 
     fetchBookMark () {
       novel
-        .fetchBookMark()
+        .fetchBookMark({
+          params: {
+            bookName: this.info.bookName
+          }
+        })
         .then(res => {
-          let result = res.data.data.bookCollections.filter(n => {
-            return n === this.info.bookName
-          })
-          if (result.length !== 0) {
+          if (res.data.data[0].bookName === this.info.bookName) {
             this.isMarked = true
+          }
+        })
+        .catch(error => {
+          switch (error.response.status) {
+            case httpCode['BadRequest']:
+              // 参数不全
+              break
+            case httpCode['Not Found']:
+              // 未收藏
+              break
           }
         })
     },
 
     fetchReadingMark () {
       novel
-        .fetchReadingMark()
+        .fetchReadingMark({
+          bookName: this.info.bookName
+        })
         .then(res => {
           if (res.data.data) {
-            let result = res.data.data.bookRecentReading.filter(n => {
-              return n.bookName === this.info.bookName
-            })
-            if (result.length !== 0) {
+            if (res.data.data[0].bookName === this.info.bookName) {
               this.hasReadingRecord = true
-              this.readingRecord = result[0]
+              this.readingRecord = res.data.data[0].chapterId
             }
+          }
+        })
+        .catch(error => {
+          switch (error.response.status) {
+            case httpCode['Not Found']:
+              // 未找到阅读记录数据
           }
         })
     }

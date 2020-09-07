@@ -5,28 +5,28 @@ import qs from 'querystring'
 
 export default {
   books (param) {
-    return axios.post(`/novel/books`, qs.stringify(param))
+    return axios.get(`/novel/books`, param)
   },
   chapters (param) {
-    return axios.post(`/novel/chapters`, qs.stringify(param))
+    return axios.get(`/novel/chapters`, param)
   },
   contents (param) {
-    return axios.post(`/novel/contents`, qs.stringify(param))
+    return axios.get(`/novel/contents`, {params: param})
   },
   addBookMark (param) {
-    return axios.post('/mark/book/add', qs.stringify(param))
+    return axios.post('/mark/book', qs.stringify(param))
   },
   delBookMark (param) {
-    return axios.post('/mark/book/del', qs.stringify(param))
+    return axios.delete('/mark/book', {data: qs.stringify(param)})
   },
-  fetchBookMark (param = {}) {
-    return axios.post('/mark/book/fetch', qs.stringify(param))
+  fetchBookMark (param) {
+    return axios.get('/mark/book', param)
   },
   modifyReadingMark (param) {
-    return axios.post('/mark/reading/modify', qs.stringify(param))
+    return axios.post('/mark/reading', qs.stringify(param))
   },
-  fetchReadingMark (param = {}) {
-    return axios.post('/mark/reading/fetch', qs.stringify(param))
+  fetchReadingMark (param) {
+    return axios.get('/mark/reading', {params: param})
   }
 
 }
