@@ -40,6 +40,7 @@
 <script>
 import novel from '../../../api/novel'
 import ContentCard from '../../../components/ContentCard'
+import { httpCode } from '../../../utils/utils'
 
 export default {
   name: 'LightNovel',
@@ -48,7 +49,7 @@ export default {
     ContentCard
   },
   created () {
-    this.fetchNovelList({bookName: '', listPage: this.page, listLimit: this.limit})
+    this.fetchNovelList({listPage: this.page, listLimit: this.limit})
   },
   mounted () {
     this.$EventBus.$on('search', (name) => {
@@ -71,11 +72,22 @@ export default {
     fetchNovelList (query) {
       this.loading = true
       this.novels = []
-      novel
-        .books(query)
+      novel.books({
+        params: query
+      })
         .then(res => {
-          this.novels = res.data.data
-          this.total = res.data.total
+          this.novels = res.data.data.books
+          this.total = res.data.data.total
+        })
+        .catch(error => {
+          switch (error.response.status) {
+            case httpCode['Not Found']:
+              // 未获取到书籍
+              break
+            case httpCode['BadRequest']:
+              // 参数错误
+              // TODO: 统一拦截
+          }
         })
         .finally(e => {
           this.loading = false
