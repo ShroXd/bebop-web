@@ -31,6 +31,7 @@
 
 <script>
 import novel from '../../../api/novel'
+import {httpCode} from '../../../utils/utils'
 
 export default {
   name: 'Reading',
@@ -69,7 +70,13 @@ export default {
           this.contents = res.data.data.chapterContent
           this.chapterName = res.data.data.chapterName
         })
-        .finally(info => {
+        .catch(error => {
+          switch (error.response.status) {
+            case httpCode['Not Found']:
+              // 内容不存在
+          }
+        })
+        .finally(() => {
           this.modifyReadingMark()
         })
     },
