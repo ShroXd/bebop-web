@@ -1,4 +1,5 @@
 # 喵内
+[![GitHub license](https://img.shields.io/github/license/AlexeyVoronov96/NewsApp-With-SwiftUI-And-Combine.svg)](https://github.com/AlexeyVoronov96/NewsApp-With-SwiftUI-And-Combine/blob/master/LICENSE)
 
 此项目使用 Vue + Vuetify 构建，是一个轻小说阅读网站。<br/>
 开始此项目的初衷一方面是熟悉使用 Vue 编写网站的全套流程，另一方面单纯就是想弄个没有广告的、可以阅读轻小说的网站。<br/>
