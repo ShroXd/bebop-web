@@ -72,9 +72,7 @@ export default {
     fetchNovelList (query) {
       this.loading = true
       this.novels = []
-      novel.books({
-        params: query
-      })
+      novel.books(query)
         .then(res => {
           this.novels = res.data.data.books
           this.total = res.data.data.total

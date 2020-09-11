@@ -13,7 +13,7 @@
     <v-divider class="divider"></v-divider>
     <div class="item" v-for="(item, index) of items" :key="index" v-if="index !== 0">
       <span class="index">{{index + 1}}</span>
-      <span class="item-name" @click="onDetail(item)">{{item}}</span>
+      <span class="item-name" @click="onDetail(item.bookName)">{{item.bookName}}</span>
     </div>
   </div>
 </template>

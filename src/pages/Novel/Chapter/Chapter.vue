@@ -93,9 +93,7 @@ export default {
     fetchChapter (bookName) {
       novel
         .chapters({
-          params: {
-            bookName: bookName
-          }
+          bookName: bookName
         })
         .then((res) => {
           this.detail = res.data.data

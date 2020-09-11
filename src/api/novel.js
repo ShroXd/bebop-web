@@ -5,10 +5,10 @@ import qs from 'querystring'
 
 export default {
   books (param) {
-    return axios.get(`/novel/books`, param)
+    return axios.get(`/novel/books`, {params: param})
   },
   chapters (param) {
-    return axios.get(`/novel/chapters`, param)
+    return axios.get(`/novel/chapters`, {params: param})
   },
   contents (param) {
     return axios.get(`/novel/contents`, {params: param})
