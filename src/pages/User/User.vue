@@ -29,7 +29,7 @@
             <v-list-item-title class="headline">我的收藏</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <items-list :first-item="firstMark" :items="markBooks"></items-list>
+        <items-list :first-item="firstCollections" :items="booksCollections"></items-list>
       </v-card>
       <v-card outlined>
         <v-list-item>
@@ -37,7 +37,7 @@
             <v-list-item-title class="headline">阅读记录</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <items-list :first-item="firstRecord" :items="recentReadingBooks"></items-list>
+        <items-list :first-item="firstMark" :items="readingMark"></items-list>
       </v-card>
     </div>
   </div>
@@ -48,6 +48,7 @@ import novel from '../../api/novel'
 import user from '../../api/user'
 import ContentCard from '../../components/ContentCard'
 import ItemsList from '../../components/ItemsList'
+import {httpCode} from '../../utils/utils'
 
 export default {
   name: 'User',
@@ -69,18 +70,18 @@ export default {
   data () {
     return {
       userInfo: '',
+      firstCollections: {
+        name: '',
+        img: '',
+        des: ''
+      },
       firstMark: {
         name: '',
         img: '',
         des: ''
       },
-      firstRecord: {
-        name: '',
-        img: '',
-        des: ''
-      },
-      markBooks: [],
-      recentReadingBooks: []
+      booksCollections: [],
+      readingMark: []
     }
   },
   methods: {
@@ -88,14 +89,13 @@ export default {
       novel
         .fetchReadingMark()
         .then(res => {
-          if (res.status === 200) {
-            let response = res.data.data
-            response.bookRecentReading.forEach((element) => {
-              this.recentReadingBooks.push(element['bookName'])
-            })
-            this.firstRecord.name = response.bookRecentReading[0]['bookName']
-            this.firstRecord.img = response.firstRecordImg
-            this.firstRecord.des = response.firstRecordDes
+          this.readingMark = res.data.data
+          this.fetchBookInfo(this.readingMark[0]['bookName'], this.firstMark)
+        }).catch(error => {
+          switch (error.response.status) {
+            case httpCode['Not Found']:
+              // 未找到数据
+              break
           }
         })
     },
@@ -103,13 +103,27 @@ export default {
       novel
         .fetchBookMark()
         .then(res => {
-          if (res.status === 200) {
-            let response = res.data.data
-            this.markBooks = res.data.data.bookCollections
-            this.firstMark.name = response.bookCollections[0]
-            this.firstMark.img = response.firstBookImg
-            this.firstMark.des = response.firstBookDes
+          this.booksCollections = res.data.data
+          this.fetchBookInfo(this.booksCollections[0]['bookName'], this.firstCollections)
+        }).catch(error => {
+          switch (error.response.status) {
+            case httpCode['Not Found']:
+              // 未找到数据
+              break
           }
+        })
+    },
+    fetchBookInfo (bookName, target) {
+      novel
+        .books({
+          bookName: bookName,
+          listPage: 1,
+          listLimit: 10
+        }).then(res => {
+          let info = res.data.data.books[0]
+          target.name = info['bookName']
+          target.img = info['imageUrl']
+          target.des = info['bookSimpleDes']
         })
     },
     fetchUserInfo () {
@@ -120,13 +134,13 @@ export default {
           }
         })
     },
-    onDetail (item) {
+    onDetail (bookName) {
       novel
-        .books({bookName: item, listPage: 1, listLimit: 10})
+        .books({bookName: bookName, listPage: 1, listLimit: 10})
         .then(res => {
           // TODO: 暂未处理数组无元素的情况
           if (res.status === 200) {
-            sessionStorage.setItem('bookInfo', JSON.stringify(res.data.data[0]))
+            sessionStorage.setItem('bookInfo', JSON.stringify(res.data.data.books[0]))
             this.$router.push({
               name: 'Chapter'
             })
